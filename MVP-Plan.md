@@ -3,20 +3,20 @@
 hp = 10
 base dmg = 2 normal difficulty
 
-rock
+### rock
 - attack - 2x dmg
 - defend - 50% damage reduction for 2x turn
 
-paper
+### paper
 - attack - 1x dmg, 50% damage reduction for 1x turn
 - defend - heal 10% hp
 
-scissor
+### scissor
 - attack - 1 - 2.5x dmg `(Math.random()*1.5)+1`
 
 - defend - 50% chance next attack will miss for 1x turn
 
-special
+### special
 - win streaks will build up a counter
 - neutral/draws do not reset counter
 - once counter is full, save it until player uses it
@@ -53,7 +53,7 @@ regBoss = [attk, def]
   - user id, score id
 - media
 
-# Media Needed
+## Media Needed
 - attack
 - defend
 - rock
