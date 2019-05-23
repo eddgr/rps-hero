@@ -9,11 +9,10 @@ base dmg = 2 normal difficulty
 
 ### paper
 - attack - 1x dmg, 50% damage reduction for 1x turn
-- defend - heal 10% hp
+- defend - heal 20% hp
 
 ### scissor
 - attack - 1 - 2.5x dmg `(Math.random()*1.5)+1`
-
 - defend - 50% chance next attack will miss for 1x turn
 
 ### special
