@@ -18,10 +18,50 @@
   // Math.sign(rpsChoices.indexOf("scissor")-rpsChoices.indexOf("scissor")) === 0
   // Math.sign(rpsChoices.indexOf("scissor")-rpsChoices.indexOf("paper")) === 1
 
-// end NOTES
+// GAME LOOP for testing purposes only
+function checkHP(user1 = lee, user2 = bob){
+  while (user1.hp > 0 && user2.hp > 0){
+    playRound()
+  } // while statement
 
+  if (user1.hp <= 0) {
+    user1.hp = 10
+    user2.hp = 10
 
-//CLASS CHARACTERS
+    output.innerHTML += `
+    <h2>You Lose!</h2>
+    `
+  } else {
+    user1.hp = 10
+    user2.hp = 10
+
+    output.innerHTML += `
+    <h2>You Win!</h2>
+    `
+    return checkHP()
+  }
+} // checkHP function
+// end GAME LOOP
+
+// rock paper scissor AI logic
+const rollRPS = () => {
+  switch(rpsChoices.sample()){
+    case("rock"):
+      return "rock"
+      break
+    case("paper"):
+      return "paper"
+      break
+    case("scissor"):
+      return "scissor"
+      break
+  } // end switch
+}
+// end AI logic
+
+// end MISC
+
+// CLASS CHARACTERS
 class Character {
   constructor(name) {
      this.name = name
@@ -30,9 +70,10 @@ class Character {
   }
 }
 
+// seed
 const lee = new Character('Lee')
 const bob = new Character('Bob')
-//CLASS CHARACTERS
+// end CLASS CHARACTERS
 
 // HELPERS
 // adding 'sample' to Array prototype to randomize a return item from an array
@@ -46,22 +87,6 @@ const grab = (funcArg) => {
 }
 // end HELPERS
 const rpsChoices = ["rock", "paper", "scissor"]
-
-// rock paper scissor AI logic
-const rollRPS = () => {
-
-  switch(rpsChoices.sample()){
-    case("rock"):
-      return "rock"
-      break
-    case("paper"):
-      return "paper"
-      break
-    case("scissor"):
-      return "scissor"
-      break
-  } // end switch
-}
 
 // RESET
 function resetGame(player1 = lee, player2 = bob){
@@ -102,16 +127,11 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
         output.innerHTML += `
           <p>You lost this round and took ${bob.damage} damage.</p>
         `
-        // console.log("You lost this round")
-        // console.log('player 1 hp:',lee.hp,'player 2 hp:',bob.hp)
         break
       case (0):
-
         output.innerHTML += `
           <p>Draw, no damage.</p>
         `
-        // console.log("Its a Draw")
-        // console.log('player 1 hp:',lee.hp,'player 2 hp:',bob.hp)
         break
       case (1):
         bob.hp -= lee.damage
@@ -120,8 +140,6 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
         output.innerHTML += `
           <p>You won this round. Player 2 lost ${lee.damage} HP.</p>
         `
-        // console.log("You won this round")
-        // console.log('player 1 hp:',lee.hp,'player 2 hp:',bob.hp)
         break
     }
   } else {
@@ -134,15 +152,11 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
       output.innerHTML += `
         <p>You lost this round and took ${bob.damage} damage.</p>
       `
-      // console.log("You lost this round")
-      // console.log('player 1 hp:',lee.hp,'player 2 hp:',bob.hp)
       break
     case (0):
       output.innerHTML += `
         <p>Draw, no damage.</p>
       `
-      // console.log("Its a Draw")
-      // console.log('player 1 hp:',lee.hp,'player 2 hp:',bob.hp)
       break
     case (1):
       bob.hp -= lee.damage
@@ -151,38 +165,11 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
       output.innerHTML += `
         <p>You won this round. Player 2 lost ${lee.damage} HP.</p>
       `
-      // console.log("You won this round")
-      // console.log('player 1 hp:',lee.hp,'player 2 hp:',bob.hp)
       break
      } // switch end
   } // IF statement end
 }
 // end of Playround Function
-
-// GAME LOOP for testing purposes only
-function checkHP(user1 = lee, user2 = bob){
-  while (user1.hp > 0 && user2.hp > 0){
-    playRound()
-  } // while statement
-
-  if (user1.hp <= 0) {
-    user1.hp = 10
-    user2.hp = 10
-
-    output.innerHTML += `
-      <h2>You Lose!</h2>
-    `
-  } else {
-    user1.hp = 10
-    user2.hp = 10
-
-    output.innerHTML += `
-      <h2>You Win!</h2>
-    `
-    return checkHP()
-  }
-} // checkHP function
-// end GAME LOOP
 
 // DOM
 const gameContainer = grab('#game-container')
