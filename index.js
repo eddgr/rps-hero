@@ -1,3 +1,25 @@
+//CLASS CHARACTERS
+class Character {
+  constructor(name) {
+     this.name = name
+     this.hp = 10
+     this.damage = 2
+  }
+}
+
+
+
+
+
+//CLASS CHARACTERS
+
+
+
+
+
+
+
+
 // HELPERS
 // adding 'sample' to Array prototype to randomize a return item from an array
 // this requires 'sample' to be invoked
@@ -85,3 +107,6 @@ const rollRPS = () => {
 
 
 // characters with hp
+
+const lee = new Character('Lee')
+const bob = new Character('Bob')
