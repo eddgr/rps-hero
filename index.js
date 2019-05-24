@@ -7,7 +7,8 @@ class Character {
   }
 }
 
-
+const lee = new Character('Lee')
+const bob = new Character('Bob')
 
 
 
@@ -62,12 +63,17 @@ const rollRPS = () => {
       switch (Math.sign(rpsChoices.indexOf(userChoice2)-rpsChoices.indexOf(userChoice1))){
         case (-1): 
           console.log("You lost this round")
+          lee.hp -= bob.damage
+          console.log('player 1 hp:',lee.hp,'player 2 hp:',bob.hp)
           break;
         case (0): 
           console.log("Its a Draw")
+          console.log('player 1 hp:',lee.hp,'player 2 hp:',bob.hp)
           break;
         case (1): 
           console.log("You won this round")
+          bob.hp -= lee.damage
+          console.log('player 1 hp:',lee.hp,'player 2 hp:',bob.hp)
           break;
       }
     }else{
@@ -75,12 +81,17 @@ const rollRPS = () => {
       switch (Math.sign(rpsChoices.indexOf(userChoice1)-rpsChoices.indexOf(userChoice2))){
       case (-1): 
         console.log("You lost this round")
+        lee.hp -= bob.damage
+        console.log('player 1 hp:',lee.hp,'player 2 hp:',bob.hp)
         break;
       case (0): 
         console.log("Its a Draw")
+        console.log('player 1 hp:',lee.hp,'player 2 hp:',bob.hp)
         break;
       case (1): 
         console.log("You won this round")
+        bob.hp -= lee.damage
+        console.log('player 1 hp:',lee.hp,'player 2 hp:',bob.hp)
         break;
       
 
@@ -108,5 +119,3 @@ const rollRPS = () => {
 
 // characters with hp
 
-const lee = new Character('Lee')
-const bob = new Character('Bob')
