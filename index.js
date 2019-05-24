@@ -63,9 +63,35 @@ const rollRPS = () => {
   } // end switch
 }
 
+// RESET
+function resetGame(player1 = lee, player2 = bob){
+  user1.innerHTML = 'Player 1 - 10/10 HP'
+  user2.innerHTML = 'Player 2 - 10/10 HP'
+  player1.hp = 10
+  player2.hp = 10
+  output.innerHTML = ''
+}
+// end RESET
+
+// checkHealth
+// check character health every turn to determine whether to reset game or not
+let checkHealth = (player1, player2) => {
+  if (player1.hp <= 0){
+    resetGame(player1, player2)
+    output.innerHTML += `
+      <h2>You lose</h2>
+    `
+  } else if (player2.hp <= 0){
+    resetGame(player1, player2)
+    output.innerHTML += `
+      <h2>You win!</h2>
+    `
+  }
+}
+// end checkHealth
+
 //TODO: USER CHOICE IS BEING TESTED!!!!! TAKE OUT WHEN DONE
 function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
-
   // conditional for rock/scissor win and lose needs to be swapped
   if (userChoice1 === "rock" && userChoice2 === "scissor" || userChoice1 === 'scissor' && userChoice2 === 'rock'){
     switch (Math.sign(rpsChoices.indexOf(userChoice2)-rpsChoices.indexOf(userChoice1))){
@@ -133,7 +159,7 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
 }
 // end of Playround Function
 
-// GAME LOOP
+// GAME LOOP for testing purposes only
 function checkHP(user1 = lee, user2 = bob){
   while (user1.hp > 0 && user2.hp > 0){
     playRound()
@@ -186,16 +212,22 @@ document.addEventListener("click", event => {
   switch (event.target.innerText){
     case ("Rock"):
       console.log("rock")
+      playRound('rock')
+      checkHealth(lee, bob)
       break
     case ("Paper"):
       console.log("paper")
+      playRound('paper')
+      checkHealth(lee, bob)
       break
     case ("Scissor"):
       console.log("scissor")
+      playRound('scissor')
+      checkHealth(lee, bob)
       break
     case ("Start Game"):
       output.innerHTML = ''
-      checkHP()
+      resetGame()
       break
   }
 })
