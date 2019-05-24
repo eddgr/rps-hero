@@ -19,7 +19,10 @@ base dmg = 2 normal difficulty
 - win streaks will build up a counter
 - neutral/draws do not reset counter
 - once counter is full, save it until player uses it
- - super attack or super defend
+ - special buff for 2x turns
+ - super attack - +1 base dmg
+ - super defend - 50% hp recovery
+
 
 ## Bosses
 aggroBoss = [attack, attack, attack, defend]
@@ -27,6 +30,13 @@ defBoss = [defend, defn, def, attack]
 regBoss = [attk, def]
 
 ## Score
+- Rank up through level clears
+  - Bronze - default
+  - Silver - 10 levels
+  - Gold - 25 levels
+  - Platinum - 50 levels
+  - Diamond - 100 levels
+  - Ascended - 250 levels
 - calculate score at the end of each battle based on hp
   - remaining health
   - each dmg dealt to opponent (including negative/overkill)
@@ -34,25 +44,29 @@ regBoss = [attk, def]
   - points are hp * 100
 
 ## Models
-- game model
+- users has many scores through leaderboard, user has one leaderboard
+- scores has many users through leaderboard, score has one leaderboard
+- leaderboard (join table) and belongs to users and scores
+  - user id, score id
+
+## Classes
+- game
+  - story
+  - media
+  - game mode (normal, hard, etc) - stretch goal
 - character
   - has hp
   - has dmg
   - attack/defend
   - has special counter
-  - << user
+  - **user**
     - current level
     - has many scores through leaderboard
-  - << boss
+  - **boss**
     - play style (aggro, def, etc)
-- story
-  - game mode (normal, hard, etc)
-- scores has many users through leaderboard
-- leaderboard (join table)
-  - user id, score id
-- media
 
 ## Media Needed
+- styling: https://nostalgic-css.github.io/NES.css/
 - attack
 - defend
 - rock
