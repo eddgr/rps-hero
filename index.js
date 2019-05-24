@@ -94,9 +94,12 @@ const rollRPS = () => {
       playRound()
     }//while statement
     if (user1.hp <= 0) {
+      user1.hp = 10
       return "you Lose"
     } else {
-      return "you Win"
+      user2.hp = 10
+      console.log("you win and automatically starting next round")
+      return checkHP()
     }
   }//checkHP function
 
