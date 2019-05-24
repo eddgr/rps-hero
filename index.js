@@ -9,17 +9,7 @@ class Character {
 
 const lee = new Character('Lee')
 const bob = new Character('Bob')
-
-
-
 //CLASS CHARACTERS
-
-
-
-
-
-
-
 
 // HELPERS
 // adding 'sample' to Array prototype to randomize a return item from an array
@@ -36,15 +26,15 @@ const rollRPS = () => {
     case("rock"):
       // console.log("it returned rock!")
       return "rock"
-      break;
+      break
     case("paper"):
       // console.log("it returned paper")
       return "paper"
-      break;
+      break
     case("scissor"):
       // console.log("it returned scissor")
       return "scissor"
-      break;
+      break
   } // end switch
 }
 
@@ -67,16 +57,16 @@ const rollRPS = () => {
           console.log("You lost this round")
           lee.hp -= bob.damage
           console.log('player 1 hp:',lee.hp,'player 2 hp:',bob.hp)
-          break;
+          break
         case (0): 
           console.log("Its a Draw")
           console.log('player 1 hp:',lee.hp,'player 2 hp:',bob.hp)
-          break;
+          break
         case (1): 
           console.log("You won this round")
           bob.hp -= lee.damage
           console.log('player 1 hp:',lee.hp,'player 2 hp:',bob.hp)
-          break;
+          break
       }
     }else{
 
@@ -85,16 +75,16 @@ const rollRPS = () => {
         console.log("You lost this round")
         lee.hp -= bob.damage
         console.log('player 1 hp:',lee.hp,'player 2 hp:',bob.hp)
-        break;
+        break
       case (0): 
         console.log("Its a Draw")
         console.log('player 1 hp:',lee.hp,'player 2 hp:',bob.hp)
-        break;
+        break
       case (1): 
         console.log("You won this round")
         bob.hp -= lee.damage
         console.log('player 1 hp:',lee.hp,'player 2 hp:',bob.hp)
-        break;
+        break
        }//switch end
     }//IF statement end
   }//end of Playround Function
