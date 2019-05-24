@@ -13,7 +13,9 @@ base dmg = 2 normal difficulty
 
 ### scissor
 - attack - 1 - 2.5x dmg `(Math.random()*1.5)+1`
+  - super attack - +1 base dmg
 - defend - 50% chance next attack will miss for 1x turn
+  - super defend - 50% hp recovery
 
 ### special
 - win streaks will build up a counter
@@ -37,11 +39,13 @@ regBoss = [attk, def]
   - Platinum - 50 levels
   - Diamond - 100 levels
   - Ascended - 250 levels
-- calculate score at the end of each battle based on hp
+  - Godly - 500 levels
+  - Creators - 99999999999999999999999999999999999 levels
+<!-- - calculate score at the end of each battle based on hp
   - remaining health
   - each dmg dealt to opponent (including negative/overkill)
     - negative/overkill per hp = 250 points
-  - points are hp * 100
+  - points are hp * 100 -->
 
 ## Models
 - users has many scores through leaderboard, user has one leaderboard
@@ -75,3 +79,8 @@ regBoss = [attk, def]
 - special counter (gem or something)
 - different character expressions
 - **stretch goal** take a photo of user and make them the character
+
+## MVP (Bare Minimum)
+- rock paper scissor
+- current user and computer hp
+- game ends when one player reaches 0 hp or less
