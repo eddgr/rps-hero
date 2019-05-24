@@ -59,35 +59,61 @@ const rollRPS = () => {
     if (userChoice1 === "rock" && userChoice2 === "scissor" || userChoice1 === 'scissor' && userChoice2 === 'rock') {
       switch (Math.sign(rpsChoices.indexOf(userChoice2)-rpsChoices.indexOf(userChoice1))){
         case (-1):
-          console.log("You lost this round")
           lee.hp -= bob.damage
+
+          user1.innerHTML = `Player 1 - ${lee.hp} / 10 HP`
+          output.innerHTML += `
+            <p>You lost this round and took ${bob.damage} damage.</p>
+          `
+          console.log("You lost this round")
           console.log('player 1 hp:',lee.hp,'player 2 hp:',bob.hp)
           break
         case (0):
+
+          output.innerHTML += `
+            <p>Draw, no damage.</p>
+          `
           console.log("Its a Draw")
           console.log('player 1 hp:',lee.hp,'player 2 hp:',bob.hp)
           break
         case (1):
-          console.log("You won this round")
           bob.hp -= lee.damage
+
+          user2.innerHTML = `Player 2 - ${bob.hp} / 10 HP`
+          output.innerHTML += `
+            <p>You won this round. Player 2 lost ${lee.damage} HP.</p>
+          `
+          console.log("You won this round")
           console.log('player 1 hp:',lee.hp,'player 2 hp:',bob.hp)
           break
       }
-    }else{
-
+    } else {
       switch (Math.sign(rpsChoices.indexOf(userChoice1)-rpsChoices.indexOf(userChoice2))){
       case (-1):
-        console.log("You lost this round")
         lee.hp -= bob.damage
+
+        user1.innerHTML = `Player 1 - ${lee.hp} / 10 HP`
+        output.innerHTML += `
+          <p>You lost this round and took ${bob.damage} damage.</p>
+        `
+        console.log("You lost this round")
         console.log('player 1 hp:',lee.hp,'player 2 hp:',bob.hp)
         break
       case (0):
+        output.innerHTML += `
+          <p>Draw, no damage.</p>
+        `
         console.log("Its a Draw")
         console.log('player 1 hp:',lee.hp,'player 2 hp:',bob.hp)
         break
       case (1):
-        console.log("You won this round")
         bob.hp -= lee.damage
+
+        user2.innerHTML = `Player 2 - ${bob.hp} / 10 HP`
+        output.innerHTML += `
+          <p>You won this round. Player 2 lost ${lee.damage} HP.</p>
+        `
+        console.log("You won this round")
         console.log('player 1 hp:',lee.hp,'player 2 hp:',bob.hp)
         break
        }//switch end
@@ -101,11 +127,20 @@ const rollRPS = () => {
     if (user1.hp <= 0) {
       user1.hp = 10
       user2.hp = 10
+
+      output.innerHTML += `
+        <h2>You Lose!</h2>
+      `
       console.log("you Lose")
     } else {
       user1.hp = 10
       user2.hp = 10
+
+      output.innerHTML += `
+        <h2>You Win!</h2>
+      `
       console.log("you win and automatically starting next round")
+
       return checkHP()
     }
   }//checkHP function
@@ -137,6 +172,9 @@ commands.innerHTML = `
   <button>Scissor</button>
 `
 
+user1.innerHTML = 'Player 1 - 10/10 HP'
+user2.innerHTML = 'Player 2 - 10/10 HP'
+
 document.addEventListener("click", event => {
   event.preventDefault()
 
@@ -151,6 +189,7 @@ document.addEventListener("click", event => {
       console.log("scissor")
       break
     case ("Start Game"):
+      output.innerHTML = ''
       checkHP()
       break
   }
