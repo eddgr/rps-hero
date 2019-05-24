@@ -12,13 +12,16 @@ const rollRPS = () => {
   switch(rpsChoices.sample()){
     case("rock"):
       console.log("it returned rock!")
-      break
+      return "rock"
+      break;
     case("paper"):
       console.log("it returned paper")
-      break
+      return "paper"
+      break;
     case("scissor"):
       console.log("it returned scissor")
-      break
+      return "scissor"
+      break;
   } // end switch
 }
 
@@ -28,9 +31,45 @@ const rollRPS = () => {
 // if number1 === number2 = 0 (neutral)
 
 // ROCK
-  // Math.sign(rpsChoices.indexOf("rock")-rpsChoices.indexOf("paper")) === -1
+  // Math.sign(rpsChoices.indexOf("rock")-rpsChoices.indexOf("paper")) === -1 
   // Math.sign(rpsChoices.indexOf("rock")-rpsChoices.indexOf("rock")) === 0
   // Math.sign(rpsChoices.indexOf("scissor")-rpsChoices.indexOf("rock")) === 1
+
+  function playRound (userChoice1, userChoice2 = rollRPS()) {
+    if (userChoice1 === "rock" && userChoice2 === "scissor" || userChoice1 === 'scissor' && userChoice2 === 'rock') {
+      switch (Math.sign(rpsChoices.indexOf(userChoice2)-rpsChoices.indexOf(userChoice1))){
+        case (-1): 
+          console.log("You lost this round")
+          break;
+        case (0): 
+          console.log("Its a Draw")
+          break;
+        case (1): 
+          console.log("You won this round")
+          break;
+      }
+    }else{
+
+      switch (Math.sign(rpsChoices.indexOf(userChoice1)-rpsChoices.indexOf(userChoice2))){
+      case (-1): 
+        console.log("You lost this round")
+        break;
+      case (0): 
+        console.log("Its a Draw")
+        break;
+      case (1): 
+        console.log("You won this round")
+        break;
+      
+
+    }//switch end
+    }
+
+
+
+
+    
+  }
 
 // PAPER
   // Math.sign(rpsChoices.indexOf("paper")-rpsChoices.indexOf("rock")) === 1
