@@ -1,14 +1,15 @@
 // HELPERS
 // adding 'sample' to Array prototype to randomize a return item from an array
+// this requires 'sample' to be invoked
 Array.prototype.sample = function(){
   return this[Math.floor(Math.random()*this.length)];
 }
-const rpsOutcome = ["rock", "paper", "scissor"]
+const rpsChoices = ["rock", "paper", "scissor"]
 
 // rock paper scissor AI logic
 const rollRPS = () => {
 
-  switch(rpsOutcome.sample()){
+  switch(rpsChoices.sample()){
     case("rock"):
       console.log("it returned rock!")
       break
@@ -20,6 +21,28 @@ const rollRPS = () => {
       break
   } // end switch
 }
+
+// Math.sign(number1 - number 2)
+// if number1 > number2 = 1 (win)
+// if number1 < number2 = -1 (lose)
+// if number1 === number2 = 0 (neutral)
+
+// ROCK
+  // Math.sign(rpsChoices.indexOf("rock")-rpsChoices.indexOf("paper")) === -1
+  // Math.sign(rpsChoices.indexOf("rock")-rpsChoices.indexOf("rock")) === 0
+  // Math.sign(rpsChoices.indexOf("scissor")-rpsChoices.indexOf("rock")) === 1
+
+// PAPER
+  // Math.sign(rpsChoices.indexOf("paper")-rpsChoices.indexOf("rock")) === 1
+  // Math.sign(rpsChoices.indexOf("paper")-rpsChoices.indexOf("paper")) === 0
+  // Math.sign(rpsChoices.indexOf("paper")-rpsChoices.indexOf("scissor")) === -1
+
+// SCISSOR
+  // Math.sign(rpsChoices.indexOf("rock")-rpsChoices.indexOf("scissor")) === -1
+  // Math.sign(rpsChoices.indexOf("scissor")-rpsChoices.indexOf("scissor")) === 0
+  // Math.sign(rpsChoices.indexOf("scissor")-rpsChoices.indexOf("paper")) === 1
+
+
 
 
 // characters with hp
