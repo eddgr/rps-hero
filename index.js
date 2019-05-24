@@ -17,6 +17,11 @@ const bob = new Character('Bob')
 Array.prototype.sample = function(){
   return this[Math.floor(Math.random()*this.length)];
 }
+
+const grab = (funcArg) => {
+  return document.querySelector(funcArg)
+}
+// end HELPERS
 const rpsChoices = ["rock", "paper", "scissor"]
 
 // rock paper scissor AI logic
@@ -44,25 +49,25 @@ const rollRPS = () => {
 // if number1 === number2 = 0 (neutral)
 
 // ROCK
-  // Math.sign(rpsChoices.indexOf("rock")-rpsChoices.indexOf("paper")) === -1 
+  // Math.sign(rpsChoices.indexOf("rock")-rpsChoices.indexOf("paper")) === -1
   // Math.sign(rpsChoices.indexOf("rock")-rpsChoices.indexOf("rock")) === 0
   // Math.sign(rpsChoices.indexOf("scissor")-rpsChoices.indexOf("rock")) === 1
 
 
-//TODO: USER CHOICE IS BEING TESTED!!!!! TAKE OUT WHEN DONE 
+//TODO: USER CHOICE IS BEING TESTED!!!!! TAKE OUT WHEN DONE
   function playRound (userChoice1 = rollRPS(), userChoice2 = rollRPS()) {
     if (userChoice1 === "rock" && userChoice2 === "scissor" || userChoice1 === 'scissor' && userChoice2 === 'rock') {
       switch (Math.sign(rpsChoices.indexOf(userChoice2)-rpsChoices.indexOf(userChoice1))){
-        case (-1): 
+        case (-1):
           console.log("You lost this round")
           lee.hp -= bob.damage
           console.log('player 1 hp:',lee.hp,'player 2 hp:',bob.hp)
           break
-        case (0): 
+        case (0):
           console.log("Its a Draw")
           console.log('player 1 hp:',lee.hp,'player 2 hp:',bob.hp)
           break
-        case (1): 
+        case (1):
           console.log("You won this round")
           bob.hp -= lee.damage
           console.log('player 1 hp:',lee.hp,'player 2 hp:',bob.hp)
@@ -71,16 +76,16 @@ const rollRPS = () => {
     }else{
 
       switch (Math.sign(rpsChoices.indexOf(userChoice1)-rpsChoices.indexOf(userChoice2))){
-      case (-1): 
+      case (-1):
         console.log("You lost this round")
         lee.hp -= bob.damage
         console.log('player 1 hp:',lee.hp,'player 2 hp:',bob.hp)
         break
-      case (0): 
+      case (0):
         console.log("Its a Draw")
         console.log('player 1 hp:',lee.hp,'player 2 hp:',bob.hp)
         break
-      case (1): 
+      case (1):
         console.log("You won this round")
         bob.hp -= lee.damage
         console.log('player 1 hp:',lee.hp,'player 2 hp:',bob.hp)
@@ -95,8 +100,10 @@ const rollRPS = () => {
     }//while statement
     if (user1.hp <= 0) {
       user1.hp = 10
-      return "you Lose"
+      user2.hp = 10
+      console.log("you Lose")
     } else {
+      user1.hp = 10
       user2.hp = 10
       console.log("you win and automatically starting next round")
       return checkHP()
@@ -113,8 +120,38 @@ const rollRPS = () => {
   // Math.sign(rpsChoices.indexOf("scissor")-rpsChoices.indexOf("scissor")) === 0
   // Math.sign(rpsChoices.indexOf("scissor")-rpsChoices.indexOf("paper")) === 1
 
+// DOM
+const gameContainer = grab('#game-container')
+const start = grab('#start')
+const user1 = grab('#user-1')
+const user2 = grab('#user-2')
+const commands = grab('#commands')
+const output = grab('#temp-output')
 
+start.innerHTML = `
+  <button>Start Game</button>
+`
+commands.innerHTML = `
+  <button>Rock</button>
+  <button>Paper</button>
+  <button>Scissor</button>
+`
 
+document.addEventListener("click", event => {
+  event.preventDefault()
 
-// characters with hp
-
+  switch (event.target.innerText){
+    case ("Rock"):
+      console.log("rock")
+      break
+    case ("Paper"):
+      console.log("paper")
+      break
+    case ("Scissor"):
+      console.log("scissor")
+      break
+    case ("Start Game"):
+      checkHP()
+      break
+  }
+})

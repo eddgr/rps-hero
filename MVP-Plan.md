@@ -80,7 +80,10 @@ regBoss = [attk, def]
 - different character expressions
 - **stretch goal** take a photo of user and make them the character
 
-## MVP (Bare Minimum)
-- rock paper scissor
-- current user and computer hp
-- game ends when one player reaches 0 hp or less
+## MVP
+### Bare Minimum
+<!-- - rock paper scissor
+- current user and computer hp -->
+<!-- - game ends when one player reaches 0 hp or less -->
+### Next Deliverable
+- DOM input
