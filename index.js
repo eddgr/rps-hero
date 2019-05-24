@@ -34,15 +34,15 @@ const rollRPS = () => {
 
   switch(rpsChoices.sample()){
     case("rock"):
-      console.log("it returned rock!")
+      // console.log("it returned rock!")
       return "rock"
       break;
     case("paper"):
-      console.log("it returned paper")
+      // console.log("it returned paper")
       return "paper"
       break;
     case("scissor"):
-      console.log("it returned scissor")
+      // console.log("it returned scissor")
       return "scissor"
       break;
   } // end switch
@@ -58,7 +58,9 @@ const rollRPS = () => {
   // Math.sign(rpsChoices.indexOf("rock")-rpsChoices.indexOf("rock")) === 0
   // Math.sign(rpsChoices.indexOf("scissor")-rpsChoices.indexOf("rock")) === 1
 
-  function playRound (userChoice1, userChoice2 = rollRPS()) {
+
+//TODO: USER CHOICE IS BEING TESTED!!!!! TAKE OUT WHEN DONE 
+  function playRound (userChoice1 = rollRPS(), userChoice2 = rollRPS()) {
     if (userChoice1 === "rock" && userChoice2 === "scissor" || userChoice1 === 'scissor' && userChoice2 === 'rock') {
       switch (Math.sign(rpsChoices.indexOf(userChoice2)-rpsChoices.indexOf(userChoice1))){
         case (-1): 
@@ -93,16 +95,20 @@ const rollRPS = () => {
         bob.hp -= lee.damage
         console.log('player 1 hp:',lee.hp,'player 2 hp:',bob.hp)
         break;
-      
+       }//switch end
+    }//IF statement end
+  }//end of Playround Function
 
-    }//switch end
+  function checkHP (user1 = lee, user2 = bob ){
+    while (user1.hp > 0 && user2.hp > 0) {
+      playRound()
+    }//while statement
+    if (user1.hp <= 0) {
+      return "you Lose"
+    } else {
+      return "you Win"
     }
-
-
-
-
-    
-  }
+  }//checkHP function
 
 // PAPER
   // Math.sign(rpsChoices.indexOf("paper")-rpsChoices.indexOf("rock")) === 1
