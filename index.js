@@ -97,12 +97,15 @@ const rpsChoices = ["rock", "paper", "scissor"]
 
 // RESET
 function resetGame(player1 = lee, player2 = bob){
+  // player 1 reset
+  player1.hp = 10
   player1Health.value = '10'
   player1Health.classList.value = "nes-progress is-success"
+  // player 2 reset
+  player2.hp = 10
   player2Health.value = '10'
   player2Health.classList.value = "nes-progress is-success"
-  player1.hp = 10
-  player2.hp = 10
+
   output.innerHTML = ''
 }
 // end RESET
