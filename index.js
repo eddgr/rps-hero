@@ -115,29 +115,29 @@ function resetGame(player1 = lee, player2 = bob){
 let checkHealth = (player1, player2) => {
   switch (true){
     // player 1
-    case (player1.hp <= 0):
+    case (player1.hp <= 0 && player2.hp > 0):
       resetGame(player1, player2)
       output.innerHTML += `
         <h2>You lose</h2>
       `
       break
-    case (player1.hp === 8):
+    case (player1.hp === 8 && player2.hp > 0):
       player1Health.classList.value = "nes-progress is-warning"
       break
-    case (player1.hp === 2):
+    case (player1.hp === 2 && player2.hp > 0):
       player1Health.classList.value = "nes-progress is-error"
       break
     // player 2
-    case (player2.hp <= 0):
+    case (player2.hp <= 0 && player1.hp > 0):
       resetGame(player1, player2)
       output.innerHTML += `
         <h2>You win!</h2>
       `
       break
-    case (player2.hp === 8):
+    case (player2.hp === 8 && player1.hp > 0):
       player2Health.classList.value = "nes-progress is-warning"
       break
-    case (player2.hp === 2):
+    case (player2.hp === 2 && player1.hp > 0):
       player2Health.classList.value = "nes-progress is-error"
       break
   } // end switch
