@@ -90,8 +90,8 @@ const rpsChoices = ["rock", "paper", "scissor"]
 
 // RESET
 function resetGame(player1 = lee, player2 = bob){
-  user1.innerHTML = 'Player 1 - 10/10 HP'
-  user2.innerHTML = 'Player 2 - 10/10 HP'
+  player1Health.value = '10'
+  player2Health.value = '10'
   player1.hp = 10
   player2.hp = 10
   output.innerHTML = ''
@@ -123,7 +123,7 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
       case (-1):
         lee.hp -= bob.damage
 
-        user1.innerHTML = `Player 1 - ${lee.hp} / 10 HP`
+        player1Health.value = lee.hp
         output.innerHTML += `
           <p>You lost this round and took ${bob.damage} damage.</p>
         `
@@ -136,7 +136,7 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
       case (1):
         bob.hp -= lee.damage
 
-        user2.innerHTML = `Player 2 - ${bob.hp} / 10 HP`
+        player2Health.value = bob.hp
         output.innerHTML += `
           <p>You won this round. Player 2 lost ${lee.damage} HP.</p>
         `
@@ -148,7 +148,7 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
     case (-1):
       lee.hp -= bob.damage
 
-      user1.innerHTML = `Player 1 - ${lee.hp} / 10 HP`
+      player1Health.value = lee.hp
       output.innerHTML += `
         <p>You lost this round and took ${bob.damage} damage.</p>
       `
@@ -161,7 +161,7 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
     case (1):
       bob.hp -= lee.damage
 
-      user2.innerHTML = `Player 2 - ${bob.hp} / 10 HP`
+      player2Health.value = bob.hp
       output.innerHTML += `
         <p>You won this round. Player 2 lost ${lee.damage} HP.</p>
       `
@@ -178,6 +178,8 @@ const user1 = grab('#user-1')
 const user2 = grab('#user-2')
 const commands = grab('#commands')
 const output = grab('#temp-output')
+const player1Health = grab('#player1-health-bar')
+const player2Health = grab('#player2-health-bar')
 // end DOM
 
 start.innerHTML = `
@@ -188,9 +190,6 @@ commands.innerHTML = `
   <button>Paper</button>
   <button>Scissor</button>
 `
-
-user1.innerHTML = 'Player 1 - 10/10 HP'
-user2.innerHTML = 'Player 2 - 10/10 HP'
 
 // event listener
 document.addEventListener("click", event => {

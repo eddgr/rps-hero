@@ -2,7 +2,9 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>RPS Hero</title>
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+    <link href="https://unpkg.com/nes.css/css/nes.css" rel="stylesheet" />
   </head>
   <body>
     <div id="game-container" class="">
@@ -10,13 +12,13 @@
 
       </div>
       <div id="user-1">
-        User 1 stats go here
-        - hp
+        Player 1
+        <progress id="player1-health-bar" class="nes-progress is-success" value="10" max="10"></progress>
       </div>
 
       <div id="user-2">
-        User 2 stats go here
-        - hp
+        Player 2
+        <progress id="player2-health-bar" class="nes-progress is-success" value="10" max="10"></progress>
       </div>
 
       <div id="commands" class="">
