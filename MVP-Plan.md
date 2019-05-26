@@ -86,4 +86,6 @@ regBoss = [attk, def]
 - current user and computer hp -->
 <!-- - game ends when one player reaches 0 hp or less -->
 ### Next Deliverable
-- DOM input
+<!-- - DOM input -->
+- add attack/defend
+- abstract code

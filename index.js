@@ -22,7 +22,10 @@
 let gameNumber = 1
 
 function testRun(user1 = lee, user2 = bob){
-  output.innerHTML += `<h2>Game Number: ${gameNumber}</h2>`
+  output.innerHTML += `
+    <hr>
+    <h2>Game Number: ${gameNumber}</h2>
+  `
   while (user1.hp > 0 && user2.hp > 0){
     playRound()
   } // while statement
@@ -131,12 +134,14 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
         output.innerHTML += `
           <p>You played ${userChoice1} and ${bob.name} played ${userChoice2}.</p>
           <p>You lost this round and took ${bob.damage} damage.</p>
+          <hr>
         `
         break
       case (0):
         output.innerHTML += `
           <p>You played ${userChoice1} and ${bob.name} played ${userChoice2}.</p>
           <p>Draw, no damage.</p>
+          <hr>
         `
         break
       case (1):
@@ -146,6 +151,7 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
         output.innerHTML += `
           <p>You played ${userChoice1} and ${bob.name} played ${userChoice2}.</p>
           <p>You won this round. ${bob.name} lost ${lee.damage} HP.</p>
+          <hr>
         `
         break
     }
@@ -159,12 +165,14 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
       output.innerHTML += `
         <p>You played ${userChoice1} and ${bob.name} played ${userChoice2}.</p>
         <p>You lost this round and took ${bob.damage} damage.</p>
+        <hr>
       `
       break
     case (0):
       output.innerHTML += `
         <p>You played ${userChoice1} and ${bob.name} played ${userChoice2}.</p>
         <p>Draw, no damage.</p>
+        <hr>
       `
       break
     case (1):
@@ -174,6 +182,7 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
       output.innerHTML += `
         <p>You played ${userChoice1} and ${bob.name} played ${userChoice2}.</p>
         <p>You won this round. Player 2 lost ${lee.damage} HP.</p>
+        <hr>
       `
       break
      } // switch end
