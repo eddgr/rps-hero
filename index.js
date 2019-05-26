@@ -124,12 +124,14 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
         lee.hp -= bob.damage
 
         player1Health.value = lee.hp
-        output.innerHTML += `
+        output.innerHTML = `
+          <p>You played ${userChoice1} and ${bob.name} played ${userChoice2}.</p>
           <p>You lost this round and took ${bob.damage} damage.</p>
         `
         break
       case (0):
-        output.innerHTML += `
+        output.innerHTML = `
+          <p>You played ${userChoice1} and ${bob.name} played ${userChoice2}.</p>
           <p>Draw, no damage.</p>
         `
         break
@@ -137,8 +139,9 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
         bob.hp -= lee.damage
 
         player2Health.value = bob.hp
-        output.innerHTML += `
-          <p>You won this round. Player 2 lost ${lee.damage} HP.</p>
+        output.innerHTML = `
+          <p>You played ${userChoice1} and ${bob.name} played ${userChoice2}.</p>
+          <p>You won this round. ${bob.name} lost ${lee.damage} HP.</p>
         `
         break
     }
@@ -149,12 +152,14 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
       lee.hp -= bob.damage
 
       player1Health.value = lee.hp
-      output.innerHTML += `
+      output.innerHTML = `
+        <p>You played ${userChoice1} and ${bob.name} played ${userChoice2}.</p>
         <p>You lost this round and took ${bob.damage} damage.</p>
       `
       break
     case (0):
-      output.innerHTML += `
+      output.innerHTML = `
+        <p>You played ${userChoice1} and ${bob.name} played ${userChoice2}.</p>
         <p>Draw, no damage.</p>
       `
       break
@@ -162,7 +167,8 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
       bob.hp -= lee.damage
 
       player2Health.value = bob.hp
-      output.innerHTML += `
+      output.innerHTML = `
+        <p>You played ${userChoice1} and ${bob.name} played ${userChoice2}.</p>
         <p>You won this round. Player 2 lost ${lee.damage} HP.</p>
       `
       break
@@ -184,6 +190,7 @@ const player2Health = grab('#player2-health-bar')
 
 start.innerHTML = `
   <button>Start Game</button>
+  <button>Reset</button>
 `
 commands.innerHTML = `
   <button>Rock</button>
@@ -213,6 +220,9 @@ document.addEventListener("click", event => {
       break
     case ("Start Game"):
       output.innerHTML = ''
+      checkHP()
+      break
+    case ("Reset"):
       resetGame()
       break
   }
