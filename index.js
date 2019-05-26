@@ -19,28 +19,12 @@
   // Math.sign(rpsChoices.indexOf("scissor")-rpsChoices.indexOf("paper")) === 1
 
 // GAME LOOP for testing purposes only
-function checkHP(user1 = lee, user2 = bob){
+function testRun(user1 = lee, user2 = bob){
   while (user1.hp > 0 && user2.hp > 0){
     playRound()
   } // while statement
-
-  if (user1.hp <= 0) {
-    user1.hp = 10
-    user2.hp = 10
-
-    output.innerHTML += `
-    <h2>You Lose!</h2>
-    `
-  } else {
-    user1.hp = 10
-    user2.hp = 10
-
-    output.innerHTML += `
-    <h2>You Win!</h2>
-    `
-    return checkHP()
-  }
-} // checkHP function
+  checkHealth(user1, user2)
+}
 // end GAME LOOP
 
 // rock paper scissor AI logic
@@ -94,7 +78,7 @@ function resetGame(player1 = lee, player2 = bob){
   player2Health.value = '10'
   player1.hp = 10
   player2.hp = 10
-  output.innerHTML = ''
+  output.innerHTML += 'resetting game'
 }
 // end RESET
 
@@ -124,13 +108,13 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
         lee.hp -= bob.damage
 
         player1Health.value = lee.hp
-        output.innerHTML = `
+        output.innerHTML += `
           <p>You played ${userChoice1} and ${bob.name} played ${userChoice2}.</p>
           <p>You lost this round and took ${bob.damage} damage.</p>
         `
         break
       case (0):
-        output.innerHTML = `
+        output.innerHTML += `
           <p>You played ${userChoice1} and ${bob.name} played ${userChoice2}.</p>
           <p>Draw, no damage.</p>
         `
@@ -139,7 +123,7 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
         bob.hp -= lee.damage
 
         player2Health.value = bob.hp
-        output.innerHTML = `
+        output.innerHTML += `
           <p>You played ${userChoice1} and ${bob.name} played ${userChoice2}.</p>
           <p>You won this round. ${bob.name} lost ${lee.damage} HP.</p>
         `
@@ -152,13 +136,13 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
       lee.hp -= bob.damage
 
       player1Health.value = lee.hp
-      output.innerHTML = `
+      output.innerHTML += `
         <p>You played ${userChoice1} and ${bob.name} played ${userChoice2}.</p>
         <p>You lost this round and took ${bob.damage} damage.</p>
       `
       break
     case (0):
-      output.innerHTML = `
+      output.innerHTML += `
         <p>You played ${userChoice1} and ${bob.name} played ${userChoice2}.</p>
         <p>Draw, no damage.</p>
       `
@@ -167,7 +151,7 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
       bob.hp -= lee.damage
 
       player2Health.value = bob.hp
-      output.innerHTML = `
+      output.innerHTML += `
         <p>You played ${userChoice1} and ${bob.name} played ${userChoice2}.</p>
         <p>You won this round. Player 2 lost ${lee.damage} HP.</p>
       `
@@ -220,7 +204,7 @@ document.addEventListener("click", event => {
       break
     case ("Start Game"):
       output.innerHTML = ''
-      checkHP()
+      testRun()
       break
     case ("Reset"):
       resetGame()
