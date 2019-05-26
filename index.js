@@ -202,13 +202,13 @@ const player2Health = grab('#player2-health-bar')
 // end DOM
 
 start.innerHTML = `
-  <button>Start Game</button>
-  <button>Reset</button>
+  <button class="nes-btn is-primary">Start Game</button>
+  <button class="nes-btn">Reset</button>
 `
 commands.innerHTML = `
-  <button>Rock</button>
-  <button>Paper</button>
-  <button>Scissor</button>
+  <button class="nes-btn">Rock</button>
+  <button class="nes-btn">Paper</button>
+  <button class="nes-btn">Scissor</button>
 `
 
 // event listener
