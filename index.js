@@ -98,7 +98,9 @@ const rpsChoices = ["rock", "paper", "scissor"]
 // RESET
 function resetGame(player1 = lee, player2 = bob){
   player1Health.value = '10'
+  player1Health.classList.value = "nes-progress is-success"
   player2Health.value = '10'
+  player2Health.classList.value = "nes-progress is-success"
   player1.hp = 10
   player2.hp = 10
   output.innerHTML = ''
@@ -108,17 +110,34 @@ function resetGame(player1 = lee, player2 = bob){
 // checkHealth
 // check character health every turn to determine whether to reset game or not
 let checkHealth = (player1, player2) => {
-  if (player1.hp <= 0){
-    resetGame(player1, player2)
-    output.innerHTML += `
-      <h2>You lose</h2>
-    `
-  } else if (player2.hp <= 0){
-    resetGame(player1, player2)
-    output.innerHTML += `
-      <h2>You win!</h2>
-    `
-  }
+  switch (true){
+    // player 1
+    case (player1.hp <= 0):
+      resetGame(player1, player2)
+      output.innerHTML += `
+        <h2>You lose</h2>
+      `
+      break
+    case (player1.hp === 8):
+      player1Health.classList.value = "nes-progress is-warning"
+      break
+    case (player1.hp === 2):
+      player1Health.classList.value = "nes-progress is-error"
+      break
+    // player 2
+    case (player2.hp <= 0):
+      resetGame(player1, player2)
+      output.innerHTML += `
+        <h2>You win!</h2>
+      `
+      break
+    case (player2.hp === 8):
+      player2Health.classList.value = "nes-progress is-warning"
+      break
+    case (player2.hp === 2):
+      player2Health.classList.value = "nes-progress is-error"
+      break
+  } // end switch
 }
 // end checkHealth
 
