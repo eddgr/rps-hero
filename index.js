@@ -228,9 +228,8 @@ start.innerHTML = `
   <button class="nes-btn">Reset</button>
 `
 commands.innerHTML = `
-  <button class="nes-btn">Rock</button>
-  <button class="nes-btn">Paper</button>
-  <button class="nes-btn">Scissor</button>
+  <button class="nes-btn">attack</button>
+  <button class="nes-btn">defend</button>
 `
 
 // event listener
@@ -238,6 +237,30 @@ document.addEventListener("click", event => {
   event.preventDefault()
 
   switch (event.target.innerText){
+    case ("Back"):
+        commands.innerHTML = `
+          <button class="nes-btn">attack</button>
+          <button class="nes-btn">defend</button>
+        `
+        break
+    case ("attack"):
+      commands.innerHTML = `
+        <button class="nes-btn">Back</button>
+        <button class="nes-btn">Rock</button>
+        <button class="nes-btn">Paper</button>
+        <button class="nes-btn">Scissor</button>
+       `
+      console.log('attacking!')
+      break
+    case ("defend"):
+      commands.innerHTML = `
+        <button class="nes-btn">Back</button>
+        <button class="nes-btn">Rock</button>
+        <button class="nes-btn">Paper</button>
+        <button class="nes-btn">Scissor</button>
+       `
+      console.log('Defend')
+      break
     case ("Rock"):
       console.log("rock")
       playRound('rock')
