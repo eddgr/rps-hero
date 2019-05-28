@@ -19,28 +19,35 @@
   // Math.sign(rpsChoices.indexOf("scissor")-rpsChoices.indexOf("paper")) === 1
 
 // GAME LOOP for testing purposes only
-function checkHP(user1 = lee, user2 = bob){
+let gameNumber = 1
+
+function testRun(user1 = lee, user2 = bob){
+  output.innerHTML += `
+    <hr>
+    <h2>Game Number: ${gameNumber}</h2>
+  `
   while (user1.hp > 0 && user2.hp > 0){
     playRound()
   } // while statement
-
   if (user1.hp <= 0) {
     user1.hp = 10
     user2.hp = 10
 
+    gameNumber = 1 // reset gameNumber count to 1
     output.innerHTML += `
-    <h2>You Lose!</h2>
+      <h2>You Lose!</h2>
     `
   } else {
     user1.hp = 10
     user2.hp = 10
 
+    gameNumber ++ // increase gameNumber count by 1 for every play though to show success
     output.innerHTML += `
-    <h2>You Win!</h2>
+      <h2>You Win!</h2>
     `
-    return checkHP()
-  }
-} // checkHP function
+    return testRun() // reruns the loop until user 1 loses
+  } // end if
+}
 // end GAME LOOP
 
 // rock paper scissor AI logic
@@ -90,10 +97,15 @@ const rpsChoices = ["rock", "paper", "scissor"]
 
 // RESET
 function resetGame(player1 = lee, player2 = bob){
-  user1.innerHTML = 'Player 1 - 10/10 HP'
-  user2.innerHTML = 'Player 2 - 10/10 HP'
+  // player 1 reset
   player1.hp = 10
+  player1Health.value = '10'
+  player1Health.classList.value = "nes-progress is-success"
+  // player 2 reset
   player2.hp = 10
+  player2Health.value = '10'
+  player2Health.classList.value = "nes-progress is-success"
+
   output.innerHTML = ''
 }
 // end RESET
@@ -101,17 +113,34 @@ function resetGame(player1 = lee, player2 = bob){
 // checkHealth
 // check character health every turn to determine whether to reset game or not
 let checkHealth = (player1, player2) => {
-  if (player1.hp <= 0){
-    resetGame(player1, player2)
-    output.innerHTML += `
-      <h2>You lose</h2>
-    `
-  } else if (player2.hp <= 0){
-    resetGame(player1, player2)
-    output.innerHTML += `
-      <h2>You win!</h2>
-    `
-  }
+  switch (true){
+    // player 1
+    case (player1.hp <= 0 && player2.hp > 0):
+      resetGame(player1, player2)
+      output.innerHTML += `
+        <h2>You lose</h2>
+      `
+      break
+    case (player1.hp === 8 && player2.hp > 0):
+      player1Health.classList.value = "nes-progress is-warning"
+      break
+    case (player1.hp === 2 && player2.hp > 0):
+      player1Health.classList.value = "nes-progress is-error"
+      break
+    // player 2
+    case (player2.hp <= 0 && player1.hp > 0):
+      resetGame(player1, player2)
+      output.innerHTML += `
+        <h2>You win!</h2>
+      `
+      break
+    case (player2.hp === 8 && player1.hp > 0):
+      player2Health.classList.value = "nes-progress is-warning"
+      break
+    case (player2.hp === 2 && player1.hp > 0):
+      player2Health.classList.value = "nes-progress is-error"
+      break
+  } // end switch
 }
 // end checkHealth
 
@@ -123,22 +152,28 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
       case (-1):
         lee.hp -= bob.damage
 
-        user1.innerHTML = `Player 1 - ${lee.hp} / 10 HP`
+        player1Health.value = lee.hp
         output.innerHTML += `
+          <p>You played ${userChoice1} and ${bob.name} played ${userChoice2}.</p>
           <p>You lost this round and took ${bob.damage} damage.</p>
+          <hr>
         `
         break
       case (0):
         output.innerHTML += `
+          <p>You played ${userChoice1} and ${bob.name} played ${userChoice2}.</p>
           <p>Draw, no damage.</p>
+          <hr>
         `
         break
       case (1):
         bob.hp -= lee.damage
 
-        user2.innerHTML = `Player 2 - ${bob.hp} / 10 HP`
+        player2Health.value = bob.hp
         output.innerHTML += `
-          <p>You won this round. Player 2 lost ${lee.damage} HP.</p>
+          <p>You played ${userChoice1} and ${bob.name} played ${userChoice2}.</p>
+          <p>You won this round. ${bob.name} lost ${lee.damage} HP.</p>
+          <hr>
         `
         break
     }
@@ -148,22 +183,28 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
     case (-1):
       lee.hp -= bob.damage
 
-      user1.innerHTML = `Player 1 - ${lee.hp} / 10 HP`
+      player1Health.value = lee.hp
       output.innerHTML += `
+        <p>You played ${userChoice1} and ${bob.name} played ${userChoice2}.</p>
         <p>You lost this round and took ${bob.damage} damage.</p>
+        <hr>
       `
       break
     case (0):
       output.innerHTML += `
+        <p>You played ${userChoice1} and ${bob.name} played ${userChoice2}.</p>
         <p>Draw, no damage.</p>
+        <hr>
       `
       break
     case (1):
       bob.hp -= lee.damage
 
-      user2.innerHTML = `Player 2 - ${bob.hp} / 10 HP`
+      player2Health.value = bob.hp
       output.innerHTML += `
+        <p>You played ${userChoice1} and ${bob.name} played ${userChoice2}.</p>
         <p>You won this round. Player 2 lost ${lee.damage} HP.</p>
+        <hr>
       `
       break
      } // switch end
@@ -178,19 +219,19 @@ const user1 = grab('#user-1')
 const user2 = grab('#user-2')
 const commands = grab('#commands')
 const output = grab('#temp-output')
+const player1Health = grab('#player1-health-bar')
+const player2Health = grab('#player2-health-bar')
 // end DOM
 
 start.innerHTML = `
-  <button>Start Game</button>
+  <button class="nes-btn is-primary">Start Game</button>
+  <button class="nes-btn">Reset</button>
 `
 commands.innerHTML = `
-  <button>Rock</button>
-  <button>Paper</button>
-  <button>Scissor</button>
+  <button class="nes-btn">Rock</button>
+  <button class="nes-btn">Paper</button>
+  <button class="nes-btn">Scissor</button>
 `
-
-user1.innerHTML = 'Player 1 - 10/10 HP'
-user2.innerHTML = 'Player 2 - 10/10 HP'
 
 // event listener
 document.addEventListener("click", event => {
@@ -214,6 +255,9 @@ document.addEventListener("click", event => {
       break
     case ("Start Game"):
       output.innerHTML = ''
+      testRun()
+      break
+    case ("Reset"):
       resetGame()
       break
   }

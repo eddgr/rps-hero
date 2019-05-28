@@ -13,9 +13,9 @@ base dmg = 2 normal difficulty
 
 ### scissor
 - attack - 1 - 2.5x dmg `(Math.random()*1.5)+1`
-  - super attack - +1 base dmg
+  <!-- - super attack - +1 base dmg -->
 - defend - 50% chance next attack will miss for 1x turn
-  - super defend - 50% hp recovery
+  <!-- - super defend - 50% hp recovery -->
 
 ### special
 - win streaks will build up a counter
@@ -86,4 +86,8 @@ regBoss = [attk, def]
 - current user and computer hp -->
 <!-- - game ends when one player reaches 0 hp or less -->
 ### Next Deliverable
-- DOM input
+<!-- - DOM input -->
+- add attack/defend
+- create backend
+- abstract code
+- character design
