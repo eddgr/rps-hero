@@ -1,9 +1,6 @@
-
-
 // ATTACK DEFEND LOGIC
   // attackDefendDecision will when set to true be in attack mode, when set to false we will be in defense mode
   let attackDefendDecision = true
-
   // player buffs
   let user1Buffs = {
     damageReduction: 0,
@@ -19,7 +16,6 @@
   }
   // end player buffs
 // end ATTACK DEFEND LOGIC
-
 
 // HELPERS
   // adding 'sample' to Array prototype to randomize a return item from an array
@@ -261,19 +257,12 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
           if (lee.hp === 9){
           lee.hp += 1
           console.log("heal + 1")
-        } else if (lee.hp < 9 ) { 
-          lee.hp += 2
-          console.log('Heal for 2')
-        }
-      } 
+          } else if (lee.hp < 9 ) { 
+            lee.hp += 2
+            console.log('Heal for 2')
+          }
+        } 
         //end attackDefend logic for PAPER
-      // // check user 2 buffs before attacking
-      // if (user2Buffs.damageReduction > 0){
-      //   bob.hp -= (lee.damage/2)
-      // } else {
-      //   bob.hp -= lee.damage
-      // }
-      // // end user 2
       player2Health.value = bob.hp
       break
      } // switch end
