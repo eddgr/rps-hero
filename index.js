@@ -243,7 +243,15 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
         // attackDefend logic for ROCK
         // user 1
         if (attackDefendDecision === true && userChoice1 === "rock") {
-          bob.hp -= (lee.damage * 2)
+          console.log("you chose rock")
+
+          // check user 2 buffs before attacking
+          if (user2Buffs.damageReduction > 0){
+            bob.hp -= (lee.damage/2)
+          } else {
+            bob.hp -= (lee.damage * 2)
+          }
+          // end user 2
         } else if (attackDefendDecision === false && userChoice1 === "rock") {
           user1Buffs.damageReduction += 3
           // using 3 because one buff will be "used" the same turn it is gained
@@ -255,7 +263,16 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
         // attackDefend logic for SCISSOR
         // user 1
         if (attackDefendDecision === true && userChoice1 === "scissor") {
-          bob.hp -= (lee.damage * (Math.random()*1.5)+1)
+          console.log("you chose scissor")
+          // check user 2 buffs before attacking
+          if (user2Buffs.damageReduction > 0){
+            bob.hp -= ((lee.damage * ((Math.random()*1.5)+1))/2)
+          } else {
+            bob.hp -= (lee.damage * ((Math.random()*1.5)+1))
+            console.log(((Math.random()*1.5)+1))
+            console.log("this is edgar console logging")
+          }
+          // end user 2
         } else if (attackDefendDecision === false && userChoice1 === "scissor") {
           user1Buffs.missedAttack += 1
           // using 3 because one buff will be "used" the same turn it is gained
@@ -264,14 +281,6 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
         }
         //end attackDefend logic for SCISSOR
 
-        // this is causing issues and may need to be moved somewhere else
-        // check user 2 buffs before attacking
-        if (user2Buffs.damageReduction > 0){
-          bob.hp -= (lee.damage/2)
-        } else {
-          bob.hp -= lee.damage
-        }
-        // end user 2
         player2Health.value = bob.hp
         break
     }
@@ -315,13 +324,13 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
         <p>You won this round. Player 2 lost ${lee.damage} HP.</p>
         <hr>
       `
-      // check user 2 buffs before attacking
-      if (user2Buffs.damageReduction > 0){
-        bob.hp -= (lee.damage/2)
-      } else {
-        bob.hp -= lee.damage
-      }
-      // end user 2
+      // // check user 2 buffs before attacking
+      // if (user2Buffs.damageReduction > 0){
+      //   bob.hp -= (lee.damage/2)
+      // } else {
+      //   bob.hp -= lee.damage
+      // }
+      // // end user 2
       player2Health.value = bob.hp
       break
      } // switch end
