@@ -312,6 +312,30 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
           console.log(user1Buffs)
         }
         //end attackDefend logic for SCISSOR
+      // attackDefend logic for PAPER
+      if (attackDefendDecision === true && userChoice1 === "paper") {
+        // user 1
+          console.log("you chose paper")
+          // check user 2 buffs before attacking
+          if (user2Buffs.damageReduction > 0){
+            bob.hp -= (lee.damage/2) 
+            user1Buffs.damageReduction += 1 
+          } else {
+            bob.hp -= lee.damage 
+            user1Buffs.damageReduction += 1 
+            console.log('no Buff Damage')
+          }
+          // end user 2
+        } else if (attackDefendDecision === false && userChoice1 === "paper") {
+          if (lee.hp === 9){
+          lee.hp += 1
+          console.log("heal + 1")
+        } else if (lee.hp < 9 ) { 
+          lee.hp += 2
+          console.log('Heal for 2')
+        }
+      } 
+        //end attackDefend logic for PAPER
       // // check user 2 buffs before attacking
       // if (user2Buffs.damageReduction > 0){
       //   bob.hp -= (lee.damage/2)
