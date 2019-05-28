@@ -88,6 +88,7 @@ regBoss = [attk, def]
 ### Next Deliverable
 <!-- - DOM input -->
 - add attack/defend
+  - after selecting RPS, go back to A/D choice
 - create backend
 - abstract code
 - character design
