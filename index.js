@@ -67,6 +67,20 @@ const rollRPS = () => {
 // end AI logic
 
 // end MISC
+//attackDefendDecision will when set to true be in attack mode, when set to false we will be in defense mode
+let attackDefendDecision = true
+//user1 buff and user 2 buff. they will be set to an empty array, when a user has a buff set from the playRound we push the buff property to the user1 or user 2 array:
+// new object with predetermined buffs set at count of 0. both players start at 0.
+// the win success of buffs will increase the numbers += number
+// every turn, if buff count is greater than 0, -=1. otherwise, do nothing
+let user1Buffs = {
+  damageReduction: 0,
+  missedAttack: 0
+  // calculate the miss attack chance
+  // if missedAttack > 0, calculate the chance of being attack
+  
+  
+}
 
 // CLASS CHARACTERS
 class Character {
@@ -147,6 +161,9 @@ let checkHealth = (player1, player2) => {
 //TODO: USER CHOICE IS BEING TESTED!!!!! TAKE OUT WHEN DONE
 function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
   // conditional for rock/scissor win and lose needs to be swapped
+  //if user chooses attack && rock then rock attack multiplier to base dmg
+  //grab DOM grabber to see whether attack or defend based on back button
+  
   if (userChoice1 === "rock" && userChoice2 === "scissor" || userChoice1 === 'scissor' && userChoice2 === 'rock'){
     switch (Math.sign(rpsChoices.indexOf(userChoice2)-rpsChoices.indexOf(userChoice1))){
       case (-1):
@@ -167,7 +184,7 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
         `
         break
       case (1):
-        bob.hp -= lee.damage
+        // let rockWin = bob.hp -= lee.damage
 
         player2Health.value = bob.hp
         output.innerHTML += `
@@ -175,6 +192,11 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
           <p>You won this round. ${bob.name} lost ${lee.damage} HP.</p>
           <hr>
         `
+        if (attackDefendDecision === true) {
+          bob.hp -= (lee.damage * 2)
+        } else if (attackDefendDecision === false) {
+          console.log('damage reduction 2 turns')
+         } 
         break
     }
   } else {
@@ -228,9 +250,8 @@ start.innerHTML = `
   <button class="nes-btn">Reset</button>
 `
 commands.innerHTML = `
-  <button class="nes-btn">Rock</button>
-  <button class="nes-btn">Paper</button>
-  <button class="nes-btn">Scissor</button>
+  <button class="nes-btn">attack</button>
+  <button class="nes-btn">defend</button>
 `
 
 // event listener
@@ -238,6 +259,32 @@ document.addEventListener("click", event => {
   event.preventDefault()
 
   switch (event.target.innerText){
+    case ("Back"):
+        commands.innerHTML = `
+          <button class="nes-btn">attack</button>
+          <button class="nes-btn">defend</button>
+        `
+        break
+    case ("attack"):
+      commands.innerHTML = `
+        <button class="nes-btn">Back</button>
+        <button class="nes-btn">Rock</button>
+        <button class="nes-btn">Paper</button>
+        <button class="nes-btn">Scissor</button>
+       `
+      attackDefendDecision = true
+      console.log('attacking!')
+      break
+    case ("defend"):
+      commands.innerHTML = `
+        <button class="nes-btn">Back</button>
+        <button class="nes-btn">Rock</button>
+        <button class="nes-btn">Paper</button>
+        <button class="nes-btn">Scissor</button>
+       `
+      attackDefendDecision = false 
+      console.log('Defend')
+      break
     case ("Rock"):
       console.log("rock")
       playRound('rock')
