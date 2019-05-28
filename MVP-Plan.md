@@ -88,6 +88,34 @@ regBoss = [attk, def]
 ### Next Deliverable
 <!-- - DOM input -->
 - add attack/defend
-- create backend
+  - after selecting RPS, go back to A/D choice
+  - user1 win condition should check user2buffs
+  - user1 lose condition should check user1buffs
 - abstract code
+- create backend
 - character design
+
+
+## Notes
+
+``` javascript
+Math.sign(number1 - number 2)
+if number1 > number2 = 1 (win)
+if number1 < number2 = -1 (lose)
+if number1 === number2 = 0 (neutral)
+
+// ROCK
+  Math.sign(rpsChoices.indexOf("rock")-rpsChoices.indexOf("paper")) === -1
+  Math.sign(rpsChoices.indexOf("rock")-rpsChoices.indexOf("rock")) === 0
+  Math.sign(rpsChoices.indexOf("scissor")-rpsChoices.indexOf("rock")) === 1
+
+// PAPER
+  Math.sign(rpsChoices.indexOf("paper")-rpsChoices.indexOf("rock")) === 1
+  Math.sign(rpsChoices.indexOf("paper")-rpsChoices.indexOf("paper")) === 0
+  Math.sign(rpsChoices.indexOf("paper")-rpsChoices.indexOf("scissor")) === -1
+
+// SCISSOR
+  Math.sign(rpsChoices.indexOf("rock")-rpsChoices.indexOf("scissor")) === -1
+  Math.sign(rpsChoices.indexOf("scissor")-rpsChoices.indexOf("scissor")) === 0
+  Math.sign(rpsChoices.indexOf("scissor")-rpsChoices.indexOf("paper")) === 1
+```
