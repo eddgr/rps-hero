@@ -249,29 +249,6 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
           console.log(user1Buffs)
         }
         //end attackDefend logic for ROCK
-
-        // attackDefend logic for SCISSOR
-        if (attackDefendDecision === true && userChoice1 === "scissor") {
-        // user 1
-          console.log("you chose scissor")
-          // check user 2 buffs before attacking
-          if (user2Buffs.damageReduction > 0){
-            bob.hp -= ((lee.damage * ((Math.random()*1.5)+1))/2)
-          } else {
-            bob.hp -= (lee.damage * ((Math.random()*1.5)+1))
-            console.log(((Math.random()*1.5)+1))
-            console.log("this is edgar console logging")
-          }
-          // end user 2
-        } else if (attackDefendDecision === false && userChoice1 === "scissor") {
-          user1Buffs.missedAttack += 1
-          // using 3 because one buff will be "used" the same turn it is gained
-          // todo: make this logic sexy
-          console.log(user1Buffs)
-        }
-        //end attackDefend logic for SCISSOR
-
-
         player2Health.value = bob.hp
         break
     }
@@ -315,6 +292,26 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
         <p>You won this round. Player 2 lost ${lee.damage} HP.</p>
         <hr>
       `
+      // attackDefend logic for SCISSOR
+      if (attackDefendDecision === true && userChoice1 === "scissor") {
+        // user 1
+          console.log("you chose scissor")
+          // check user 2 buffs before attacking
+          if (user2Buffs.damageReduction > 0){
+            bob.hp -= ((lee.damage * ((Math.random()*1.5)+1))/2)
+          } else {
+            bob.hp -= (lee.damage * ((Math.random()*1.5)+1))
+            console.log(((Math.random()*1.5)+1))
+            console.log("this is edgar console logging")
+          }
+          // end user 2
+        } else if (attackDefendDecision === false && userChoice1 === "scissor") {
+          user1Buffs.missedAttack += 1
+          // using 3 because one buff will be "used" the same turn it is gained
+          // todo: make this logic sexy
+          console.log(user1Buffs)
+        }
+        //end attackDefend logic for SCISSOR
       // // check user 2 buffs before attacking
       // if (user2Buffs.damageReduction > 0){
       //   bob.hp -= (lee.damage/2)
