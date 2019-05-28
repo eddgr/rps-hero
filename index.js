@@ -99,6 +99,13 @@ const bob = new Character('Bob')
       <button class="nes-btn">Scissor</button>
      `
   }
+
+  const renderAdButtons = () => {
+    commands.innerHTML = `
+      <button class="nes-btn">attack</button>
+      <button class="nes-btn">defend</button>
+    `
+  }
 // end HELPERS
 
 const rpsChoices = ["rock", "paper", "scissor"]
@@ -337,10 +344,7 @@ start.innerHTML = `
   <button class="nes-btn is-primary">Start Game</button>
   <button class="nes-btn">Reset</button>
 `
-commands.innerHTML = `
-  <button class="nes-btn">attack</button>
-  <button class="nes-btn">defend</button>
-`
+renderAdButtons()
 
 // event listener
 document.addEventListener("click", event => {
@@ -348,10 +352,7 @@ document.addEventListener("click", event => {
 
   switch (event.target.innerText){
     case ("Back"):
-        commands.innerHTML = `
-          <button class="nes-btn">attack</button>
-          <button class="nes-btn">defend</button>
-        `
+        renderAdButtons()
         break
     case ("attack"):
       renderRpsButtons()
@@ -367,16 +368,19 @@ document.addEventListener("click", event => {
       console.log("rock")
       playRound('rock')
       checkHealth(lee, bob)
+      renderAdButtons()
       break
     case ("Paper"):
       console.log("paper")
       playRound('paper')
       checkHealth(lee, bob)
+      renderAdButtons()
       break
     case ("Scissor"):
       console.log("scissor")
       playRound('scissor')
       checkHealth(lee, bob)
+      renderAdButtons()
       break
     case ("Start Game"):
       output.innerHTML = ''
