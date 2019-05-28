@@ -102,71 +102,83 @@ regBoss = [attk, def]
   - abstract current buffs so that it can apply to be player 1 or 2
 
   ```javascript
-    function player1Win(currentPlayer, otherPlayer, userChoice, adDecision, buffDr, buffMa){
-      switch (adDecision){
+    function playerCheck(currentPlayer, otherPlayer, userChoice){
+      switch (currentPlayer.attackLogic){
         case (true):
           switch (userChoice){
             case ("rock"):
-              if (user2Buffs.damageReduction > 0){
-                bob.hp -= (lee.damage/2)
-              } else if (user2Buffs.missedAttack > 0){
-                bob.hp -= ((lee.damage * 2) * missRng)
+              if (otherPlayer.buffs.damageReduction > 0){
+                otherPlayer.hp -= (currentPlayer.damage/2)
+              } else if (otherPlayer.buffs.missedAttack > 0){
+                otherPlayer.hp -= ((currentPlayer.damage * 2) * missRng)
               } else {
-                bob.hp -= (lee.damage * 2)
+                otherPlayer.hp -= (currentPlayer.damage * 2)
               }
               break
             case ("paper"):
+              if (otherPlayer.buffs.damageReduction > 0){
+                otherPlayer.hp -= (currentPlayer.damage/2)
+                currentPlayer.buffs.damageReduction += 2
+              } else if (otherPlayer.buffs.missedAttack > 0){
+                otherPlayer.hp -= (currentPlayer.damage * missRng)
+                currentPlayer.buffs.damageReduction += 2
+              } else {
+                otherPlayer.hp -= currentPlayer.damage
+                currentPlayer.buffs.damageReduction += 2
+                // using 2 because one buff will be "used" the same turn it is gained
+                console.log('Damage Reduction Buff: ', currentPlayer.buffs)
+              }
               break
             case ("scissor"):
+              const scissorRng = [1, 1.5, 2, 2.5]
+              if (otherPlayer.buffs.damageReduction > 0){
+                otherPlayer.hp -= (currentPlayer.damage * (scissorRng.sample()/2))
+              } else if (otherPlayer.buffs.missedAttack > 0){
+                otherPlayer.hp -= ((currentPlayer.damage * scissorRng.sample()) * missRng)
+              } else {
+                otherPlayer.hp -= (currentPlayer.damage * scissorRng.sample())
+              }
               break
           } // end nested switch
           break
         case (false):
           switch (userChoice){
             case ("rock"):
-              if (user1Buffs.damageReduction === 0){
-                user1Buffs.damageReduction += 3
+              if (currentPlayer.buffs.damageReduction === 0){
+                currentPlayer.buffs.damageReduction += 3
                 // using 3 because one buff will be "used" the same turn it is gained
                 // todo: make this logic sexy
                 console.log("damageReduction at 0")
               } else {
-                user1Buffs.damageReduction += 2
+                currentPlayer.buffs.damageReduction += 2
                 console.log("add on top of current damageReduction")
               }
               break
             case ("paper"):
+              if (currentPlayer.hp === 9){
+                currentPlayer.hp += 1
+                console.log("Heal for 1 because of HP cap")
+              } else if (currentPlayer.hp < 9 ) {
+                currentPlayer.hp += 2
+                console.log('Heal for 2')
+              }
               break
             case ("scissor"):
+              if (currentPlayer.buffs.missedAttack === 0){
+                currentPlayer.buffs.missedAttack += 2
+                console.log("missedAttack at 0")
+                // using 2 because one buff will be "used" the same turn it is gained
+                // todo: make this logic sexy
+              } else {
+                currentPlayer.buffs.missedAttack += 1
+                console.log("have missedAttack")
+              } // end if
+              console.log("Missed Attack Buff: ", currentPlayer.buffs)
               break
           } // end nested switch
           break
       } // end switch
-    } // end player1Win
-
-    function player1Lose(player1, adDecision, buffDr, buffMa){
-      switch (adDecision){
-        case (true):
-          switch (userChoice){
-            case ("rock"):
-              break
-            case ("paper"):
-              break
-            case ("scissor"):
-              break
-          } // end nested switch
-          break
-        case (false):
-          switch (userChoice){
-            case ("rock"):
-              break
-            case ("paper"):
-              break
-            case ("scissor"):
-              break
-          } // end nested switch
-          break
-      } // end switch
-    } // end player1Lose
+    } // end playerCheck
   ```
 
 - change output text to reflect actual damage
