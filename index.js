@@ -160,12 +160,18 @@ let checkHealth = (player1, player2) => {
         <h2>You lose</h2>
       `
       break
-    case (player1.hp === 8 && player2.hp > 0):
+    case (player1.hp < 10 && player2.hp > 0):
       player1Health.classList.value = "nes-progress is-warning"
       break
-    case (player1.hp === 2 && player2.hp > 0):
+    case (player1.hp < 3 && player2.hp > 0):
       player1Health.classList.value = "nes-progress is-error"
       break
+    // case (player1.hp === 8 && player2.hp > 0):
+    //   player1Health.classList.value = "nes-progress is-warning"
+    //   break
+    // case (player1.hp === 2 && player2.hp > 0):
+    //   player1Health.classList.value = "nes-progress is-error"
+    //   break
     // player 2
     case (player2.hp <= 0 && player1.hp > 0):
       resetGame(player1, player2)
@@ -173,12 +179,18 @@ let checkHealth = (player1, player2) => {
         <h2>You win!</h2>
       `
       break
-    case (player2.hp === 8 && player1.hp > 0):
+    case (player2.hp < 10 && player1.hp > 0):
       player2Health.classList.value = "nes-progress is-warning"
       break
-    case (player2.hp === 2 && player1.hp > 0):
+    case (player2.hp < 3 && player1.hp > 0):
       player2Health.classList.value = "nes-progress is-error"
       break
+    // case (player2.hp === 8 && player1.hp > 0):
+    //   player2Health.classList.value = "nes-progress is-warning"
+    //   break
+    // case (player2.hp === 2 && player1.hp > 0):
+    //   player2Health.classList.value = "nes-progress is-error"
+    //   break
   } // end switch
 }
 // end checkHealth
@@ -192,14 +204,24 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
   if (userChoice1 === "rock" && userChoice2 === "scissor" || userChoice1 === 'scissor' && userChoice2 === 'rock'){
     switch (Math.sign(rpsChoices.indexOf(userChoice2)-rpsChoices.indexOf(userChoice1))){
       case (-1):
-        lee.hp -= bob.damage
+        // lee.hp -= bob.damage
 
-        player1Health.value = lee.hp
+        // player1Health.value = lee.hp
         output.innerHTML += `
           <p>You played ${userChoice1} and ${bob.name} played ${userChoice2}.</p>
           <p>You lost this round and took ${bob.damage} damage.</p>
           <hr>
         `
+
+        // check if user has buff before taking damage
+        if (user1Buffs.damageReduction > 0){
+          lee.hp -= (bob.damage/2)
+        } else {
+          lee.hp -= bob.damage
+        }
+        // end user 1
+        player1Health.value = lee.hp
+
         break
       case (0):
         output.innerHTML += `
@@ -211,24 +233,46 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
       case (1):
         // let rockWin = bob.hp -= lee.damage
 
-        player2Health.value = bob.hp
+        // player2Health.value = bob.hp
         output.innerHTML += `
           <p>You played ${userChoice1} and ${bob.name} played ${userChoice2}.</p>
           <p>You won this round. ${bob.name} lost ${lee.damage} HP.</p>
           <hr>
         `
 
-        // attackDefend logic
+        // attackDefend logic for ROCK
         // user 1
-        if (attackDefendDecision === true) {
+        if (attackDefendDecision === true && userChoice1 === "rock") {
           bob.hp -= (lee.damage * 2)
-        } else if (attackDefendDecision === false) {
+        } else if (attackDefendDecision === false && userChoice1 === "rock") {
           user1Buffs.damageReduction += 3
           // using 3 because one buff will be "used" the same turn it is gained
           // todo: make this logic sexy
           console.log(user1Buffs)
         }
-        //end attackDefend logic
+        //end attackDefend logic for ROCK
+
+        // attackDefend logic for SCISSOR
+        // user 1
+        if (attackDefendDecision === true && userChoice1 === "scissor") {
+          bob.hp -= (lee.damage * (Math.random()*1.5)+1)
+        } else if (attackDefendDecision === false && userChoice1 === "scissor") {
+          user1Buffs.missedAttack += 1
+          // using 3 because one buff will be "used" the same turn it is gained
+          // todo: make this logic sexy
+          console.log(user1Buffs)
+        }
+        //end attackDefend logic for SCISSOR
+
+        // this is causing issues and may need to be moved somewhere else
+        // check user 2 buffs before attacking
+        if (user2Buffs.damageReduction > 0){
+          bob.hp -= (lee.damage/2)
+        } else {
+          bob.hp -= lee.damage
+        }
+        // end user 2
+        player2Health.value = bob.hp
         break
     }
   } else {
@@ -237,7 +281,7 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
     case (-1):
       // lee.hp -= bob.damage
 
-      player1Health.value = lee.hp
+      // player1Health.value = lee.hp
       output.innerHTML += `
         <p>You played ${userChoice1} and ${bob.name} played ${userChoice2}.</p>
         <p>You lost this round and took ${bob.damage} damage.</p>
@@ -253,15 +297,7 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
         lee.hp -= bob.damage
       }
       // end user 1
-
-      // user 2
-      if (user2Buffs.damageReduction > 0){
-        bob.hp -= (lee.damage/2)
-      } else {
-        bob.hp -= lee.damage
-      }
-      // end user 2
-
+      player1Health.value = lee.hp
       break
     case (0):
       output.innerHTML += `
@@ -271,14 +307,22 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
       `
       break
     case (1):
-      bob.hp -= lee.damage
+      // bob.hp -= lee.damage
 
-      player2Health.value = bob.hp
+      // player2Health.value = bob.hp
       output.innerHTML += `
         <p>You played ${userChoice1} and ${bob.name} played ${userChoice2}.</p>
         <p>You won this round. Player 2 lost ${lee.damage} HP.</p>
         <hr>
       `
+      // check user 2 buffs before attacking
+      if (user2Buffs.damageReduction > 0){
+        bob.hp -= (lee.damage/2)
+      } else {
+        bob.hp -= lee.damage
+      }
+      // end user 2
+      player2Health.value = bob.hp
       break
      } // switch end
   } // IF statement end

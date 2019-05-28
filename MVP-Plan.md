@@ -89,6 +89,8 @@ regBoss = [attk, def]
 <!-- - DOM input -->
 - add attack/defend
   - after selecting RPS, go back to A/D choice
+  - user1 win condition should check user2buffs
+  - user1 lose condition should check user1buffs
 - create backend
 - abstract code
 - character design
