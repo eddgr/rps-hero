@@ -4,6 +4,13 @@ class Character {
      this.name = name
      this.hp = 10
      this.damage = 2
+     this.buffs = {
+       damageReduction: 0,
+       missedAttack: 0
+     }
+     this.attackLogic = true
+     // Attack === true
+     // Defend === false
   }
 }
 

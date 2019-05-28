@@ -99,6 +99,76 @@ regBoss = [attk, def]
 
 ## Edgar To Do
 - make player 2 buff work
+  - abstract current buffs so that it can apply to be player 1 or 2
+
+  ```javascript
+    function player1Win(currentPlayer, otherPlayer, userChoice, adDecision, buffDr, buffMa){
+      switch (adDecision){
+        case (true):
+          switch (userChoice){
+            case ("rock"):
+              if (user2Buffs.damageReduction > 0){
+                bob.hp -= (lee.damage/2)
+              } else if (user2Buffs.missedAttack > 0){
+                bob.hp -= ((lee.damage * 2) * missRng)
+              } else {
+                bob.hp -= (lee.damage * 2)
+              }
+              break
+            case ("paper"):
+              break
+            case ("scissor"):
+              break
+          } // end nested switch
+          break
+        case (false):
+          switch (userChoice){
+            case ("rock"):
+              if (user1Buffs.damageReduction === 0){
+                user1Buffs.damageReduction += 3
+                // using 3 because one buff will be "used" the same turn it is gained
+                // todo: make this logic sexy
+                console.log("damageReduction at 0")
+              } else {
+                user1Buffs.damageReduction += 2
+                console.log("add on top of current damageReduction")
+              }
+              break
+            case ("paper"):
+              break
+            case ("scissor"):
+              break
+          } // end nested switch
+          break
+      } // end switch
+    } // end player1Win
+
+    function player1Lose(player1, adDecision, buffDr, buffMa){
+      switch (adDecision){
+        case (true):
+          switch (userChoice){
+            case ("rock"):
+              break
+            case ("paper"):
+              break
+            case ("scissor"):
+              break
+          } // end nested switch
+          break
+        case (false):
+          switch (userChoice){
+            case ("rock"):
+              break
+            case ("paper"):
+              break
+            case ("scissor"):
+              break
+          } // end nested switch
+          break
+      } // end switch
+    } // end player1Lose
+  ```
+
 - change output text to reflect actual damage
 - fix progress bar
 
