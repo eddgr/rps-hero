@@ -106,6 +106,29 @@ const bob = new Character('Bob')
       <button class="nes-btn">defend</button>
     `
   }
+
+  function outputMessage (caseNum, userChoice1, userChoice2) {
+    output.innerHTML += `
+      <p>You played ${userChoice1} and ${bob.name} played ${userChoice2}.</p>
+    `
+    switch(caseNum) {
+      case (-1): 
+        output.innerHTML += `
+        <p>You lost this round and took ${bob.damage} damage.</p>
+        `
+        break
+      case (0):
+        output.innerHTML += `
+        <p>Draw, no damage.</p>
+        `
+        break
+      case (1):
+        output.innerHTML += `
+        <p>You won this round. Player 2 lost ${lee.damage} HP.</p>
+        `
+    }
+    output.innerHTML += `<hr>`
+  }
 // end HELPERS
 
 const rpsChoices = ["rock", "paper", "scissor"]
@@ -194,15 +217,8 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
   if (userChoice1 === "rock" && userChoice2 === "scissor" || userChoice1 === 'scissor' && userChoice2 === 'rock'){
     switch (Math.sign(rpsChoices.indexOf(userChoice2)-rpsChoices.indexOf(userChoice1))){
       case (-1):
-        // lee.hp -= bob.damage
-
-        // player1Health.value = lee.hp
-        output.innerHTML += `
-          <p>You played ${userChoice1} and ${bob.name} played ${userChoice2}.</p>
-          <p>You lost this round and took ${bob.damage} damage.</p>
-          <hr>
-        `
-
+        outputMessage(-1, userChoice1, userChoice2)
+        console.log('testing output message -1 rock')
         // check if user has buff before taking damage
         if (user1Buffs.damageReduction > 0){
           lee.hp -= (bob.damage/2)
@@ -214,22 +230,12 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
 
         break
       case (0):
-        output.innerHTML += `
-          <p>You played ${userChoice1} and ${bob.name} played ${userChoice2}.</p>
-          <p>Draw, no damage.</p>
-          <hr>
-        `
+        outputMessage(0, userChoice1, userChoice2)
+        console.log('testing output message 0 rock')
         break
       case (1):
-        // let rockWin = bob.hp -= lee.damage
-
-        // player2Health.value = bob.hp
-        output.innerHTML += `
-          <p>You played ${userChoice1} and ${bob.name} played ${userChoice2}.</p>
-          <p>You won this round. ${bob.name} lost ${lee.damage} HP.</p>
-          <hr>
-        `
-
+        outputMessage(1, userChoice1, userChoice2)
+        console.log('testing output message 1 rock')
         // attackDefend logic for ROCK
         // user 1
         if (attackDefendDecision === true && userChoice1 === "rock") {
@@ -256,15 +262,8 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
     // normal win/lose conditions
     switch (Math.sign(rpsChoices.indexOf(userChoice1)-rpsChoices.indexOf(userChoice2))){
     case (-1):
-      // lee.hp -= bob.damage
-
-      // player1Health.value = lee.hp
-      output.innerHTML += `
-        <p>You played ${userChoice1} and ${bob.name} played ${userChoice2}.</p>
-        <p>You lost this round and took ${bob.damage} damage.</p>
-        <hr>
-      `
-
+      outputMessage(-1, userChoice1, userChoice2)
+      console.log('testing output message -1')
       // check if user has buff before taking damage
       // if user has damageReduction, divide user2 damage by 2
       // user 1
@@ -277,21 +276,12 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
       player1Health.value = lee.hp
       break
     case (0):
-      output.innerHTML += `
-        <p>You played ${userChoice1} and ${bob.name} played ${userChoice2}.</p>
-        <p>Draw, no damage.</p>
-        <hr>
-      `
+      outputMessage(0, userChoice1, userChoice2)
+      console.log('testing output message 0')
       break
     case (1):
-      // bob.hp -= lee.damage
-
-      // player2Health.value = bob.hp
-      output.innerHTML += `
-        <p>You played ${userChoice1} and ${bob.name} played ${userChoice2}.</p>
-        <p>You won this round. Player 2 lost ${lee.damage} HP.</p>
-        <hr>
-      `
+      outputMessage(1, userChoice1, userChoice2)
+      console.log('testing output message 1')
       // attackDefend logic for SCISSOR
       if (attackDefendDecision === true && userChoice1 === "scissor") {
         // user 1
@@ -413,3 +403,4 @@ document.addEventListener("click", event => {
   }
 })
 // end event listener
+
