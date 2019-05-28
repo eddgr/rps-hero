@@ -27,16 +27,43 @@
     return document.querySelector(funcArg)
   }
 
-  const renderRpsButtons = () => {
+  const renderRpsButtons = (buffDescObj) => {
     commands.innerHTML = `
+      <button class="nes-btn">
+        <p>Rock</p>
+        <span>${buffDescObj.rock}</span>
+      </button>
+
+      <button class="nes-btn">
+        <p>Paper</p>
+        <span>${buffDescObj.paper}</span>
+      </button>
+
+      <button class="nes-btn">
+        <p>Scissor</p>
+        <span>${buffDescObj.scissor}</span>
+      </button>
+
+      <br><br>
       <button class="nes-btn">Back</button>
-      <button class="nes-btn">Rock</button>
-      <button class="nes-btn">Paper</button>
-      <button class="nes-btn">Scissor</button>
      `
   }
 
   const renderAdButtons = () => {
+    const user1 = Object.entries(user1Buffs)
+    const user2 = Object.entries(user2Buffs)
+
+    for (let buff of user1){
+      if (buff[1] > 0){
+        player1Buff.innerText += buff[0]
+      }
+    }
+    for (let buff of user2){
+      if (buff[1] > 0){
+        player1Buff.innerText += buff[0]
+      }
+    }
+
     commands.innerHTML = `
       <button class="nes-btn">attack</button>
       <button class="nes-btn">defend</button>
@@ -91,6 +118,7 @@ function resetGame(player1 = lee, player2 = bob){
 
 // checkBuffs
   let checkBuffs = () => {
+
     // player 1 buff check
     if (user1Buffs.damageReduction > 0){
       user1Buffs.damageReduction -= 1
@@ -174,14 +202,18 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
 
         if (user1Buffs.missedAttack > 0){
           lee.hp -= (bob.damage * missRng.sample())
+          player1Buff.innerHTML += "Missed Attack"
           console.log("missedAttack should be 0 dmg")
         } else if (user1Buffs.missedAttack === 0){
           lee.hp -= bob.damage
+          player1Buff.innerHTML = ''
           console.log("missedAttack not working")
         } else if (user1Buffs.damageReduction > 0){
           lee.hp -= (bob.damage/2)
+          player1Buff.innerHTML += "Damage Reduction"
         } else if (user1Buffs.damageReduction === 0) {
           lee.hp -= bob.damage
+          player1Buff.innerHTML = ''
           console.log("missedAttack not working because of damageReduction")
         }
         // end user 1
@@ -231,14 +263,18 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
       // user 1
       if (user1Buffs.missedAttack > 0){
         lee.hp -= (bob.damage * missRng.sample())
+        player1Buff.innerHTML += "Missed Attack"
         console.log("missedAttack should be 0 dmg")
       } else if (user1Buffs.missedAttack === 0){
         lee.hp -= bob.damage
+        player1Buff.innerHTML = ''
         console.log("missedAttack not working")
       } else if (user1Buffs.damageReduction > 0){
         lee.hp -= (bob.damage/2)
+        player1Buff.innerHTML += "Damage Reduction"
       } else if (user1Buffs.damageReduction === 0) {
         lee.hp -= bob.damage
+        player1Buff.innerHTML = ''
         console.log("missedAttack not working because of damageReduction")
       }
       // end user 1
@@ -320,12 +356,16 @@ const commands = grab('#commands')
 const output = grab('#temp-output')
 const player1Health = grab('#player1-health-bar')
 const player2Health = grab('#player2-health-bar')
+const player1Buff = grab('#player1-buff')
+const player2Buff = grab('#player2-buff')
 // end DOM
 
 start.innerHTML = `
   <button class="nes-btn is-primary">Start Game</button>
   <button class="nes-btn">Reset</button>
 `
+player1Buff.innerText = ''
+player2Buff.innerText = ''
 renderAdButtons()
 
 // event listener
@@ -337,15 +377,25 @@ document.addEventListener("click", event => {
         renderAdButtons()
         break
     case ("attack"):
-      renderRpsButtons()
+      renderRpsButtons({rock: "2x base damage", paper: "1x base damage, 1x damage reduction", scissor: "1-2.5x base damage"})
       attackDefendDecision = true
       console.log('You chose Attack.')
       break
     case ("defend"):
-      renderRpsButtons()
+      renderRpsButtons({rock: "2x damage reduction", paper: "20% heal", scissor: "1x chance of receiving 0 damage"})
       attackDefendDecision = false
       console.log('You chose Defend')
       break
+    case ("Start Game"):
+      output.innerHTML = ''
+      testRun()
+      break
+      case ("Reset"):
+      resetGame()
+      break
+  }
+
+  switch (event.target.firstElementChild.innerText){
     case ("Rock"):
       console.log("You chose Rock.")
       checkBuffs()
@@ -367,13 +417,6 @@ document.addEventListener("click", event => {
       checkHealth(lee, bob)
       renderAdButtons()
       break
-    case ("Start Game"):
-      output.innerHTML = ''
-      testRun()
-      break
-    case ("Reset"):
-      resetGame()
-      break
-  }
+  } // end switch
 })
 // end event listener
