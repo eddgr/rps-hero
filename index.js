@@ -1,96 +1,69 @@
-// Math.sign(number1 - number 2)
-// if number1 > number2 = 1 (win)
-// if number1 < number2 = -1 (lose)
-// if number1 === number2 = 0 (neutral)
+// MISC
+  // GAME LOOP for testing purposes only
+  let gameNumber = 1
 
-// ROCK
-  // Math.sign(rpsChoices.indexOf("rock")-rpsChoices.indexOf("paper")) === -1
-  // Math.sign(rpsChoices.indexOf("rock")-rpsChoices.indexOf("rock")) === 0
-  // Math.sign(rpsChoices.indexOf("scissor")-rpsChoices.indexOf("rock")) === 1
-
-// PAPER
-  // Math.sign(rpsChoices.indexOf("paper")-rpsChoices.indexOf("rock")) === 1
-  // Math.sign(rpsChoices.indexOf("paper")-rpsChoices.indexOf("paper")) === 0
-  // Math.sign(rpsChoices.indexOf("paper")-rpsChoices.indexOf("scissor")) === -1
-
-// SCISSOR
-  // Math.sign(rpsChoices.indexOf("rock")-rpsChoices.indexOf("scissor")) === -1
-  // Math.sign(rpsChoices.indexOf("scissor")-rpsChoices.indexOf("scissor")) === 0
-  // Math.sign(rpsChoices.indexOf("scissor")-rpsChoices.indexOf("paper")) === 1
-
-// GAME LOOP for testing purposes only
-let gameNumber = 1
-
-function testRun(user1 = lee, user2 = bob){
-  output.innerHTML += `
-    <hr>
-    <h2>Game Number: ${gameNumber}</h2>
-  `
-  while (user1.hp > 0 && user2.hp > 0){
-    playRound()
-  } // while statement
-  if (user1.hp <= 0) {
-    user1.hp = 10
-    user2.hp = 10
-
-    gameNumber = 1 // reset gameNumber count to 1
+  function testRun(user1 = lee, user2 = bob){
     output.innerHTML += `
-      <h2>You Lose!</h2>
+      <hr>
+      <h2>Game Number: ${gameNumber}</h2>
     `
-  } else {
-    user1.hp = 10
-    user2.hp = 10
+    while (user1.hp > 0 && user2.hp > 0){
+      playRound()
+    } // while statement
+    if (user1.hp <= 0) {
+      user1.hp = 10
+      user2.hp = 10
 
-    gameNumber ++ // increase gameNumber count by 1 for every play though to show success
-    output.innerHTML += `
-      <h2>You Win!</h2>
-    `
-    return testRun() // reruns the loop until user 1 loses
-  } // end if
-}
-// end GAME LOOP
+      gameNumber = 1 // reset gameNumber count to 1
+      output.innerHTML += `
+        <h2>You Lose!</h2>
+      `
+    } else {
+      user1.hp = 10
+      user2.hp = 10
 
-// rock paper scissor AI logic
-const rollRPS = () => {
-  switch(rpsChoices.sample()){
-    case("rock"):
-      return "rock"
-      break
-    case("paper"):
-      return "paper"
-      break
-    case("scissor"):
-      return "scissor"
-      break
-  } // end switch
-}
-// end AI logic
+      gameNumber ++ // increase gameNumber count by 1 for every play though to show success
+      output.innerHTML += `
+        <h2>You Win!</h2>
+      `
+      return testRun() // reruns the loop until user 1 loses
+    } // end if
+  } // end GAME LOOP
 
+  // rock paper scissor AI logic
+  const rollRPS = () => {
+    switch(rpsChoices.sample()){
+      case("rock"):
+        return "rock"
+        break
+      case("paper"):
+        return "paper"
+        break
+      case("scissor"):
+        return "scissor"
+        break
+    } // end switch
+  } // end AI logic
 // end MISC
 
 // ATTACK DEFEND LOGIC
-// attackDefendDecision will when set to true be in attack mode, when set to false we will be in defense mode
-let attackDefendDecision = true
+  // attackDefendDecision will when set to true be in attack mode, when set to false we will be in defense mode
+  let attackDefendDecision = true
 
-// player buffs
-// user1 buff and user 2 buff. they will be set to an empty array, when a user has a buff set from the playRound we push the buff property to the user1 or user 2 array:
-// new object with predetermined buffs set at count of 0. both players start at 0.
-// the win success of buffs will increase the numbers += number
-// every turn, if buff count is greater than 0, -=1. otherwise, do nothing
-let user1Buffs = {
-  damageReduction: 0,
-  missedAttack: 0
-  // calculate the miss attack chance
-  // if missedAttack > 0, calculate the chance of being attack
-}
-let user2Buffs = {
-  damageReduction: 0,
-  missedAttack: 0
-  // calculate the miss attack chance
-  // if missedAttack > 0, calculate the chance of being attack
-}
-// end player buffs
-
+  // player buffs
+  let user1Buffs = {
+    damageReduction: 0,
+    missedAttack: 0
+    // calculate the miss attack chance
+    // if missedAttack > 0, calculate the chance of being attack
+  }
+  let user2Buffs = {
+    damageReduction: 0,
+    missedAttack: 0
+    // calculate the miss attack chance
+    // if missedAttack > 0, calculate the chance of being attack
+  }
+  // end player buffs
 // end ATTACK DEFEND LOGIC
 
 // CLASS CHARACTERS
@@ -108,16 +81,26 @@ const bob = new Character('Bob')
 // end CLASS CHARACTERS
 
 // HELPERS
-// adding 'sample' to Array prototype to randomize a return item from an array
-// this requires 'sample' to be invoked
-Array.prototype.sample = function(){
-  return this[Math.floor(Math.random()*this.length)];
-}
+  // adding 'sample' to Array prototype to randomize a return item from an array
+  // this requires 'sample' to be invoked
+  Array.prototype.sample = function(){
+    return this[Math.floor(Math.random()*this.length)];
+  }
 
-const grab = (funcArg) => {
-  return document.querySelector(funcArg)
-}
+  const grab = (funcArg) => {
+    return document.querySelector(funcArg)
+  }
+
+  const renderRpsButtons = () => {
+    commands.innerHTML = `
+      <button class="nes-btn">Back</button>
+      <button class="nes-btn">Rock</button>
+      <button class="nes-btn">Paper</button>
+      <button class="nes-btn">Scissor</button>
+     `
+  }
 // end HELPERS
+
 const rpsChoices = ["rock", "paper", "scissor"]
 
 // RESET
@@ -160,7 +143,7 @@ let checkHealth = (player1, player2) => {
         <h2>You lose</h2>
       `
       break
-    case (player1.hp < 10 && player2.hp > 0):
+    case (player1.hp < 10 && player1.hp > 3 && player2.hp > 0):
       player1Health.classList.value = "nes-progress is-warning"
       break
     case (player1.hp < 3 && player2.hp > 0):
@@ -179,7 +162,7 @@ let checkHealth = (player1, player2) => {
         <h2>You win!</h2>
       `
       break
-    case (player2.hp < 10 && player1.hp > 0):
+    case (player2.hp < 10 && player2.hp > 3 && player1.hp > 0):
       player2Health.classList.value = "nes-progress is-warning"
       break
     case (player2.hp < 3 && player1.hp > 0):
@@ -261,8 +244,8 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
         //end attackDefend logic for ROCK
 
         // attackDefend logic for SCISSOR
-        // user 1
         if (attackDefendDecision === true && userChoice1 === "scissor") {
+        // user 1
           console.log("you chose scissor")
           // check user 2 buffs before attacking
           if (user2Buffs.damageReduction > 0){
@@ -280,6 +263,7 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
           console.log(user1Buffs)
         }
         //end attackDefend logic for SCISSOR
+
 
         player2Health.value = bob.hp
         break
@@ -370,22 +354,12 @@ document.addEventListener("click", event => {
         `
         break
     case ("attack"):
-      commands.innerHTML = `
-        <button class="nes-btn">Back</button>
-        <button class="nes-btn">Rock</button>
-        <button class="nes-btn">Paper</button>
-        <button class="nes-btn">Scissor</button>
-       `
+      renderRpsButtons()
       attackDefendDecision = true
       console.log('attacking!')
       break
     case ("defend"):
-      commands.innerHTML = `
-        <button class="nes-btn">Back</button>
-        <button class="nes-btn">Rock</button>
-        <button class="nes-btn">Paper</button>
-        <button class="nes-btn">Scissor</button>
-       `
+      renderRpsButtons()
       attackDefendDecision = false
       console.log('Defend')
       break
