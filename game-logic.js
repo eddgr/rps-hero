@@ -8,6 +8,24 @@
       <h2>Game Number: ${gameNumber}</h2>
     `
     while (user1.hp > 0 && user2.hp > 0){
+      // player 1 buff check
+      if (user1Buffs.damageReduction > 0){
+        user1Buffs.damageReduction -= 1
+      }
+
+      if (user1Buffs.missedAttack > 0){
+        user1Buffs.missedAttack -= 1
+      }
+      // end player 1 buff check
+
+      // player 2 buff check
+      if (user2Buffs.damageReduction > 0){
+        user2Buffs.damageReduction -= 1
+      }
+      if (user2Buffs.missedAttack > 0){
+        user2Buffs.missedAttack -= 1
+      }
+      // end player 2 buff check
       playRound()
     } // while statement
     if (user1.hp <= 0) {

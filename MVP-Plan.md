@@ -88,12 +88,14 @@ regBoss = [attk, def]
 ### Next Deliverable
 <!-- - DOM input -->
 - add attack/defend
-  - after selecting RPS, go back to A/D choice
+  <!-- - after selecting RPS, go back to A/D choice -->
   - user1 win condition should check user2buffs
   - user1 lose condition should check user1buffs
+  - calculate computer buff against us
 - abstract code
 - create backend
 - character design
+- special counter
 
 
 ## Notes
