@@ -35,7 +35,7 @@ function testRun(user1 = lee, user2 = bob){
 
     gameNumber = 1 // reset gameNumber count to 1
     output.innerHTML += `
-    <h2>You Lose!</h2>
+      <h2>You Lose!</h2>
     `
   } else {
     user1.hp = 10
@@ -43,7 +43,7 @@ function testRun(user1 = lee, user2 = bob){
 
     gameNumber ++ // increase gameNumber count by 1 for every play though to show success
     output.innerHTML += `
-    <h2>You Win!</h2>
+      <h2>You Win!</h2>
     `
     return testRun() // reruns the loop until user 1 loses
   } // end if

@@ -88,4 +88,6 @@ regBoss = [attk, def]
 ### Next Deliverable
 <!-- - DOM input -->
 - add attack/defend
+- create backend
 - abstract code
+- character design
