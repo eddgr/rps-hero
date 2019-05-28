@@ -97,6 +97,11 @@ regBoss = [attk, def]
 - character design
 - special counter
 
+## Edgar To Do
+- make player 2 buff work
+- change output text to reflect actual damage
+- fix progress bar
+
 
 ## Notes
 

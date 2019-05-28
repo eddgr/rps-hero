@@ -50,6 +50,8 @@
   }
 
   const renderAdButtons = () => {
+    // A/D === Attack/Defend
+    // check current buffs before rendering A/D buttons
     const user1 = Object.entries(user1Buffs)
     const user2 = Object.entries(user2Buffs)
 
@@ -105,12 +107,14 @@ function resetGame(player1 = lee, player2 = bob){
   player1Health.classList.value = "nes-progress is-success"
   user1Buffs.damageReduction = 0
   user1Buffs.missedAttack = 0
+  player1Buff.innerHTML = ''
   // player 2 reset
   player2.hp = 10
   player2Health.value = '10'
   player2Health.classList.value = "nes-progress is-success"
   user2Buffs.damageReduction = 0
   user2Buffs.missedAttack = 0
+  player2Buff.innerHTML = ''
 
   output.innerHTML = ''
 }
@@ -358,12 +362,17 @@ const player1Health = grab('#player1-health-bar')
 const player2Health = grab('#player2-health-bar')
 const player1Buff = grab('#player1-buff')
 const player2Buff = grab('#player2-buff')
+const player1Name = grab('#player1-name')
+const player2Name = grab('#player2-name')
 // end DOM
 
 start.innerHTML = `
   <button class="nes-btn is-primary">Start Game</button>
   <button class="nes-btn">Reset</button>
 `
+
+player1Name.innerText = lee.name
+player2Name.innerText = bob.name
 player1Buff.innerText = ''
 player2Buff.innerText = ''
 renderAdButtons()
