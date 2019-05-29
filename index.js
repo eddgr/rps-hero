@@ -58,21 +58,50 @@
     const user1 = Object.entries(lee.buffs)
     const user2 = Object.entries(bob.buffs)
 
-    for (let buff of user1){
-      if (buff[1] > 0){
-        player1Buff.innerHTML = `<span id="player1-${buff[0]}">${buff[0]}</span>`
-      }
+    //player 1 buff status
+    if (lee.buffs.damageReduction > 0 && lee.buffs.missedAttack > 0){
+      player1Buff.innerText = `
+        Damage Reduction: ${lee.buffs.damageReduction - 1}
+        Missed Attack: ${lee.buffs.missedAttack - 1}
+      `
+    } else if (lee.buffs.damageReduction > 0) {
+      player1Buff.innerText = `
+        Damage Reduction: ${lee.buffs.damageReduction - 1}
+      `
+    } else if (lee.buffs.missedAttack > 0) {
+      player1Buff.innerText = `
+        Missed Attack: ${lee.buffs.missedAttack}
+      `
+    } else {
+      player1Buff.innerText = ``
     }
-    for (let buff of user2){
-      if (buff[1] > 0){
-        player2Buff.innerHTML = `<span id="player2-${buff[0]}">${buff[0]}</span>`
-      }
+    //player 2 buff status
+    if (bob.buffs.damageReduction > 0 && bob.buffs.missedAttack > 0){
+      player2Buff.innerText = `
+        Damage Reduction: ${bob.buffs.damageReduction - 1}
+        Missed Attack: ${bob.buffs.missedAttack - 1}
+      `
+    } else if (bob.buffs.damageReduction > 0) {
+      player2Buff.innerText = `
+        Damage Reduction: ${bob.buffs.damageReduction - 1}
+      `
+    } else if (bob.buffs.missedAttack > 0) {
+      player2Buff.innerText = `
+        Missed Attack: ${bob.buffs.missedAttack}
+      `
+    } else {
+      player2Buff.innerText = ``
     }
+    //end testing new display for buffs
 
     commands.innerHTML = `
       <button class="nes-btn">attack</button>
       <button class="nes-btn">defend</button>
     `
+    //display player1 HP & 2 HP
+    player1WinHP.innerText = `HP: ${lee.hp}`
+    player2WinHP.innerText = `HP: ${bob.hp}`
+    //destroys attack icon
     destroyAttackIcon()
     console.log(attackIconImage)
     console.log('attack icon should be destroyed')
@@ -226,26 +255,18 @@ function resetGame(player1 = lee, player2 = bob){
     // player 1 buff check
     if (lee.buffs.damageReduction > 0){
       lee.buffs.damageReduction -= 1
-      const player1Dr = document.querySelector("#player1-damageReduction")
-      player1Dr.remove()
     }
     if (lee.buffs.dodge > 0){
       lee.buffs.dodge -= 1
-      const player1D = document.querySelector("#player1-dodge")
-      player1D.remove()
     }
     // end player 1 buff check
 
     // player 2 buff check
     if (bob.buffs.damageReduction > 0){
       bob.buffs.damageReduction -= 1
-      const player2Dr = document.querySelector("#player2-damageReduction")
-      player2Dr.remove()
     }
     if (bob.buffs.dodge > 0){
       bob.buffs.dodge -= 1
-      const player2D = document.querySelector("#player2-dodge")
-      player2D.remove()
     }
     // end player 2 buff check
   }
@@ -352,8 +373,13 @@ const player1Buff = grab('#player1-buff')
 const player2Buff = grab('#player2-buff')
 const attackIcon = grab('#attk-icon')
 const attackIconImage = grab('#attk-icon > img')
+const player1WinHP = grab('#player1-winHP')
+const player2WinHP = grab('#player2-winHP')
 const player1Name = grab('#player1-name')
 const player2Name = grab('#player2-name')
+
+
+
 // end DOM
 
 start.innerHTML = `
@@ -365,6 +391,8 @@ player1Name.innerText = lee.name
 player2Name.innerText = bob.name
 player1Buff.innerText = ''
 player2Buff.innerText = ''
+
+
 renderAdButtons()
 
 // event listener
