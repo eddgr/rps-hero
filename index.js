@@ -58,17 +58,6 @@
     const user1 = Object.entries(lee.buffs)
     const user2 = Object.entries(bob.buffs)
 
-    // for (let buff of user1){
-    //   if (buff[1] > 0){
-    //     player1Buff.innerText += buff[0]
-    //   }
-    // }
-    // for (let buff of user2){
-    //   if (buff[1] > 0){
-    //     player2Buff.innerText += buff[0]
-    //   }
-    // }
-    //testing new display for buffs from line 71
     //player 1 buff status
     if (lee.buffs.damageReduction > 0 && lee.buffs.missedAttack > 0){
       player1Buff.innerText = `
@@ -123,13 +112,13 @@
 
   // display the player choices and damage output
   function outputMessage (caseNum, userChoice1, userChoice2) {
-    output.innerHTML += `
+    output.innerHTML = `
       <p>You played ${userChoice1} and ${bob.name} played ${userChoice2}.</p>
     `
     switch(caseNum) {
       case (-1):
         output.innerHTML += `
-          <p>You lost this round and took ${bob.damage} damage.</p>
+          <p>You lost this round and took ${bob.currentDamage} damage.</p>
         `
         break
       case (0):
@@ -139,8 +128,9 @@
         break
       case (1):
         output.innerHTML += `
-          <p>You won this round. Player 2 lost ${lee.damage} HP.</p>
+          <p>You won this round. Player 2 lost ${lee.currentDamage} HP.</p>
         `
+        break
     }
     output.innerHTML += `<hr>`
   }
@@ -153,22 +143,28 @@
         switch (userChoice){
           case ("rock"):
             if (otherPlayer.buffs.damageReduction > 0){
-              otherPlayer.hp -= ((currentPlayer.damage * 2)/2)
-            } else if (otherPlayer.buffs.missedAttack > 0){
-              otherPlayer.hp -= ((currentPlayer.damage * 2) * missRng.sample())
+              currentPlayer.currentDamage = ((currentPlayer.damage * 2)/2)
+              otherPlayer.hp -= currentPlayer.currentDamage
+            } else if (otherPlayer.buffs.dodge > 0){
+              currentPlayer.currentDamage = ((currentPlayer.damage * 2) * missRng.sample())
+              otherPlayer.hp -= currentPlayer.currentDamage
             } else {
-              otherPlayer.hp -= (currentPlayer.damage * 2)
+              currentPlayer.currentDamage = (currentPlayer.damage * 2)
+              otherPlayer.hp -= currentPlayer.currentDamage
             }
             break
           case ("paper"):
             if (otherPlayer.buffs.damageReduction > 0){
-              otherPlayer.hp -= (currentPlayer.damage/2)
+              currentPlayer.currentDamage = (currentPlayer.damage/2)
+              otherPlayer.hp -= currentPlayer.currentDamage
               currentPlayer.buffs.damageReduction += 2
-            } else if (otherPlayer.buffs.missedAttack > 0){
-              otherPlayer.hp -= (currentPlayer.damage * missRng.sample())
+            } else if (otherPlayer.buffs.dodge > 0){
+              currentPlayer.currentDamage = (currentPlayer.damage * missRng.sample())
+              otherPlayer.hp -= currentPlayer.currentDamage
               currentPlayer.buffs.damageReduction += 2
             } else {
-              otherPlayer.hp -= currentPlayer.damage
+              currentPlayer.currentDamage = currentPlayer.damage
+              otherPlayer.hp -= currentPlayer.currentDamage
               currentPlayer.buffs.damageReduction += 2
               // using 2 because one buff will be "used" the same turn it is gained
               console.log('Damage Reduction Buff: ', currentPlayer.buffs)
@@ -176,11 +172,14 @@
             break
           case ("scissor"):
             if (otherPlayer.buffs.damageReduction > 0){
-              otherPlayer.hp -= (currentPlayer.damage * (scissorRng.sample()/2))
-            } else if (otherPlayer.buffs.missedAttack > 0){
-              otherPlayer.hp -= ((currentPlayer.damage * scissorRng.sample()) * missRng.sample())
+              currentPlayer.currentDamage = (currentPlayer.damage * (scissorRng.sample()/2))
+              otherPlayer.hp -= currentPlayer.currentDamage
+            } else if (otherPlayer.buffs.dodge > 0){
+              currentPlayer.currentDamage = ((currentPlayer.damage * scissorRng.sample()) * missRng.sample())
+              otherPlayer.hp -= currentPlayer.currentDamage
             } else {
-              otherPlayer.hp -= (currentPlayer.damage * scissorRng.sample())
+              currentPlayer.currentDamage = (currentPlayer.damage * scissorRng.sample())
+              otherPlayer.hp -= currentPlayer.currentDamage
             }
             break
         } // end nested switch
@@ -208,14 +207,14 @@
             }
             break
           case ("scissor"):
-            if (currentPlayer.buffs.missedAttack === 0){
-              currentPlayer.buffs.missedAttack += 2
-              console.log("missedAttack at 0")
+            if (currentPlayer.buffs.dodge === 0){
+              currentPlayer.buffs.dodge += 2
+              console.log("dodge at 0")
               // using 2 because one buff will be "used" the same turn it is gained
               // todo: make this logic sexy
             } else {
-              currentPlayer.buffs.missedAttack += 1
-              console.log("have missedAttack")
+              currentPlayer.buffs.dodge += 1
+              console.log("have dodge")
             } // end if
             console.log("Missed Attack Buff: ", currentPlayer.buffs)
             break
@@ -236,14 +235,14 @@ function resetGame(player1 = lee, player2 = bob){
   player1Health.value = '10'
   player1Health.classList.value = "nes-progress is-success"
   lee.buffs.damageReduction = 0
-  lee.buffs.missedAttack = 0
+  lee.buffs.dodge = 0
   player1Buff.innerHTML = ''
   // player 2 reset
   player2.hp = 10
   player2Health.value = '10'
   player2Health.classList.value = "nes-progress is-success"
   bob.buffs.damageReduction = 0
-  bob.buffs.missedAttack = 0
+  bob.buffs.dodge = 0
   player2Buff.innerHTML = ''
 
   output.innerHTML = ''
@@ -257,8 +256,8 @@ function resetGame(player1 = lee, player2 = bob){
     if (lee.buffs.damageReduction > 0){
       lee.buffs.damageReduction -= 1
     }
-    if (lee.buffs.missedAttack > 0){
-      lee.buffs.missedAttack -= 1
+    if (lee.buffs.dodge > 0){
+      lee.buffs.dodge -= 1
     }
     // end player 1 buff check
 
@@ -266,8 +265,8 @@ function resetGame(player1 = lee, player2 = bob){
     if (bob.buffs.damageReduction > 0){
       bob.buffs.damageReduction -= 1
     }
-    if (bob.buffs.missedAttack > 0){
-      bob.buffs.missedAttack -= 1
+    if (bob.buffs.dodge > 0){
+      bob.buffs.dodge -= 1
     }
     // end player 2 buff check
   }

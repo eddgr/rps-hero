@@ -16,8 +16,8 @@
         user1.buffs.damageReduction -= 1
       }
 
-      if (user1.buffs.missedAttack > 0){
-        user1.buffs.missedAttack -= 1
+      if (user1.buffs.dodge > 0){
+        user1.buffs.dodge -= 1
       }
       // end player 1 buff check
 
@@ -25,8 +25,8 @@
       if (user2.buffs.damageReduction > 0){
         user2.buffs.damageReduction -= 1
       }
-      if (user2.buffs.missedAttack > 0){
-        user2.buffs.missedAttack -= 1
+      if (user2.buffs.dodge > 0){
+        user2.buffs.dodge -= 1
       }
       // end player 2 buff check
       playRound()
