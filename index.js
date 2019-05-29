@@ -31,20 +31,28 @@ let currentUser = lee
   // render Rock, Paper, Scissor buttons
   const renderRpsButtons = (buffDescObj) => {
     commands.innerHTML = `
-      <button class="nes-btn">
-        <p>Rock</p>
-        <span>${buffDescObj.rock}</span>
-      </button>
+      <div class="row">
+        <div class="col-sm card m-1">
+          <span class="card-body">${buffDescObj.rock}</span>
+          <button class="nes-btn is-primary mb-4">
+            Rock
+          </button>
+        </div>
 
-      <button class="nes-btn">
-        <p>Paper</p>
-        <span>${buffDescObj.paper}</span>
-      </button>
+        <div class="col-sm card m-1">
+          <span class="card-body">${buffDescObj.paper}</span>
+          <button class="nes-btn is-warning mb-4">
+            Paper
+          </button>
+        </div>
 
-      <button class="nes-btn">
-        <p>Scissor</p>
-        <span>${buffDescObj.scissor}</span>
-      </button>
+        <div class="col-sm card m-1">
+          <span class="card-body">${buffDescObj.scissor}</span>
+          <button class="nes-btn is-error mb-4">
+            Scissor
+          </button>
+        </div>
+      </div>
 
       <br><br>
       <button class="nes-btn">Back</button>
@@ -131,7 +139,6 @@ let currentUser = lee
         `
         break
     }
-    output.innerHTML += `<hr>`
   }
 
   // attack/defend helper function to calculate damage and buff
@@ -402,10 +409,12 @@ const API_URL = "http://localhost:3000/api/v1/users"
 // login
 let playGame = () => {
   welcomeScreen.innerHTML = `
-    Hello hero! What is your name?
+    Hello hero!
+    <br><br>
+    What is your name?
     <br><br>
     <form>
-      <input type="text" class="nes-input" style="text-transform: uppercase">
+      <input type="text" class="nes-input" style="text-transform: uppercase" placeholder="Type your name here">
       <button class="nes-btn is-primary mt-4">Play Game</button>
     </form>
   `
@@ -421,7 +430,7 @@ document.addEventListener("click", event => {
         renderAdButtons()
         break
     case ("attack"):
-      renderRpsButtons({rock: "2x base damage", paper: "1x base damage, 1x damage reduction", scissor: "1-2.5x base damage"})
+      renderRpsButtons({rock: "2x base damage", paper: "1x base damage<br>50% damage reduction next turn", scissor: "1 - 2.5x base damage"})
       console.log("will render attack icon")
       renderAttackIcon()
       console.log(attackIcon)
@@ -429,7 +438,7 @@ document.addEventListener("click", event => {
       console.log('You chose Attack.')
       break
     case ("defend"):
-      renderRpsButtons({rock: "2x damage reduction", paper: "20% heal", scissor: "1x chance of receiving 0 damage"})
+      renderRpsButtons({rock: "50% Damage reduction for next 2 turns", paper: "Heal 20% HP", scissor: "50% chance to dodge next attack"})
       currentUser.attackLogic = false
       console.log('You chose Defend')
       console.log('rendering defense button')
@@ -457,9 +466,6 @@ document.addEventListener("click", event => {
       gameContainer.style.display = ""
       resetGame()
       break
-  }
-
-  switch (event.target.firstElementChild.innerText){
     case ("Rock"):
       console.log("You chose Rock.")
       checkBuffs()

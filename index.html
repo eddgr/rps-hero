@@ -10,10 +10,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   </head>
-  <body style="font-family: 'Press Start 2P'">
+  <body style="font-family: 'Press Start 2P'; height: 100%">
     <div id="welcome-screen" class="nes-container is-centered container col-sm-8">
-      RPS Hero logo
-      <div id="start" class="">
+      <h1 class="mt-4">RPS HERO</h1>
+      <div id="start" class="mt-4 mb-4">
 
       </div>
     </div>
@@ -26,13 +26,13 @@
           <p id="player2-name">Player 2</p></p><span id="player2-winHP"></span><br>
           <span id="player2-buff">player 2 buffs</span>
           <progress id="player2-health-bar" class="nes-progress is-success" value="10" max="10"></progress>
-          <div class=""style="margin-top: 1em">
+          <div class="">
             <i class="nes-squirtle"></i>
           </div>
         </div>
 
         <div id="user-1" class="" style="display:block; text-align: left; margin-top: 4em">
-          <div class="" style="margin-bottom: 1em">
+          <div class="">
             <i class="nes-mario"></i>
             <span id ="attk-icon"></span>
           </div>
@@ -40,16 +40,18 @@
           <p id="player1-name">Player 1 </p><span id="player1-winHP"></span><br>
           <span id="player1-buff">player 1 buffs</span>
         </div>
+
+
+        <div id="commands" class="">
+          RPS commands here
+          - RPS
+        </div>
+
+        <div id="temp-output" class="">
+          output here
+        </div>
       </div>
 
-      <div id="commands" class="">
-        RPS commands here
-        - RPS
-      </div>
-
-      <div id="temp-output" class="">
-        output here
-      </div>
     </div>
     <script src="character.js" charset="utf-8"></script>
     <script src="index.js" charset="utf-8"></script>
