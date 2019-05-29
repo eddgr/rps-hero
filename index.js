@@ -334,8 +334,11 @@ const player1Buff = grab('#player1-buff')
 const player2Buff = grab('#player2-buff')
 const attackIcon = grab('#attk-icon')
 const attackIconImage = grab('#attk-icon > img')
+const player1WinHP = grab('#player1-winHP')
 const player1Name = grab('#player1-name')
 const player2Name = grab('#player2-name')
+
+
 // end DOM
 
 start.innerHTML = `
@@ -344,9 +347,12 @@ start.innerHTML = `
 `
 
 player1Name.innerText = lee.name
+player1WinHP.innerText = lee.hp
 player2Name.innerText = bob.name
 player1Buff.innerText = ''
 player2Buff.innerText = ''
+
+
 renderAdButtons()
 
 // event listener
