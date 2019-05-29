@@ -12,22 +12,45 @@ let currentUser = lee
     return document.querySelector(funcArg)
   }
 
-  // render Attack/Defend icons
-  const renderAttackIcon = () => {
-    attackIcon.innerHTML = `
-      <img src="img/gameSword.jpg" height="100" width="120">
+  const renderUserAttackIcon = () => {
+    userAttkIcon.innerHTML = `
+    <img src="img/gameSword.jpg" height="100" width="120">
     `
   }
-  const renderDefenseIcon = () => {
-    attackIcon.innerHTML = `
-      <img src="img/gameShield.jpg" height="70" width="120">
-    `
-  }
-  const destroyAttackIcon = () => {
-    attackIcon.innerHTML = ``
-  }
-  // end render Attack/Defend icons
 
+  const renderUserDefenseIcon = () => {
+    userAttkIcon.innerHTML = `
+    <img src="img/gameShield.jpg" height="70" width="120">
+    `
+  }
+
+  const destroyUserAttackIcon = () => {
+    userAttkIcon.innerHTML = ``
+  }
+
+  const renderCompIcon = (bool) => {
+    if (bool === true){
+        renderCompAttackIcon() 
+    } else if (bool === false){
+        renderCompDefenseIcon()
+    }
+  }
+  const renderCompAttackIcon = () => {
+    compAttkIcon.innerHTML = `
+    <img src="img/gameSword.jpg" height="100" width="120">
+    `
+  }
+  const renderCompDefenseIcon = () => {
+    compAttkIcon.innerHTML = `
+    <img src="img/gameShield.jpg" height="100" width="120">
+    `
+  }
+
+  const renderWinLossIcon = () => {
+    winLossIcon.innerText = "hello"
+  }
+  // console.log(renderWinLossIcon)
+  
   // render Rock, Paper, Scissor buttons
   const renderRpsButtons = (buffDescObj) => {
     commands.innerHTML = `
@@ -58,7 +81,7 @@ let currentUser = lee
       <button class="nes-btn">Back</button>
      `
   }
-
+  
   // render Attack/Defend button
   const renderAdButtons = () => {
     // A/D === Attack/Defend
@@ -109,7 +132,9 @@ let currentUser = lee
     player1WinHP.innerText = `HP: ${currentUser.hp}`
     player2WinHP.innerText = `HP: ${bob.hp}`
     //destroys attack icon
-    // destroyAttackIcon()
+    // destroyUserAttackIcon()
+
+
     console.log(attackIconImage)
     console.log('attack icon should be destroyed')
 
@@ -356,8 +381,12 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
       case (1):
         console.log('testing output message 1 rock')
         outputMessage(1, userChoice1, userChoice2)
+        
         // check for win
         playerCheck(currentUser, bob, userChoice1)
+        //Testing WIN CASE TO POP TROPHY ON USER: WILL CHANGE with CSS
+        renderWinLossIcon()//testing to see where this fires off
+        //Testing WIN CASE TO POP TROPHY ON USER: WILL CHANGE with CSS
         break
     } // end switch
   } else {
@@ -396,14 +425,20 @@ const player1Health = grab('#player1-health-bar')
 const player2Health = grab('#player2-health-bar')
 const player1Buff = grab('#player1-buff')
 const player2Buff = grab('#player2-buff')
-const attackIcon = grab('#attk-icon')
+const userAttkIcon = grab('#usr-attk-icon')
+const compAttkIcon = grab('#comp-attk-icon')
 const attackIconImage = grab('#attk-icon > img')
 const player1WinHP = grab('#player1-winHP')
 const player2WinHP = grab('#player2-winHP')
 const player1Name = grab('#player1-name')
 const player2Name = grab('#player2-name')
+const user1Sprite = grab('#user-1-sprite')
+const comp1Sprite = grab ('#comp-1-sprite')
+const winLossIcon = grab('#winLoss')
+// winLossIcon.innerText = "test Trophy placement"
 const welcomeScreen = grab('#welcome-screen')
 const API_URL = "http://localhost:3000/api/v1/users"
+
 // end DOM
 
 // login
@@ -442,7 +477,7 @@ document.addEventListener("click", event => {
       currentUser.attackLogic = false
       console.log('You chose Defend')
       console.log('rendering defense button')
-      renderDefenseIcon()
+      renderUserDefenseIcon()
       break
     case ("Start Game"):
       playGame()
