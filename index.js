@@ -58,24 +58,41 @@
     const user1 = Object.entries(lee.buffs)
     const user2 = Object.entries(bob.buffs)
 
-    for (let buff of user1){
-      if (buff[1] > 0){
-        player1Buff.innerText += buff[0]
-      }
+    // for (let buff of user1){
+    //   if (buff[1] > 0){
+    //     player1Buff.innerText += buff[0]
+    //   }
+    // }
+    // for (let buff of user2){
+    //   if (buff[1] > 0){
+    //     player2Buff.innerText += buff[0]
+    //   }
+    // }
+    //testing new display for buffs from line 71
+    if (lee.buffs.damageReduction > 0 && lee.buffs.missedAttack > 0){
+      player1Buff.innerText = `
+        Damage Reduction: ${lee.buffs.damageReduction - 1}
+        Missed Attack: ${lee.buffs.missedAttack - 1}
+      `
+    } else if (lee.buffs.damageReduction > 0) {
+      player1Buff.innerText = `
+        Damage Reduction: ${lee.buffs.damageReduction - 1}
+      `
+    } else if (lee.buffs.missedAttack > 0) {
+      player1Buff.innerText = `
+        Missed Attack: ${lee.buffs.missedAttack}
+      `
     }
-    for (let buff of user2){
-      if (buff[1] > 0){
-        player2Buff.innerText += buff[0]
-      }
-    }
+    //end testing new display for buffs
 
     commands.innerHTML = `
       <button class="nes-btn">attack</button>
       <button class="nes-btn">defend</button>
     `
-    //display player1 HP 
+    //display player1 HP & 2 HP
     player1WinHP.innerText = `HP: ${lee.hp}`
     player2WinHP.innerText = `HP: ${bob.hp}`
+    //destroys attack icon
     destroyAttackIcon()
     console.log(attackIconImage)
     console.log('attack icon should be destroyed')
