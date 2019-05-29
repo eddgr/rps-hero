@@ -58,21 +58,61 @@
     const user1 = Object.entries(lee.buffs)
     const user2 = Object.entries(bob.buffs)
 
-    for (let buff of user1){
-      if (buff[1] > 0){
-        player1Buff.innerText += buff[0]
-      }
+    // for (let buff of user1){
+    //   if (buff[1] > 0){
+    //     player1Buff.innerText += buff[0]
+    //   }
+    // }
+    // for (let buff of user2){
+    //   if (buff[1] > 0){
+    //     player2Buff.innerText += buff[0]
+    //   }
+    // }
+    //testing new display for buffs from line 71
+    //player 1 buff status
+    if (lee.buffs.damageReduction > 0 && lee.buffs.missedAttack > 0){
+      player1Buff.innerText = `
+        Damage Reduction: ${lee.buffs.damageReduction - 1}
+        Missed Attack: ${lee.buffs.missedAttack - 1}
+      `
+    } else if (lee.buffs.damageReduction > 0) {
+      player1Buff.innerText = `
+        Damage Reduction: ${lee.buffs.damageReduction - 1}
+      `
+    } else if (lee.buffs.missedAttack > 0) {
+      player1Buff.innerText = `
+        Missed Attack: ${lee.buffs.missedAttack}
+      `
+    } else {
+      player1Buff.innerText = ``
     }
-    for (let buff of user2){
-      if (buff[1] > 0){
-        player2Buff.innerText += buff[0]
-      }
+    //player 2 buff status
+    if (bob.buffs.damageReduction > 0 && bob.buffs.missedAttack > 0){
+      player2Buff.innerText = `
+        Damage Reduction: ${bob.buffs.damageReduction - 1}
+        Missed Attack: ${bob.buffs.missedAttack - 1}
+      `
+    } else if (bob.buffs.damageReduction > 0) {
+      player2Buff.innerText = `
+        Damage Reduction: ${bob.buffs.damageReduction - 1}
+      `
+    } else if (bob.buffs.missedAttack > 0) {
+      player2Buff.innerText = `
+        Missed Attack: ${bob.buffs.missedAttack}
+      `
+    } else {
+      player2Buff.innerText = ``
     }
+    //end testing new display for buffs
 
     commands.innerHTML = `
       <button class="nes-btn">attack</button>
       <button class="nes-btn">defend</button>
     `
+    //display player1 HP & 2 HP
+    player1WinHP.innerText = `HP: ${lee.hp}`
+    player2WinHP.innerText = `HP: ${bob.hp}`
+    //destroys attack icon
     destroyAttackIcon()
     console.log(attackIconImage)
     console.log('attack icon should be destroyed')
@@ -334,8 +374,13 @@ const player1Buff = grab('#player1-buff')
 const player2Buff = grab('#player2-buff')
 const attackIcon = grab('#attk-icon')
 const attackIconImage = grab('#attk-icon > img')
+const player1WinHP = grab('#player1-winHP')
+const player2WinHP = grab('#player2-winHP')
 const player1Name = grab('#player1-name')
 const player2Name = grab('#player2-name')
+
+
+
 // end DOM
 
 start.innerHTML = `
@@ -347,6 +392,8 @@ player1Name.innerText = lee.name
 player2Name.innerText = bob.name
 player1Buff.innerText = ''
 player2Buff.innerText = ''
+
+
 renderAdButtons()
 
 // event listener
