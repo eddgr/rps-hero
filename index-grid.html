@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>RPS Hero</title>
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+    <link href="https://unpkg.com/nes.css/css/nes.css" rel="stylesheet" />
+    <link href="css/rps-hero.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </head>
+  <body style="font-family: 'Press Start 2P'; height: 100%">
+
+    <div id="welcome-screen" class="nes-container is-centered container col-sm-6">
+      <h1 class="mt-4">RPS HERO</h1>
+      <div id="start" class="mt-4 mb-4">
+      </div>
+    </div>
+
+    <div id="game-container" class="container">
+
+      <div class="row" style="height:380px">
+        <div id="user-2" class="row w-100">
+          <div id="player2health" class="col-sm-6">
+            <span id="player2-name">Player 2 Name</span>
+            <progress id="player2-health-bar" class="nes-progress is-success" value="10" max="10"></progress>
+            <span id="player2-winHP">Player 2 HP</span>
+            <span id="player2-buff">Player 2 Buffs</span>
+          </div>
+          <div id="player2image" class="col-sm-6">
+            <span id="comp-attk-icon"></span>
+            <i id="comp-1-sprite" class="nes-squirtle"></i>
+          </div>
+        </div>
+
+        <div class="w-100"></div>
+        <!-- force column break -->
+
+        <div id="user-1" class="row w-100">
+          <div id="player1health" class="col-sm-6">
+            <span id="usr-attk-icon"></span>
+            <i id="user-1-sprite" class="nes-mario container animate"></i>
+          </div>
+          <div id="player1image" class="col-sm-6">
+            <span id="player1-name">Player 1 Name</span>
+            <span id="player1-level" class="float-right">Player 1 Level</span>
+            <progress id="player1-health-bar" class="nes-progress is-success" value="10" max="10"></progress>
+            <span id="player1-winHP">Player 1 HP</span>
+            <span id="player1-buff">Player 1 Buffs</span>
+          </div>
+        </div>
+      </div>
+      <!-- end row -->
+
+      <!-- <div id="temp-output" class="">
+        output here
+      </div> -->
+
+      <div class="row" id="commands" style="height:300px">
+        bottom row
+      </div>
+
+    </div>
+    <!-- end container-->
+
+
+    <!--
+
+    <div id="game-container" class="nes-container is-centered container col-sm-6">
+
+      <div id="user-2" class="card w-100 mt-n4">
+        <div class="row">
+          <div class="col-md-8 card-body text-right">
+            <h5 id="player2-name" class="card-title d-inline">Player 2</h5>
+            <span id="player2-winHP" class="float-left"></span><br>
+            <progress id="player2-health-bar" class="nes-progress is-success" style="width: 90%" value="10" max="10"></progress>
+            <span id="player2-buff">player 2 buffs</span>
+            <span id="winLoss" class="win-position"></span>
+          </div>
+          <div class="col-md-4 bg-secondary">
+            <span id="comp-attk-icon"></span>
+            <i id="comp-1-sprite" class="nes-squirtle"></i>
+          </div>
+        </div>
+      </div>
+
+      <div id="user-1" class="card w-100">
+        <div class="row">
+          <div class="col-md-4 bg-secondary">
+            <span id="usr-attk-icon"></span>
+            <i id="user-1-sprite" class="nes-mario container animate"></i>
+            <span id="player1-level" class="badge badge-pill badge-primary"></span>
+          </div>
+          <div class="col-md-8 card-body text-left">
+            <h5 id="player1-name" class="card-title d-inline">Player 1</h5>
+            <span id="player1-winHP" class="float-right"></span><br>
+            <progress id="player1-health-bar" class="nes-progress is-success" style="width: 90%" value="10" max="10"></progress>
+            <span id="player1-buff" class="card-text">player 1 buffs</span>
+          </div>
+        </div>
+      </div>
+
+      <div id="temp-output" class="">
+        output here
+      </div>
+
+      <div id="commands" class="">
+        RPS commands here
+        - RPS
+      </div>
+
+    </div> -->
+
+    <!-- JS -->
+    <script src="character.js" charset="utf-8"></script>
+    <script src="index.js" charset="utf-8"></script>
+    <script src="game-logic.js" charset="utf-8"></script>
+  </body>
+</html>

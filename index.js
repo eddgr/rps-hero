@@ -123,8 +123,16 @@ let currentUser = lee
     //end testing new display for buffs
 
     commands.innerHTML = `
-      <button class="nes-btn">attack</button>
-      <button class="nes-btn">defend</button>
+      <div class="col-sm-6 bg-danger text-center p-4">
+        Attack Image
+        <br><br>
+        <button class="nes-btn">attack</button>
+      </div>
+      <div class="col-sm-6 bg-primary text-center p-4">
+        Defend Image
+        <br><br>
+        <button class="nes-btn">defend</button>
+      </div>
     `
     //display player1 HP & 2 HP
     player1WinHP.innerText = `${currentUser.hp}/10 HP`
