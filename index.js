@@ -406,7 +406,7 @@ let playGame = () => {
     <br><br>
     <form>
       <input type="text" class="nes-input" style="text-transform: uppercase">
-      <button class="nes-btn is-primary">Play Game</button>
+      <button class="nes-btn is-primary mt-4">Play Game</button>
     </form>
   `
 }
