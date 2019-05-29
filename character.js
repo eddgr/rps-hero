@@ -6,7 +6,7 @@ class Character {
      this.damage = 2
      this.buffs = {
        damageReduction: 0,
-       missedAttack: 0
+       dodge: 0
      }
      this.attackLogic = true
      // Attack === true
