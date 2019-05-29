@@ -30,7 +30,7 @@ let currentUser = lee
 
   const renderCompIcon = (bool) => {
     if (bool === true){
-        renderCompAttackIcon() 
+        renderCompAttackIcon()
     } else if (bool === false){
         renderCompDefenseIcon()
     }
@@ -50,7 +50,7 @@ let currentUser = lee
     winLossIcon.innerText = "hello"
   }
   // console.log(renderWinLossIcon)
-  
+
   // render Rock, Paper, Scissor buttons
   const renderRpsButtons = (buffDescObj) => {
     commands.innerHTML = `
@@ -81,12 +81,11 @@ let currentUser = lee
       <button class="nes-btn">Back</button>
      `
   }
-  
+
   // render Attack/Defend button
   const renderAdButtons = () => {
     // A/D === Attack/Defend
     // check current buffs before rendering A/D buttons
-    destroyAttackIcon()
 
     //player 1 buff status
     if (currentUser.buffs.damageReduction > 0 && currentUser.buffs.missedAttack > 0){
@@ -381,7 +380,7 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
       case (1):
         console.log('testing output message 1 rock')
         outputMessage(1, userChoice1, userChoice2)
-        
+
         // check for win
         playerCheck(currentUser, bob, userChoice1)
         //Testing WIN CASE TO POP TROPHY ON USER: WILL CHANGE with CSS
@@ -467,8 +466,8 @@ document.addEventListener("click", event => {
     case ("attack"):
       renderRpsButtons({rock: "2x base damage", paper: "1x base damage<br>50% damage reduction next turn", scissor: "1 - 2.5x base damage"})
       console.log("will render attack icon")
-      renderAttackIcon()
-      console.log(attackIcon)
+      renderUserAttackIcon()
+      console.log(renderUserAttackIcon)
       currentUser.attackLogic = true
       console.log('You chose Attack.')
       break
