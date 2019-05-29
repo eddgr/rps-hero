@@ -60,12 +60,12 @@
 
     for (let buff of user1){
       if (buff[1] > 0){
-        player1Buff.innerText += buff[0]
+        player1Buff.innerHTML = `<span id="player1-${buff[0]}">${buff[0]}</span>`
       }
     }
     for (let buff of user2){
       if (buff[1] > 0){
-        player2Buff.innerText += buff[0]
+        player2Buff.innerHTML = `<span id="player2-${buff[0]}">${buff[0]}</span>`
       }
     }
 
@@ -216,18 +216,26 @@ function resetGame(player1 = lee, player2 = bob){
     // player 1 buff check
     if (lee.buffs.damageReduction > 0){
       lee.buffs.damageReduction -= 1
+      const player1Dr = document.querySelector("#player1-damageReduction")
+      player1Dr.remove()
     }
     if (lee.buffs.dodge > 0){
       lee.buffs.dodge -= 1
+      const player1D = document.querySelector("#player1-dodge")
+      player1D.remove()
     }
     // end player 1 buff check
 
     // player 2 buff check
     if (bob.buffs.damageReduction > 0){
       bob.buffs.damageReduction -= 1
+      const player2Dr = document.querySelector("#player2-damageReduction")
+      player2Dr.remove()
     }
     if (bob.buffs.dodge > 0){
       bob.buffs.dodge -= 1
+      const player2D = document.querySelector("#player2-dodge")
+      player2D.remove()
     }
     // end player 2 buff check
   }
