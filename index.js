@@ -9,22 +9,35 @@
   const grab = (funcArg) => {
     return document.querySelector(funcArg)
   }
-  const renderAttackIcon = () => {
-    attackIcon.innerHTML = `
+  const renderUserAttackIcon = () => {
+    userAttkIcon.innerHTML = `
     <img src="img/gameSword.jpg" height="100" width="120">
       Putting SWORD HERE
     `
   }
 
-  const renderDefenseIcon = () => {
-    attackIcon.innerHTML = `
+  const renderUserDefenseIcon = () => {
+    userAttkIcon.innerHTML = `
     <img src="img/gameShield.jpg" height="70" width="120">
       Putting Shield Here
     `
   }
 
-  const destroyAttackIcon = () => {
-    attackIcon.innerHTML = ``
+  const destroyUserAttackIcon = () => {
+    userAttkIcon.innerHTML = ``
+  }
+  
+  const renderCompAttackIcon = () => {
+    compAttkIcon.innerHTML = `
+    <img src="img/gameSword.jpg" height="100" width="120">
+      Putting SWORD HERE
+    `
+  }
+  const renderCompDefenseIcon = () => {
+    compAttkIcon.innerHTML = `
+    <img src="img/gameShield.jpg" height="100" width="120">
+      Putting SWORD HERE
+    `
   }
 
 
@@ -102,7 +115,7 @@
     player1WinHP.innerText = `HP: ${lee.hp}`
     player2WinHP.innerText = `HP: ${bob.hp}`
     //destroys attack icon
-    destroyAttackIcon()
+    destroyUserAttackIcon()
     console.log(attackIconImage)
     console.log('attack icon should be destroyed')
 
@@ -371,12 +384,14 @@ const player1Health = grab('#player1-health-bar')
 const player2Health = grab('#player2-health-bar')
 const player1Buff = grab('#player1-buff')
 const player2Buff = grab('#player2-buff')
-const attackIcon = grab('#attk-icon')
+const userAttkIcon = grab('#usr-attk-icon')
+const compAttkIcon = grab('#comp-attk-icon')
 const attackIconImage = grab('#attk-icon > img')
 const player1WinHP = grab('#player1-winHP')
 const player2WinHP = grab('#player2-winHP')
 const player1Name = grab('#player1-name')
 const player2Name = grab('#player2-name')
+
 
 
 
@@ -406,8 +421,8 @@ document.addEventListener("click", event => {
     case ("attack"):
       renderRpsButtons({rock: "2x base damage", paper: "1x base damage, 1x damage reduction", scissor: "1-2.5x base damage"})
       console.log("will render attack icon")
-      renderAttackIcon()
-      console.log(attackIcon)
+      renderUserAttackIcon()
+      console.log(userAttkIcon)
       lee.attackLogic = true
       console.log('You chose Attack.')
       break
@@ -416,7 +431,7 @@ document.addEventListener("click", event => {
       lee.attackLogic = false
       console.log('You chose Defend')
       console.log('rendering defense button')
-      renderDefenseIcon()
+      renderUserDefenseIcon()
       break
     case ("Start Game"):
       output.innerHTML = ''
@@ -430,7 +445,6 @@ document.addEventListener("click", event => {
   switch (event.target.firstElementChild.innerText){
     case ("Rock"):
       console.log("You chose Rock.")
-      destroyAttackIcon()
       checkBuffs()
       playRound('rock')
       checkHealth(lee, bob)
