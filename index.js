@@ -1,21 +1,3 @@
-// ATTACK DEFEND LOGIC
-  let attackDefendDecision = true
-  // Attack Mode === true, Defend Mode === false
-
-  // player buffs
-  let user1Buffs = {
-    damageReduction: 0,
-    missedAttack: 0
-    // calculate the miss attack chance
-    // if missedAttack > 0, calculate the chance of being attack
-  }
-  let user2Buffs = {
-    damageReduction: 0,
-    missedAttack: 0
-  }
-  // end player buffs
-// end ATTACK DEFEND LOGIC
-
 // HELPERS
   // adding 'sample' to Array prototype to randomize a return item from an array
   // this requires 'sample' to be invoked
@@ -23,10 +5,12 @@
     return this[Math.floor(Math.random()*this.length)];
   }
 
+  // use `grab` instead of a querySelector
   const grab = (funcArg) => {
     return document.querySelector(funcArg)
   }
 
+  // render Rock, Paper, Scissor buttons
   const renderRpsButtons = (buffDescObj) => {
     commands.innerHTML = `
       <button class="nes-btn">
@@ -49,9 +33,12 @@
      `
   }
 
+  // render Attack/Defend button
   const renderAdButtons = () => {
-    const user1 = Object.entries(user1Buffs)
-    const user2 = Object.entries(user2Buffs)
+    // A/D === Attack/Defend
+    // check current buffs before rendering A/D buttons
+    const user1 = Object.entries(lee.buffs)
+    const user2 = Object.entries(bob.buffs)
 
     for (let buff of user1){
       if (buff[1] > 0){
@@ -60,7 +47,7 @@
     }
     for (let buff of user2){
       if (buff[1] > 0){
-        player1Buff.innerText += buff[0]
+        player2Buff.innerText += buff[0]
       }
     }
 
@@ -68,8 +55,12 @@
       <button class="nes-btn">attack</button>
       <button class="nes-btn">defend</button>
     `
+
+    player1Health.value = lee.hp
+    player2Health.value = bob.hp
   }
 
+  // display the player choices and damage output
   function outputMessage (caseNum, userChoice1, userChoice2) {
     output.innerHTML += `
       <p>You played ${userChoice1} and ${bob.name} played ${userChoice2}.</p>
@@ -92,6 +83,86 @@
     }
     output.innerHTML += `<hr>`
   }
+
+  // attack/defend helper function to calculate damage and buff
+  function playerCheck(currentPlayer, otherPlayer, userChoice){
+    console.log("IN HELPER")
+    switch (currentPlayer.attackLogic){
+      case (true):
+        switch (userChoice){
+          case ("rock"):
+            if (otherPlayer.buffs.damageReduction > 0){
+              otherPlayer.hp -= ((currentPlayer.damage * 2)/2)
+            } else if (otherPlayer.buffs.missedAttack > 0){
+              otherPlayer.hp -= ((currentPlayer.damage * 2) * missRng)
+            } else {
+              otherPlayer.hp -= (currentPlayer.damage * 2)
+            }
+            break
+          case ("paper"):
+            if (otherPlayer.buffs.damageReduction > 0){
+              otherPlayer.hp -= (currentPlayer.damage/2)
+              currentPlayer.buffs.damageReduction += 2
+            } else if (otherPlayer.buffs.missedAttack > 0){
+              otherPlayer.hp -= (currentPlayer.damage * missRng)
+              currentPlayer.buffs.damageReduction += 2
+            } else {
+              otherPlayer.hp -= currentPlayer.damage
+              currentPlayer.buffs.damageReduction += 2
+              // using 2 because one buff will be "used" the same turn it is gained
+              console.log('Damage Reduction Buff: ', currentPlayer.buffs)
+            }
+            break
+          case ("scissor"):
+            const scissorRng = [1, 1.5, 2, 2.5]
+            if (otherPlayer.buffs.damageReduction > 0){
+              otherPlayer.hp -= (currentPlayer.damage * (scissorRng.sample()/2))
+            } else if (otherPlayer.buffs.missedAttack > 0){
+              otherPlayer.hp -= ((currentPlayer.damage * scissorRng.sample()) * missRng)
+            } else {
+              otherPlayer.hp -= (currentPlayer.damage * scissorRng.sample())
+            }
+            break
+        } // end nested switch
+        break
+      case (false):
+        switch (userChoice){
+          case ("rock"):
+            if (currentPlayer.buffs.damageReduction === 0){
+              currentPlayer.buffs.damageReduction += 3
+              // using 3 because one buff will be "used" the same turn it is gained
+              // todo: make this logic sexy
+              console.log("damageReduction at 0")
+            } else {
+              currentPlayer.buffs.damageReduction += 2
+              console.log("add on top of current damageReduction")
+            }
+            break
+          case ("paper"):
+            if (currentPlayer.hp === 9){
+              currentPlayer.hp += 1
+              console.log("Heal for 1 because of HP cap")
+            } else if (currentPlayer.hp < 9 ) {
+              currentPlayer.hp += 2
+              console.log('Heal for 2')
+            }
+            break
+          case ("scissor"):
+            if (currentPlayer.buffs.missedAttack === 0){
+              currentPlayer.buffs.missedAttack += 2
+              console.log("missedAttack at 0")
+              // using 2 because one buff will be "used" the same turn it is gained
+              // todo: make this logic sexy
+            } else {
+              currentPlayer.buffs.missedAttack += 1
+              console.log("have missedAttack")
+            } // end if
+            console.log("Missed Attack Buff: ", currentPlayer.buffs)
+            break
+        } // end nested switch
+        break
+    } // end switch
+  } // end playerCheck
 // end HELPERS
 
 const rpsChoices = ["rock", "paper", "scissor"]
@@ -103,14 +174,16 @@ function resetGame(player1 = lee, player2 = bob){
   player1.hp = 10
   player1Health.value = '10'
   player1Health.classList.value = "nes-progress is-success"
-  user1Buffs.damageReduction = 0
-  user1Buffs.missedAttack = 0
+  lee.buffs.damageReduction = 0
+  lee.buffs.missedAttack = 0
+  player1Buff.innerHTML = ''
   // player 2 reset
   player2.hp = 10
   player2Health.value = '10'
   player2Health.classList.value = "nes-progress is-success"
-  user2Buffs.damageReduction = 0
-  user2Buffs.missedAttack = 0
+  bob.buffs.damageReduction = 0
+  bob.buffs.missedAttack = 0
+  player2Buff.innerHTML = ''
 
   output.innerHTML = ''
 }
@@ -120,20 +193,20 @@ function resetGame(player1 = lee, player2 = bob){
   let checkBuffs = () => {
 
     // player 1 buff check
-    if (user1Buffs.damageReduction > 0){
-      user1Buffs.damageReduction -= 1
+    if (lee.buffs.damageReduction > 0){
+      lee.buffs.damageReduction -= 1
     }
-    if (user1Buffs.missedAttack > 0){
-      user1Buffs.missedAttack -= 1
+    if (lee.buffs.missedAttack > 0){
+      lee.buffs.missedAttack -= 1
     }
     // end player 1 buff check
 
     // player 2 buff check
-    if (user2Buffs.damageReduction > 0){
-      user2Buffs.damageReduction -= 1
+    if (bob.buffs.damageReduction > 0){
+      bob.buffs.damageReduction -= 1
     }
-    if (user2Buffs.missedAttack > 0){
-      user2Buffs.missedAttack -= 1
+    if (bob.buffs.missedAttack > 0){
+      bob.buffs.missedAttack -= 1
     }
     // end player 2 buff check
   }
@@ -143,6 +216,8 @@ function resetGame(player1 = lee, player2 = bob){
 // check character health every turn to determine whether to reset game or not
 let checkHealth = (player1, player2) => {
   console.log("Player 1 HP: ", player1.hp, "Player 2 HP: ", player2.hp)
+  console.log("Player 1 Buffs: ", player1.buffs)
+  console.log("Player 2 Buffs: ", player2.buffs)
 
   switch (true){
     // player 1
@@ -158,12 +233,6 @@ let checkHealth = (player1, player2) => {
     case (player1.hp < 3 && player2.hp > 0):
       player1Health.classList.value = "nes-progress is-error"
       break
-    // case (player1.hp === 8 && player2.hp > 0):
-    //   player1Health.classList.value = "nes-progress is-warning"
-    //   break
-    // case (player1.hp === 2 && player2.hp > 0):
-    //   player1Health.classList.value = "nes-progress is-error"
-    //   break
     // player 2
     case (player2.hp <= 0 && player1.hp > 0):
       resetGame(player1, player2)
@@ -177,12 +246,6 @@ let checkHealth = (player1, player2) => {
     case (player2.hp < 3 && player1.hp > 0):
       player2Health.classList.value = "nes-progress is-error"
       break
-    // case (player2.hp === 8 && player1.hp > 0):
-    //   player2Health.classList.value = "nes-progress is-warning"
-    //   break
-    // case (player2.hp === 2 && player1.hp > 0):
-    //   player2Health.classList.value = "nes-progress is-error"
-    //   break
   } // end switch
 }
 // end checkHealth
@@ -196,61 +259,20 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
   if (userChoice1 === "rock" && userChoice2 === "scissor" || userChoice1 === 'scissor' && userChoice2 === 'rock'){
     switch (Math.sign(rpsChoices.indexOf(userChoice2)-rpsChoices.indexOf(userChoice1))){
       case (-1):
-        outputMessage(-1, userChoice1, userChoice2)
         console.log('testing output message -1 rock')
-        // check if user1 has buff before taking damage
-
-        if (user1Buffs.missedAttack > 0){
-          lee.hp -= (bob.damage * missRng.sample())
-          player1Buff.innerHTML += "Missed Attack"
-          console.log("missedAttack should be 0 dmg")
-        } else if (user1Buffs.missedAttack === 0){
-          lee.hp -= bob.damage
-          player1Buff.innerHTML = ''
-          console.log("missedAttack not working")
-        } else if (user1Buffs.damageReduction > 0){
-          lee.hp -= (bob.damage/2)
-          player1Buff.innerHTML += "Damage Reduction"
-        } else if (user1Buffs.damageReduction === 0) {
-          lee.hp -= bob.damage
-          player1Buff.innerHTML = ''
-          console.log("missedAttack not working because of damageReduction")
-        }
-        // end user 1
-        player1Health.value = lee.hp
+        outputMessage(-1, userChoice1, userChoice2)
+        // check for lost
+        playerCheck(bob, lee, userChoice2)
         break
       case (0):
-        outputMessage(0, userChoice1, userChoice2)
         console.log('testing output message 0 rock')
+        outputMessage(0, userChoice1, userChoice2)
         break
       case (1):
-        outputMessage(1, userChoice1, userChoice2)
         console.log('testing output message 1 rock')
-        // attackDefend logic for ROCK
-        // user 1
-        if (attackDefendDecision === true && userChoice1 === "rock") {
-          console.log("You won with Rock.")
-          // check user2 buffs before attacking
-          if (user2Buffs.damageReduction > 0){
-            bob.hp -= (lee.damage/2)
-          } else {
-            bob.hp -= (lee.damage * 2)
-          }
-          // end user 2
-        } else if (attackDefendDecision === false && userChoice1 === "rock") {
-          if (user1Buffs.damageReduction === 0){
-            user1Buffs.damageReduction += 3
-            // using 3 because one buff will be "used" the same turn it is gained
-            // todo: make this logic sexy
-            console.log("damageReduction at 0")
-          } else {
-            user1Buffs.damageReduction += 2
-            console.log("add on top of current damageReduction")
-          }
-          console.log("Damage Reduction Buff: ", user1Buffs)
-        }
-        //end attackDefend logic for ROCK
-        player2Health.value = bob.hp
+        outputMessage(1, userChoice1, userChoice2)
+        // check for win
+        playerCheck(lee, bob, userChoice1)
         break
     } // end switch
   } else {
@@ -259,26 +281,8 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
     case (-1):
       outputMessage(-1, userChoice1, userChoice2)
       console.log('testing output message -1')
-      // check if user1 has buff before taking damage
-      // user 1
-      if (user1Buffs.missedAttack > 0){
-        lee.hp -= (bob.damage * missRng.sample())
-        player1Buff.innerHTML += "Missed Attack"
-        console.log("missedAttack should be 0 dmg")
-      } else if (user1Buffs.missedAttack === 0){
-        lee.hp -= bob.damage
-        player1Buff.innerHTML = ''
-        console.log("missedAttack not working")
-      } else if (user1Buffs.damageReduction > 0){
-        lee.hp -= (bob.damage/2)
-        player1Buff.innerHTML += "Damage Reduction"
-      } else if (user1Buffs.damageReduction === 0) {
-        lee.hp -= bob.damage
-        player1Buff.innerHTML = ''
-        console.log("missedAttack not working because of damageReduction")
-      }
-      // end user 1
-      player1Health.value = lee.hp
+      // check for lost
+      playerCheck(bob, lee, userChoice2)
       break
     case (0):
       outputMessage(0, userChoice1, userChoice2)
@@ -287,60 +291,8 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
     case (1):
       outputMessage(1, userChoice1, userChoice2)
       console.log('testing output message 1')
-      // attackDefend logic for SCISSOR
-      if (attackDefendDecision === true && userChoice1 === "scissor") {
-        // scissor damage multiple rng
-        // const scissorRng = Math.ceil(((Math.random()*1.5)+1))
-        const scissorRng = [1, 1.5, 2, 2.5]
-
-        console.log("You won with Scissor.")
-        // check user 2 buffs before attacking
-        if (user2Buffs.damageReduction > 0){
-          bob.hp -= (lee.damage * (scissorRng.sample()/2))
-        } else {
-          bob.hp -= (lee.damage * scissorRng.sample())
-        }
-        // end user 2
-        } else if (attackDefendDecision === false && userChoice1 === "scissor") {
-          if (user1Buffs.missedAttack === 0){
-            user1Buffs.missedAttack += 2
-            console.log("missedAttack at 0")
-            // using 2 because one buff will be "used" the same turn it is gained
-            // todo: make this logic sexy
-          } else {
-            user1Buffs.missedAttack += 1
-            console.log("have missedAttack")
-          } // end if
-          console.log("Missed Attack Buff: ", user1Buffs)
-        } // end else if
-        //end attackDefend logic for SCISSOR
-
-      // attackDefend logic for PAPER
-      if (attackDefendDecision === true && userChoice1 === "paper") {
-        // user 1
-          console.log("You won with Paper.")
-          // check user 2 buffs before attacking
-          if (user2Buffs.damageReduction > 0){
-            bob.hp -= (lee.damage/2)
-            user1Buffs.damageReduction += 2
-          } else {
-            bob.hp -= lee.damage
-            user1Buffs.damageReduction += 2
-            // using 2 because one buff will be "used" the same turn it is gained
-            console.log('Damage Reduction Buff: ', user1Buffs)
-          }
-          // end user 2
-        } else if (attackDefendDecision === false && userChoice1 === "paper") {
-          if (lee.hp === 9){
-            lee.hp += 1
-            console.log("Heal for 1 because of HP cap")
-          } else if (lee.hp < 9 ) {
-            lee.hp += 2
-            console.log('Heal for 2')
-          }
-        }
-        //end attackDefend logic for PAPER
-      player2Health.value = bob.hp
+      // check for win
+      playerCheck(lee, bob, userChoice1)
       break
      } // switch end
   } // IF statement end
@@ -358,12 +310,17 @@ const player1Health = grab('#player1-health-bar')
 const player2Health = grab('#player2-health-bar')
 const player1Buff = grab('#player1-buff')
 const player2Buff = grab('#player2-buff')
+const player1Name = grab('#player1-name')
+const player2Name = grab('#player2-name')
 // end DOM
 
 start.innerHTML = `
   <button class="nes-btn is-primary">Start Game</button>
   <button class="nes-btn">Reset</button>
 `
+
+player1Name.innerText = lee.name
+player2Name.innerText = bob.name
 player1Buff.innerText = ''
 player2Buff.innerText = ''
 renderAdButtons()
@@ -378,12 +335,12 @@ document.addEventListener("click", event => {
         break
     case ("attack"):
       renderRpsButtons({rock: "2x base damage", paper: "1x base damage, 1x damage reduction", scissor: "1-2.5x base damage"})
-      attackDefendDecision = true
+      lee.attackLogic = true
       console.log('You chose Attack.')
       break
     case ("defend"):
       renderRpsButtons({rock: "2x damage reduction", paper: "20% heal", scissor: "1x chance of receiving 0 damage"})
-      attackDefendDecision = false
+      lee.attackLogic = false
       console.log('You chose Defend')
       break
     case ("Start Game"):
