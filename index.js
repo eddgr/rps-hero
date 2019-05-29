@@ -69,6 +69,7 @@
     //   }
     // }
     //testing new display for buffs from line 71
+    //player 1 buff status
     if (lee.buffs.damageReduction > 0 && lee.buffs.missedAttack > 0){
       player1Buff.innerText = `
         Damage Reduction: ${lee.buffs.damageReduction - 1}
@@ -82,6 +83,25 @@
       player1Buff.innerText = `
         Missed Attack: ${lee.buffs.missedAttack}
       `
+    } else {
+      player1Buff.innerText = ``
+    }
+    //player 2 buff status
+    if (bob.buffs.damageReduction > 0 && bob.buffs.missedAttack > 0){
+      player2Buff.innerText = `
+        Damage Reduction: ${bob.buffs.damageReduction - 1}
+        Missed Attack: ${bob.buffs.missedAttack - 1}
+      `
+    } else if (bob.buffs.damageReduction > 0) {
+      player2Buff.innerText = `
+        Damage Reduction: ${bob.buffs.damageReduction - 1}
+      `
+    } else if (bob.buffs.missedAttack > 0) {
+      player2Buff.innerText = `
+        Missed Attack: ${bob.buffs.missedAttack}
+      `
+    } else {
+      player2Buff.innerText = ``
     }
     //end testing new display for buffs
 
