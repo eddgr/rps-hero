@@ -83,13 +83,13 @@
 
   // display the player choices and damage output
   function outputMessage (caseNum, userChoice1, userChoice2) {
-    output.innerHTML += `
+    output.innerHTML = `
       <p>You played ${userChoice1} and ${bob.name} played ${userChoice2}.</p>
     `
     switch(caseNum) {
       case (-1):
         output.innerHTML += `
-          <p>You lost this round and took ${bob.damage} damage.</p>
+          <p>You lost this round and took ${bob.currentDamage} damage.</p>
         `
         break
       case (0):
@@ -99,8 +99,9 @@
         break
       case (1):
         output.innerHTML += `
-          <p>You won this round. Player 2 lost ${lee.damage} HP.</p>
+          <p>You won this round. Player 2 lost ${lee.currentDamage} HP.</p>
         `
+        break
     }
     output.innerHTML += `<hr>`
   }
@@ -113,22 +114,28 @@
         switch (userChoice){
           case ("rock"):
             if (otherPlayer.buffs.damageReduction > 0){
-              otherPlayer.hp -= ((currentPlayer.damage * 2)/2)
+              currentPlayer.currentDamage = ((currentPlayer.damage * 2)/2)
+              otherPlayer.hp -= currentPlayer.currentDamage
             } else if (otherPlayer.buffs.dodge > 0){
-              otherPlayer.hp -= ((currentPlayer.damage * 2) * missRng.sample())
+              currentPlayer.currentDamage = ((currentPlayer.damage * 2) * missRng.sample())
+              otherPlayer.hp -= currentPlayer.currentDamage
             } else {
-              otherPlayer.hp -= (currentPlayer.damage * 2)
+              currentPlayer.currentDamage = (currentPlayer.damage * 2)
+              otherPlayer.hp -= currentPlayer.currentDamage
             }
             break
           case ("paper"):
             if (otherPlayer.buffs.damageReduction > 0){
-              otherPlayer.hp -= (currentPlayer.damage/2)
+              currentPlayer.currentDamage = (currentPlayer.damage/2)
+              otherPlayer.hp -= currentPlayer.currentDamage
               currentPlayer.buffs.damageReduction += 2
             } else if (otherPlayer.buffs.dodge > 0){
-              otherPlayer.hp -= (currentPlayer.damage * missRng.sample())
+              currentPlayer.currentDamage = (currentPlayer.damage * missRng.sample())
+              otherPlayer.hp -= currentPlayer.currentDamage
               currentPlayer.buffs.damageReduction += 2
             } else {
-              otherPlayer.hp -= currentPlayer.damage
+              currentPlayer.currentDamage = currentPlayer.damage
+              otherPlayer.hp -= currentPlayer.currentDamage
               currentPlayer.buffs.damageReduction += 2
               // using 2 because one buff will be "used" the same turn it is gained
               console.log('Damage Reduction Buff: ', currentPlayer.buffs)
@@ -136,11 +143,14 @@
             break
           case ("scissor"):
             if (otherPlayer.buffs.damageReduction > 0){
-              otherPlayer.hp -= (currentPlayer.damage * (scissorRng.sample()/2))
+              currentPlayer.currentDamage = (currentPlayer.damage * (scissorRng.sample()/2))
+              otherPlayer.hp -= currentPlayer.currentDamage
             } else if (otherPlayer.buffs.dodge > 0){
-              otherPlayer.hp -= ((currentPlayer.damage * scissorRng.sample()) * missRng.sample())
+              currentPlayer.currentDamage = ((currentPlayer.damage * scissorRng.sample()) * missRng.sample())
+              otherPlayer.hp -= currentPlayer.currentDamage
             } else {
-              otherPlayer.hp -= (currentPlayer.damage * scissorRng.sample())
+              currentPlayer.currentDamage = (currentPlayer.damage * scissorRng.sample())
+              otherPlayer.hp -= currentPlayer.currentDamage
             }
             break
         } // end nested switch
