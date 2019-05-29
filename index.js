@@ -5,10 +5,12 @@
     return this[Math.floor(Math.random()*this.length)];
   }
 
+  // use `grab` instead of a querySelector
   const grab = (funcArg) => {
     return document.querySelector(funcArg)
   }
 
+  // render Rock, Paper, Scissor buttons
   const renderRpsButtons = (buffDescObj) => {
     commands.innerHTML = `
       <button class="nes-btn">
@@ -31,6 +33,7 @@
      `
   }
 
+  // render Attack/Defend button
   const renderAdButtons = () => {
     // A/D === Attack/Defend
     // check current buffs before rendering A/D buttons
@@ -44,7 +47,7 @@
     }
     for (let buff of user2){
       if (buff[1] > 0){
-        player1Buff.innerText += buff[0]
+        player2Buff.innerText += buff[0]
       }
     }
 
@@ -57,6 +60,7 @@
     player2Health.value = bob.hp
   }
 
+  // display the player choices and damage output
   function outputMessage (caseNum, userChoice1, userChoice2) {
     output.innerHTML += `
       <p>You played ${userChoice1} and ${bob.name} played ${userChoice2}.</p>
@@ -80,6 +84,7 @@
     output.innerHTML += `<hr>`
   }
 
+  // attack/defend helper function to calculate damage and buff
   function playerCheck(currentPlayer, otherPlayer, userChoice){
     console.log("IN HELPER")
     switch (currentPlayer.attackLogic){
@@ -87,7 +92,7 @@
         switch (userChoice){
           case ("rock"):
             if (otherPlayer.buffs.damageReduction > 0){
-              otherPlayer.hp -= (currentPlayer.damage/2)
+              otherPlayer.hp -= ((currentPlayer.damage * 2)/2)
             } else if (otherPlayer.buffs.missedAttack > 0){
               otherPlayer.hp -= ((currentPlayer.damage * 2) * missRng)
             } else {
@@ -211,6 +216,8 @@ function resetGame(player1 = lee, player2 = bob){
 // check character health every turn to determine whether to reset game or not
 let checkHealth = (player1, player2) => {
   console.log("Player 1 HP: ", player1.hp, "Player 2 HP: ", player2.hp)
+  console.log("Player 1 Buffs: ", player1.buffs)
+  console.log("Player 2 Buffs: ", player2.buffs)
 
   switch (true){
     // player 1
@@ -252,69 +259,20 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
   if (userChoice1 === "rock" && userChoice2 === "scissor" || userChoice1 === 'scissor' && userChoice2 === 'rock'){
     switch (Math.sign(rpsChoices.indexOf(userChoice2)-rpsChoices.indexOf(userChoice1))){
       case (-1):
-        outputMessage(-1, userChoice1, userChoice2)
         console.log('testing output message -1 rock')
-        // check if user1 has buff before taking damage
+        outputMessage(-1, userChoice1, userChoice2)
+        // check for lost
         playerCheck(bob, lee, userChoice2)
-      //
-      //   if (lee.buffs.missedAttack > 0){
-      //     lee.hp -= (bob.damage * missRng.sample())
-      //     player1Buff.innerHTML += "Missed Attack"
-      //     console.log("missedAttack should be 0 dmg")
-      //   // } else if (lee.buffs.missedAttack === 0){
-      //   //   lee.hp -= bob.damage
-      //   //   player1Buff.innerHTML = ''
-      //   //   console.log("missedAttack not working")
-      // } else if (lee.buffs.damageReduction > 0){
-      //     lee.hp -= (bob.damage/2)
-      //     player1Buff.innerHTML += "Damage Reduction"
-      //   // } else if (lee.buffs.damageReduction === 0) {
-      //   //   lee.hp -= bob.damage
-      //   //   player1Buff.innerHTML = ''
-      //   //   console.log("missedAttack not working because of damageReduction")
-      //   } else {
-      //     // no buff
-      //     lee.hp -= bob.damage
-      //     player1Buff.innerHTML = ''
-      //     console.log("no buffs")
-      //   }
-      //   // end user 1
-        // player1Health.value = lee.hp
         break
       case (0):
-        outputMessage(0, userChoice1, userChoice2)
         console.log('testing output message 0 rock')
+        outputMessage(0, userChoice1, userChoice2)
         break
       case (1):
-        outputMessage(1, userChoice1, userChoice2)
         console.log('testing output message 1 rock')
-
-        // attackDefend logic for ROCK
+        outputMessage(1, userChoice1, userChoice2)
+        // check for win
         playerCheck(lee, bob, userChoice1)
-        // user 1
-        // if (lee.attackLogic === true && userChoice1 === "rock") {
-        //   console.log("You won with Rock.")
-        //   // check user2 buffs before attacking
-        //   if (bob.buffs.damageReduction > 0){
-        //     bob.hp -= (lee.damage/2)
-        //   } else {
-        //     bob.hp -= (lee.damage * 2)
-        //   }
-        //   // end user 2
-        // } else if (lee.attackLogic === false && userChoice1 === "rock") {
-        //   if (lee.buffs.damageReduction === 0){
-        //     lee.buffs.damageReduction += 3
-        //     // using 3 because one buff will be "used" the same turn it is gained
-        //     // todo: make this logic sexy
-        //     console.log("damageReduction at 0")
-        //   } else {
-        //     lee.buffs.damageReduction += 2
-        //     console.log("add on top of current damageReduction")
-        //   }
-        //   console.log("Damage Reduction Buff: ", lee.buffs)
-        // }
-        //end attackDefend logic for ROCK
-        // player2Health.value = bob.hp
         break
     } // end switch
   } else {
@@ -323,32 +281,8 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
     case (-1):
       outputMessage(-1, userChoice1, userChoice2)
       console.log('testing output message -1')
-      // check if user1 has buff before taking damage
+      // check for lost
       playerCheck(bob, lee, userChoice2)
-      // user 1
-    //   if (lee.buffs.missedAttack > 0){
-    //     lee.hp -= (bob.damage * missRng.sample())
-    //     player1Buff.innerHTML += "Missed Attack"
-    //     console.log("missedAttack should be 0 dmg")
-    //   // } else if (lee.buffs.missedAttack === 0){
-    //   //   lee.hp -= bob.damage
-    //   //   player1Buff.innerHTML = ''
-    //   //   console.log("missedAttack not working")
-    // } else if (lee.buffs.damageReduction > 0){
-    //     lee.hp -= (bob.damage/2)
-    //     player1Buff.innerHTML += "Damage Reduction"
-    //   // } else if (lee.buffs.damageReduction === 0) {
-    //   //   lee.hp -= bob.damage
-    //   //   player1Buff.innerHTML = ''
-    //   //   console.log("missedAttack not working because of damageReduction")
-    //   } else {
-    //     // no buff
-    //     lee.hp -= bob.damage
-    //     player1Buff.innerHTML = ''
-    //     console.log("no buffs")
-    //   }
-      // end user 1
-      // player1Health.value = lee.hp
       break
     case (0):
       outputMessage(0, userChoice1, userChoice2)
@@ -357,61 +291,8 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
     case (1):
       outputMessage(1, userChoice1, userChoice2)
       console.log('testing output message 1')
-      // attackDefend logic for SCISSOR
+      // check for win
       playerCheck(lee, bob, userChoice1)
-      // if (lee.attackLogic === true && userChoice1 === "scissor") {
-      //   // scissor damage multiple rng
-      //   // const scissorRng = Math.ceil(((Math.random()*1.5)+1))
-      //   const scissorRng = [1, 1.5, 2, 2.5]
-      //
-      //   console.log("You won with Scissor.")
-      //   // check user 2 buffs before attacking
-      //   if (bob.buffs.damageReduction > 0){
-      //     bob.hp -= (lee.damage * (scissorRng.sample()/2))
-      //   } else {
-      //     bob.hp -= (lee.damage * scissorRng.sample())
-      //   }
-      //   // end user 2
-      // } else if (lee.attackLogic === false && userChoice1 === "scissor") {
-      //     if (lee.buffs.missedAttack === 0){
-      //       lee.buffs.missedAttack += 2
-      //       console.log("missedAttack at 0")
-      //       // using 2 because one buff will be "used" the same turn it is gained
-      //       // todo: make this logic sexy
-      //     } else {
-      //       lee.buffs.missedAttack += 1
-      //       console.log("have missedAttack")
-      //     } // end if
-      //     console.log("Missed Attack Buff: ", lee.buffs)
-      //   } // end else if
-      //   //end attackDefend logic for SCISSOR
-      //
-      // // attackDefend logic for PAPER
-      // if (lee.attackLogic === true && userChoice1 === "paper") {
-      //   // user 1
-      //     console.log("You won with Paper.")
-      //     // check user 2 buffs before attacking
-      //     if (bob.buffs.damageReduction > 0){
-      //       bob.hp -= (lee.damage/2)
-      //       lee.buffs.damageReduction += 2
-      //     } else {
-      //       bob.hp -= lee.damage
-      //       lee.buffs.damageReduction += 2
-      //       // using 2 because one buff will be "used" the same turn it is gained
-      //       console.log('Damage Reduction Buff: ', lee.buffs)
-      //     }
-      //     // end user 2
-      //   } else if (lee.attackLogic === false && userChoice1 === "paper") {
-      //     if (lee.hp === 9){
-      //       lee.hp += 1
-      //       console.log("Heal for 1 because of HP cap")
-      //     } else if (lee.hp < 9 ) {
-      //       lee.hp += 2
-      //       console.log('Heal for 2')
-      //     }
-      //   }
-        //end attackDefend logic for PAPER
-      // player2Health.value = bob.hp
       break
      } // switch end
   } // IF statement end
