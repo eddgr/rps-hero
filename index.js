@@ -73,6 +73,9 @@
       <button class="nes-btn">attack</button>
       <button class="nes-btn">defend</button>
     `
+    //display player1 HP 
+    player1WinHP.innerText = `HP: ${lee.hp}`
+    player2WinHP.innerText = `HP: ${bob.hp}`
     destroyAttackIcon()
     console.log(attackIconImage)
     console.log('attack icon should be destroyed')
@@ -335,8 +338,10 @@ const player2Buff = grab('#player2-buff')
 const attackIcon = grab('#attk-icon')
 const attackIconImage = grab('#attk-icon > img')
 const player1WinHP = grab('#player1-winHP')
+const player2WinHP = grab('#player2-winHP')
 const player1Name = grab('#player1-name')
 const player2Name = grab('#player2-name')
+
 
 
 // end DOM
@@ -347,7 +352,6 @@ start.innerHTML = `
 `
 
 player1Name.innerText = lee.name
-player1WinHP.innerText = lee.hp
 player2Name.innerText = bob.name
 player1Buff.innerText = ''
 player2Buff.innerText = ''
