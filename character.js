@@ -1,8 +1,8 @@
 // CLASS CHARACTERS
 class Character {
-  constructor(id, name) {
-     this.id = id
+  constructor(name, id) {
      this.name = name
+     this.id = id
      this.hp = 10
      this.damage = 2
      this.currentDamage = 2

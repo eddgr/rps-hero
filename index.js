@@ -412,19 +412,6 @@ let playGame = () => {
 }
 // end login
 
-start.innerHTML = `
-  <button class="nes-btn is-primary">Start Game</button>
-  <button class="nes-btn">Reset</button>
-`
-
-player1Name.innerText = currentUser.name
-player2Name.innerText = bob.name
-player1Buff.innerText = ''
-player2Buff.innerText = ''
-
-gameContainer.style.display = "none"
-renderAdButtons()
-
 // event listener
 document.addEventListener("click", event => {
   event.preventDefault()
@@ -461,8 +448,9 @@ document.addEventListener("click", event => {
         .then(resp => resp.json())
         .then(user => {
           console.log(user)
-          currentUser = new Character(user.id, user.name)
+          currentUser = new Character(user.name, user.id)
           currentUser.level = user.level
+          player1Name.innerText = currentUser.name
         })
 
       welcomeScreen.style.display = "none"
@@ -496,3 +484,16 @@ document.addEventListener("click", event => {
   } // end switch
 })
 // end event listener
+
+start.innerHTML = `
+  <button class="nes-btn is-primary">Start Game</button>
+  <button class="nes-btn">Reset</button>
+`
+
+player1Name.innerText = currentUser.name
+player2Name.innerText = bob.name
+player1Buff.innerText = ''
+player2Buff.innerText = ''
+
+gameContainer.style.display = "none"
+renderAdButtons()
