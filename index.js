@@ -94,7 +94,7 @@
             if (otherPlayer.buffs.damageReduction > 0){
               otherPlayer.hp -= ((currentPlayer.damage * 2)/2)
             } else if (otherPlayer.buffs.missedAttack > 0){
-              otherPlayer.hp -= ((currentPlayer.damage * 2) * missRng)
+              otherPlayer.hp -= ((currentPlayer.damage * 2) * missRng.sample())
             } else {
               otherPlayer.hp -= (currentPlayer.damage * 2)
             }
@@ -104,7 +104,7 @@
               otherPlayer.hp -= (currentPlayer.damage/2)
               currentPlayer.buffs.damageReduction += 2
             } else if (otherPlayer.buffs.missedAttack > 0){
-              otherPlayer.hp -= (currentPlayer.damage * missRng)
+              otherPlayer.hp -= (currentPlayer.damage * missRng.sample())
               currentPlayer.buffs.damageReduction += 2
             } else {
               otherPlayer.hp -= currentPlayer.damage
@@ -114,11 +114,10 @@
             }
             break
           case ("scissor"):
-            const scissorRng = [1, 1.5, 2, 2.5]
             if (otherPlayer.buffs.damageReduction > 0){
               otherPlayer.hp -= (currentPlayer.damage * (scissorRng.sample()/2))
             } else if (otherPlayer.buffs.missedAttack > 0){
-              otherPlayer.hp -= ((currentPlayer.damage * scissorRng.sample()) * missRng)
+              otherPlayer.hp -= ((currentPlayer.damage * scissorRng.sample()) * missRng.sample())
             } else {
               otherPlayer.hp -= (currentPlayer.damage * scissorRng.sample())
             }
@@ -167,6 +166,7 @@
 
 const rpsChoices = ["rock", "paper", "scissor"]
 const missRng = [0, 1] // test with just 0
+const scissorRng = [1, 1.5, 2, 2.5]
 
 // RESET
 function resetGame(player1 = lee, player2 = bob){
