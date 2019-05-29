@@ -31,7 +31,7 @@
     } else if (bool === false){
         renderCompDefenseIcon()
     }
-}
+  }
   const renderCompAttackIcon = () => {
     compAttkIcon.innerHTML = `
     <img src="img/gameSword.jpg" height="100" width="120">
@@ -43,30 +43,34 @@
     `
   }
 
-
+  const renderWinLossIcon = () => {
+    winLossIcon.innerText = "hello"
+  }
+  // console.log(renderWinLossIcon)
+  
   // render Rock, Paper, Scissor buttons
   const renderRpsButtons = (buffDescObj) => {
     commands.innerHTML = `
-      <button class="nes-btn">
-        <p>Rock</p>
-        <span>${buffDescObj.rock}</span>
-      </button>
-
-      <button class="nes-btn">
-        <p>Paper</p>
-        <span>${buffDescObj.paper}</span>
-      </button>
-
-      <button class="nes-btn">
-        <p>Scissor</p>
-        <span>${buffDescObj.scissor}</span>
-      </button>
-
-      <br><br>
-      <button class="nes-btn">Back</button>
-     `
+    <button class="nes-btn">
+    <p>Rock</p>
+    <span>${buffDescObj.rock}</span>
+    </button>
+    
+    <button class="nes-btn">
+    <p>Paper</p>
+    <span>${buffDescObj.paper}</span>
+    </button>
+    
+    <button class="nes-btn">
+    <p>Scissor</p>
+    <span>${buffDescObj.scissor}</span>
+    </button>
+    
+    <br><br>
+    <button class="nes-btn">Back</button>
+    `
   }
-
+  
   // render Attack/Defend button
   const renderAdButtons = () => {
     // A/D === Attack/Defend
@@ -118,7 +122,7 @@
     player1WinHP.innerText = `HP: ${lee.hp}`
     player2WinHP.innerText = `HP: ${bob.hp}`
     //destroys attack icon
-    destroyUserAttackIcon()
+    // destroyUserAttackIcon()
     console.log(attackIconImage)
     console.log('attack icon should be destroyed')
 
@@ -349,6 +353,9 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
         outputMessage(1, userChoice1, userChoice2)
         // check for win
         playerCheck(lee, bob, userChoice1)
+        //Testing WIN CASE TO POP TROPHY ON USER: WILL CHANGE with CSS
+        renderWinLossIcon()//testing to see where this fires off
+        //Testing WIN CASE TO POP TROPHY ON USER: WILL CHANGE with CSS
         break
     } // end switch
   } else {
@@ -396,7 +403,8 @@ const player1Name = grab('#player1-name')
 const player2Name = grab('#player2-name')
 const user1Sprite = grab('#user-1-sprite')
 const comp1Sprite = grab ('#comp-1-sprite')
-console.log(comp1Sprite)
+const winLossIcon = grab('#winLoss')
+// winLossIcon.innerText = "test Trophy placement"
 
 
 

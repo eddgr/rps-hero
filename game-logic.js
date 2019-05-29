@@ -102,9 +102,8 @@
                 clearInterval(id);
             } else {
                 pos++; 
-                elem.style.top = pos + 'px'; //let this be 300 
-                elem.style.right = pos + 'px'; //let this be 100
-                // elem.style.top = pos + 'px'; 
+                elem.style.top = pos + 'px'; //test positioning
+                elem.style.right = pos + 'px'; //test positioning
             }
         }
     }
