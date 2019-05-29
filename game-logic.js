@@ -57,47 +57,8 @@
     //insert function to grab bob attack logic. run function to insert shield or sword based on true:sword || false:shield
     renderCompIcon(bob.attackLogic)
     //TODO: fire OFF CSS animation Here for ATTACK 
-    function user1Move() {
-        let elem = user1Sprite 
-        let pos = 0
-        let id = setInterval(frame, 5)
-        console.log(user1Sprite)
-        function frame() {
-          if (pos == 150) {
-            clearInterval(id);
-          } else {
-            pos++; 
-            elem.style.bottom = pos + 'px'; //let this be 300 ?
-            elem.style.left = pos + 'px'; //let this be 100?
-          }
-        }
-      }
-
-    function comp1Move() {
-        let elem = comp1Sprite 
-        let pos = 0
-        let id = setInterval(frame, 5)
-        console.log(user1Sprite)
-        function frame() {
-          if (pos == 150) {
-            clearInterval(id);
-          } else {
-            pos++; 
-            elem.style.top = pos + 'px'; //let this be 300 
-            elem.style.right = pos + 'px'; //let this be 100
-            // elem.style.top = pos + 'px'; 
-          }
-        }
-      }
-
-
-
-
-      comp1Move()
-      user1Move()
-
-
-    //TODO: fire OFF CSS animation Here for ATTACK 
+    comp1Move()
+    user1Move()
 
     switch(rpsChoices.sample()){
       case("rock"):
@@ -111,4 +72,42 @@
         break
     } // end switch
   } // end AI logic
+
+  //ANIMATION MOVEMENT LOGIC for User and Computer
+  function user1Move() {
+        let elem = user1Sprite 
+        let pos = 0
+        let id = setInterval(frame, 5)
+        console.log(user1Sprite)
+
+        function frame() {
+            if (pos == 150) {
+                clearInterval(id);
+            } else {
+            pos++; 
+            elem.style.bottom = pos + 'px'; //let this be 300 ?
+            elem.style.left = pos + 'px'; //let this be 100?
+            }
+        }
+  }
+
+    function comp1Move() {
+        let elem = comp1Sprite 
+        let pos = 0
+        let id = setInterval(frame, 5)
+        console.log(user1Sprite)
+
+        function frame() {
+            if (pos == 150) {
+                clearInterval(id);
+            } else {
+                pos++; 
+                elem.style.top = pos + 'px'; //let this be 300 
+                elem.style.right = pos + 'px'; //let this be 100
+                // elem.style.top = pos + 'px'; 
+            }
+        }
+    }
+
+  //ANIMATION MOVEMENT LOGIC
 // end MISC
