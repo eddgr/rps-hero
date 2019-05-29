@@ -1,6 +1,7 @@
 // CLASS CHARACTERS
 class Character {
-  constructor(name) {
+  constructor(id, name) {
+     this.id = id
      this.name = name
      this.hp = 10
      this.damage = 2

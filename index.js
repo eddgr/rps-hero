@@ -1,3 +1,5 @@
+let currentUser = lee
+
 // HELPERS
   // adding 'sample' to Array prototype to randomize a return item from an array
   // this requires 'sample' to be invoked
@@ -9,24 +11,22 @@
   const grab = (funcArg) => {
     return document.querySelector(funcArg)
   }
+
+  // render Attack/Defend icons
   const renderAttackIcon = () => {
     attackIcon.innerHTML = `
-    <img src="img/gameSword.jpg" height="100" width="120">
-      Putting SWORD HERE
+      <img src="img/gameSword.jpg" height="100" width="120">
     `
   }
-
   const renderDefenseIcon = () => {
     attackIcon.innerHTML = `
-    <img src="img/gameShield.jpg" height="70" width="120">
-      Putting Shield Here
+      <img src="img/gameShield.jpg" height="70" width="120">
     `
   }
-
   const destroyAttackIcon = () => {
     attackIcon.innerHTML = ``
   }
-
+  // end render Attack/Defend icons
 
   // render Rock, Paper, Scissor buttons
   const renderRpsButtons = (buffDescObj) => {
@@ -55,22 +55,21 @@
   const renderAdButtons = () => {
     // A/D === Attack/Defend
     // check current buffs before rendering A/D buttons
-    const user1 = Object.entries(lee.buffs)
-    const user2 = Object.entries(bob.buffs)
+    destroyAttackIcon()
 
     //player 1 buff status
-    if (lee.buffs.damageReduction > 0 && lee.buffs.missedAttack > 0){
+    if (currentUser.buffs.damageReduction > 0 && currentUser.buffs.missedAttack > 0){
       player1Buff.innerText = `
-        Damage Reduction: ${lee.buffs.damageReduction - 1}
-        Missed Attack: ${lee.buffs.missedAttack - 1}
+        Damage Reduction: ${currentUser.buffs.damageReduction - 1}
+        Missed Attack: ${currentUser.buffs.missedAttack - 1}
       `
-    } else if (lee.buffs.damageReduction > 0) {
+    } else if (currentUser.buffs.damageReduction > 0) {
       player1Buff.innerText = `
-        Damage Reduction: ${lee.buffs.damageReduction - 1}
+        Damage Reduction: ${currentUser.buffs.damageReduction - 1}
       `
-    } else if (lee.buffs.missedAttack > 0) {
+    } else if (currentUser.buffs.missedAttack > 0) {
       player1Buff.innerText = `
-        Missed Attack: ${lee.buffs.missedAttack}
+        Missed Attack: ${currentUser.buffs.missedAttack}
       `
     } else {
       player1Buff.innerText = ``
@@ -99,14 +98,14 @@
       <button class="nes-btn">defend</button>
     `
     //display player1 HP & 2 HP
-    player1WinHP.innerText = `HP: ${lee.hp}`
+    player1WinHP.innerText = `HP: ${currentUser.hp}`
     player2WinHP.innerText = `HP: ${bob.hp}`
     //destroys attack icon
-    destroyAttackIcon()
+    // destroyAttackIcon()
     console.log(attackIconImage)
     console.log('attack icon should be destroyed')
 
-    player1Health.value = lee.hp
+    player1Health.value = currentUser.hp
     player2Health.value = bob.hp
   }
 
@@ -128,7 +127,7 @@
         break
       case (1):
         output.innerHTML += `
-          <p>You won this round. Player 2 lost ${lee.currentDamage} HP.</p>
+          <p>You won this round. Player 2 lost ${currentUser.currentDamage} HP.</p>
         `
         break
     }
@@ -222,6 +221,21 @@
         break
     } // end switch
   } // end playerCheck
+
+  // fetch
+  let fetchHelper = (url, method, bodyObj) => {
+    return fetch(url, {
+      method: method,
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      },
+      body: JSON.stringify({
+        users: bodyObj
+      })
+    })
+  }
+  // end fetch
 // end HELPERS
 
 const rpsChoices = ["rock", "paper", "scissor"]
@@ -229,13 +243,13 @@ const missRng = [0, 1] // test with just 0
 const scissorRng = [1, 1.5, 2, 2.5]
 
 // RESET
-function resetGame(player1 = lee, player2 = bob){
+function resetGame(player1 = currentUser, player2 = bob){
   // player 1 reset
   player1.hp = 10
   player1Health.value = '10'
   player1Health.classList.value = "nes-progress is-success"
-  lee.buffs.damageReduction = 0
-  lee.buffs.dodge = 0
+  currentUser.buffs.damageReduction = 0
+  currentUser.buffs.dodge = 0
   player1Buff.innerHTML = ''
   // player 2 reset
   player2.hp = 10
@@ -253,11 +267,11 @@ function resetGame(player1 = lee, player2 = bob){
   let checkBuffs = () => {
 
     // player 1 buff check
-    if (lee.buffs.damageReduction > 0){
-      lee.buffs.damageReduction -= 1
+    if (currentUser.buffs.damageReduction > 0){
+      currentUser.buffs.damageReduction -= 1
     }
-    if (lee.buffs.dodge > 0){
-      lee.buffs.dodge -= 1
+    if (currentUser.buffs.dodge > 0){
+      currentUser.buffs.dodge -= 1
     }
     // end player 1 buff check
 
@@ -295,10 +309,14 @@ let checkHealth = (player1, player2) => {
       break
     // player 2
     case (player2.hp <= 0 && player1.hp > 0):
+      fetchHelper(API_URL + `/${currentUser.id}`, "PATCH", {
+        level: currentUser.level += 1
+      })
       resetGame(player1, player2)
       output.innerHTML += `
         <h2>You win!</h2>
       `
+      debugger
       break
     case (player2.hp < 10 && player2.hp > 3 && player1.hp > 0):
       player2Health.classList.value = "nes-progress is-warning"
@@ -322,7 +340,7 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
         console.log('testing output message -1 rock')
         outputMessage(-1, userChoice1, userChoice2)
         // check for lost
-        playerCheck(bob, lee, userChoice2)
+        playerCheck(bob, currentUser, userChoice2)
         break
       case (0):
         console.log('testing output message 0 rock')
@@ -332,7 +350,7 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
         console.log('testing output message 1 rock')
         outputMessage(1, userChoice1, userChoice2)
         // check for win
-        playerCheck(lee, bob, userChoice1)
+        playerCheck(currentUser, bob, userChoice1)
         break
     } // end switch
   } else {
@@ -342,7 +360,7 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
       outputMessage(-1, userChoice1, userChoice2)
       console.log('testing output message -1')
       // check for lost
-      playerCheck(bob, lee, userChoice2)
+      playerCheck(bob, currentUser, userChoice2)
       break
     case (0):
       outputMessage(0, userChoice1, userChoice2)
@@ -353,7 +371,7 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
       console.log('testing output message 1')
 
       // check for win
-      playerCheck(lee, bob, userChoice1)
+      playerCheck(currentUser, bob, userChoice1)
       break
      } // switch end
   } // IF statement end
@@ -377,22 +395,34 @@ const player1WinHP = grab('#player1-winHP')
 const player2WinHP = grab('#player2-winHP')
 const player1Name = grab('#player1-name')
 const player2Name = grab('#player2-name')
-
-
-
+const welcomeScreen = grab('#welcome-screen')
+const API_URL = "http://localhost:3000/api/v1/users"
 // end DOM
+
+// login
+let playGame = () => {
+  welcomeScreen.innerHTML = `
+    Hello hero! What is your name?
+    <br><br>
+    <form>
+      <input type="text" class="nes-input" style="text-transform: uppercase">
+      <button class="nes-btn is-primary">Play Game</button>
+    </form>
+  `
+}
+// end login
 
 start.innerHTML = `
   <button class="nes-btn is-primary">Start Game</button>
   <button class="nes-btn">Reset</button>
 `
 
-player1Name.innerText = lee.name
+player1Name.innerText = currentUser.name
 player2Name.innerText = bob.name
 player1Buff.innerText = ''
 player2Buff.innerText = ''
 
-
+gameContainer.style.display = "none"
 renderAdButtons()
 
 // event listener
@@ -408,21 +438,35 @@ document.addEventListener("click", event => {
       console.log("will render attack icon")
       renderAttackIcon()
       console.log(attackIcon)
-      lee.attackLogic = true
+      currentUser.attackLogic = true
       console.log('You chose Attack.')
       break
     case ("defend"):
       renderRpsButtons({rock: "2x damage reduction", paper: "20% heal", scissor: "1x chance of receiving 0 damage"})
-      lee.attackLogic = false
+      currentUser.attackLogic = false
       console.log('You chose Defend')
       console.log('rendering defense button')
       renderDefenseIcon()
       break
     case ("Start Game"):
-      output.innerHTML = ''
-      testRun()
+      playGame()
+      // output.innerHTML = ''
+      // testRun()
       break
-      case ("Reset"):
+    case ("Reset"):
+      resetGame()
+      break
+    case ("Play Game"):
+      fetchHelper(API_URL, "POST", {name: welcomeScreen.lastElementChild.firstElementChild.value.toLowerCase()})
+        .then(resp => resp.json())
+        .then(user => {
+          console.log(user)
+          currentUser = new Character(user.id, user.name)
+          currentUser.level = user.level
+        })
+
+      welcomeScreen.style.display = "none"
+      gameContainer.style.display = ""
       resetGame()
       break
   }
@@ -430,24 +474,23 @@ document.addEventListener("click", event => {
   switch (event.target.firstElementChild.innerText){
     case ("Rock"):
       console.log("You chose Rock.")
-      destroyAttackIcon()
       checkBuffs()
       playRound('rock')
-      checkHealth(lee, bob)
+      checkHealth(currentUser, bob)
       renderAdButtons()
       break
     case ("Paper"):
       console.log("You chose Paper.")
       checkBuffs()
       playRound('paper')
-      checkHealth(lee, bob)
+      checkHealth(currentUser, bob)
       renderAdButtons()
       break
     case ("Scissor"):
       console.log("You chose Scissor.")
       checkBuffs()
       playRound('scissor')
-      checkHealth(lee, bob)
+      checkHealth(currentUser, bob)
       renderAdButtons()
       break
   } // end switch
