@@ -77,7 +77,6 @@ let currentUser = lee
         </div>
       </div>
 
-      <br><br>
       <button class="nes-btn">Back</button>
      `
   }
@@ -128,8 +127,8 @@ let currentUser = lee
       <button class="nes-btn">defend</button>
     `
     //display player1 HP & 2 HP
-    player1WinHP.innerText = `HP: ${currentUser.hp}`
-    player2WinHP.innerText = `HP: ${bob.hp}`
+    player1WinHP.innerText = `${currentUser.hp}/10 HP`
+    player2WinHP.innerText = `${bob.hp}/10 HP`
     //destroys attack icon
     // destroyUserAttackIcon()
 
@@ -279,6 +278,7 @@ function resetGame(player1 = currentUser, player2 = bob){
   player1.hp = 10
   player1Health.value = '10'
   player1Health.classList.value = "nes-progress is-success"
+  player1Level.innerText = `Level ${currentUser.level}`
   currentUser.buffs.damageReduction = 0
   currentUser.buffs.dodge = 0
   player1Buff.innerHTML = ''
@@ -347,7 +347,6 @@ let checkHealth = (player1, player2) => {
       output.innerHTML += `
         <h2>You win!</h2>
       `
-      debugger
       break
     case (player2.hp < 10 && player2.hp > 3 && player1.hp > 0):
       player2Health.classList.value = "nes-progress is-warning"
@@ -436,6 +435,7 @@ const comp1Sprite = grab ('#comp-1-sprite')
 const winLossIcon = grab('#winLoss')
 // winLossIcon.innerText = "test Trophy placement"
 const welcomeScreen = grab('#welcome-screen')
+const player1Level = grab('#player1-level')
 const API_URL = "http://localhost:3000/api/v1/users"
 
 // end DOM
@@ -494,6 +494,7 @@ document.addEventListener("click", event => {
           currentUser = new Character(user.name, user.id)
           currentUser.level = user.level
           player1Name.innerText = currentUser.name
+          player1Level.innerText = `Level ${currentUser.level}`
         })
 
       welcomeScreen.style.display = "none"
@@ -531,6 +532,7 @@ start.innerHTML = `
 `
 
 player1Name.innerText = currentUser.name
+player1Level.innerText = currentUser.level
 player2Name.innerText = bob.name
 player1Buff.innerText = ''
 player2Buff.innerText = ''
