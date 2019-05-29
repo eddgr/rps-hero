@@ -26,6 +26,24 @@
   const grab = (funcArg) => {
     return document.querySelector(funcArg)
   }
+  const renderAttackIcon = () => {
+    attackIcon.innerHTML = `
+    <img src="img/gameSword.jpg" height="100" width="120">
+      Putting SWORD HERE
+    `
+  }
+
+  const renderDefenseIcon = () => {
+    attackIcon.innerHTML = `
+    <img src="img/gameShield.jpg" height="70" width="120">
+      Putting Shield Here
+    `
+  }
+
+  const destroyAttackIcon = () => {
+    attackIcon.innerHTML = ``
+  }
+
 
   const renderRpsButtons = (buffDescObj) => {
     commands.innerHTML = `
@@ -68,6 +86,9 @@
       <button class="nes-btn">attack</button>
       <button class="nes-btn">defend</button>
     `
+    destroyAttackIcon()
+    console.log(attackIconImage)
+    console.log('attack icon should be destroyed')
   }
 
   function outputMessage (caseNum, userChoice1, userChoice2) {
@@ -289,6 +310,7 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
       console.log('testing output message 1')
       // attackDefend logic for SCISSOR
       if (attackDefendDecision === true && userChoice1 === "scissor") {
+        
         // scissor damage multiple rng
         // const scissorRng = Math.ceil(((Math.random()*1.5)+1))
         const scissorRng = [1, 1.5, 2, 2.5]
@@ -358,6 +380,8 @@ const player1Health = grab('#player1-health-bar')
 const player2Health = grab('#player2-health-bar')
 const player1Buff = grab('#player1-buff')
 const player2Buff = grab('#player2-buff')
+const attackIcon = grab('#attk-icon')
+const attackIconImage = grab('#attk-icon > img')
 // end DOM
 
 start.innerHTML = `
@@ -379,12 +403,17 @@ document.addEventListener("click", event => {
     case ("attack"):
       renderRpsButtons({rock: "2x base damage", paper: "1x base damage, 1x damage reduction", scissor: "1-2.5x base damage"})
       attackDefendDecision = true
+      console.log("will render attack icon")
+      renderAttackIcon()
+      console.log(attackIcon)
       console.log('You chose Attack.')
       break
     case ("defend"):
       renderRpsButtons({rock: "2x damage reduction", paper: "20% heal", scissor: "1x chance of receiving 0 damage"})
       attackDefendDecision = false
       console.log('You chose Defend')
+      console.log('rendering defense button')
+      renderDefenseIcon()
       break
     case ("Start Game"):
       output.innerHTML = ''
@@ -398,6 +427,7 @@ document.addEventListener("click", event => {
   switch (event.target.firstElementChild.innerText){
     case ("Rock"):
       console.log("You chose Rock.")
+      destroyAttackIcon()
       checkBuffs()
       playRound('rock')
       checkHealth(lee, bob)
