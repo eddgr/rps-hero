@@ -5,6 +5,7 @@
     <title>RPS Hero</title>
     <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
     <link href="https://unpkg.com/nes.css/css/nes.css" rel="stylesheet" />
+    <link href="rps-hero/css" rel="stylesheet" />
   </head>
   <body>
     <div id="game-container" class="nes-container is-centered">
@@ -19,13 +20,13 @@
           <progress id="player2-health-bar" class="nes-progress is-success" value="10" max="10"></progress>
           <div class=""style="margin-top: 1em">
             <span id="comp-attk-icon"></span>
-            <i class="nes-squirtle"></i>
+            <i id="comp-1-sprite" class="nes-squirtle"></i>
           </div>
         </div>
 
         <div id="user-1" class="" style="display:block; text-align: left; margin-top: 4em">
           <div class="" style="margin-bottom: 1em">
-            <i class="nes-mario"></i>
+            <i id="user-1-sprite" class="nes-mario container animate"></i>
             <span id ="usr-attk-icon"></span>
           </div>
           <progress id="player1-health-bar" class="nes-progress is-success" value="10" max="10"></progress>

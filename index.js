@@ -12,14 +12,12 @@
   const renderUserAttackIcon = () => {
     userAttkIcon.innerHTML = `
     <img src="img/gameSword.jpg" height="100" width="120">
-      Putting SWORD HERE
     `
   }
 
   const renderUserDefenseIcon = () => {
     userAttkIcon.innerHTML = `
     <img src="img/gameShield.jpg" height="70" width="120">
-      Putting Shield Here
     `
   }
 
@@ -37,13 +35,11 @@
   const renderCompAttackIcon = () => {
     compAttkIcon.innerHTML = `
     <img src="img/gameSword.jpg" height="100" width="120">
-      Putting SWORD HERE
     `
   }
   const renderCompDefenseIcon = () => {
     compAttkIcon.innerHTML = `
     <img src="img/gameShield.jpg" height="100" width="120">
-      Putting SWORD HERE
     `
   }
 
@@ -398,6 +394,9 @@ const player1WinHP = grab('#player1-winHP')
 const player2WinHP = grab('#player2-winHP')
 const player1Name = grab('#player1-name')
 const player2Name = grab('#player2-name')
+const user1Sprite = grab('#user-1-sprite')
+const comp1Sprite = grab ('#comp-1-sprite')
+console.log(comp1Sprite)
 
 
 
