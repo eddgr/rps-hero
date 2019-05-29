@@ -26,7 +26,14 @@
   const destroyUserAttackIcon = () => {
     userAttkIcon.innerHTML = ``
   }
-  
+
+  const renderCompIcon = (bool) => {
+    if (bool === true){
+        renderCompAttackIcon() 
+    } else if (bool === false){
+        renderCompDefenseIcon()
+    }
+}
   const renderCompAttackIcon = () => {
     compAttkIcon.innerHTML = `
     <img src="img/gameSword.jpg" height="100" width="120">

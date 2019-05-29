@@ -54,7 +54,9 @@
   // rock paper scissor AI logic
   const rollRPS = () => {
     bob.attackLogic = !bob.attackLogic
-
+    //insert function to grab bob attack logic. run function to insert shield or sword based on true:sword || false:shield
+    renderCompIcon(bob.attackLogic)
+    //TODO: fire OFF CSS animation Here for ATTACK 
     switch(rpsChoices.sample()){
       case("rock"):
         return "rock"
