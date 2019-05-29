@@ -8,22 +8,25 @@
       <h2>Game Number: ${gameNumber}</h2>
     `
     while (user1.hp > 0 && user2.hp > 0){
+      console.log("Player 1 HP: ", user1.hp, "Player 2 HP: ", user2.hp)
+      console.log("Player 1 Buffs: ", user1.buffs)
+      console.log("Player 2 Buffs: ", user2.buffs)
       // player 1 buff check
-      if (lee.buffs.damageReduction > 0){
-        lee.buffs.damageReduction -= 1
+      if (user1.buffs.damageReduction > 0){
+        user1.buffs.damageReduction -= 1
       }
 
-      if (lee.buffs.missedAttack > 0){
-        lee.buffs.missedAttack -= 1
+      if (user1.buffs.missedAttack > 0){
+        user1.buffs.missedAttack -= 1
       }
       // end player 1 buff check
 
       // player 2 buff check
-      if (bob.buffs.damageReduction > 0){
-        bob.buffs.damageReduction -= 1
+      if (user2.buffs.damageReduction > 0){
+        user2.buffs.damageReduction -= 1
       }
-      if (bob.buffs.missedAttack > 0){
-        bob.buffs.missedAttack -= 1
+      if (user2.buffs.missedAttack > 0){
+        user2.buffs.missedAttack -= 1
       }
       // end player 2 buff check
       playRound()
