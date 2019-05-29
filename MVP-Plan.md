@@ -103,6 +103,10 @@ regBoss = [attk, def]
 - change output text to reflect actual damage
 - fix progress bar
 
+- after selection, an animation should show both characters' choices
+  - and show their attack/defend and rps choice,
+  - then damage taken if any
+
 
 ## Notes
 
