@@ -305,8 +305,41 @@ let currentUser = lee
       })
     })
   }
+  const fetchHelperLeaderboard = () => {
+    
+    fetch(API_URL)
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(myJson) {
+        const leaderTable = grab('#leaderTable')
+        // console.log(leaderTable)
+        //sort objects before placing on DOM
+        let sortable = [];
+        for (var object in myJson) {
+            sortable.push([myJson[object]]);
+        }
+
+        let sortedTable = sortable.sort(function(a, b) {
+        return b[0].level - a[0].level;
+        })
+        //sort objects before placing on DOM
+        let i;
+        for (i = 0; i < sortedTable.length; i++) {
+          leaderTable.innerHTML += `
+                  <tr>
+                  <td>${sortedTable[i][0].name}</td>
+                  <td>${sortedTable[i][0].level}</td>
+                  </tr>
+            
+                  `  
+        }
+        
+    })
+  }
   // end fetch
 // end HELPERS
+// fetchHelperLeaderboard()
 
 const rpsChoices = ["rock", "paper", "scissor"]
 const missRng = [0, 1] // test with just 0
@@ -488,6 +521,7 @@ const welcomeScreen = grab('#welcome-screen')
 const player1Level = grab('#player1-level')
 const infoBar = grab('#information')
 const API_URL = "http://localhost:3000/api/v1/users"
+
 // end DOM
 
 // login
@@ -532,8 +566,9 @@ document.addEventListener("click", event => {
       // output.innerHTML = ''
       // testRun()
       break
-    case ("Reset"):
-      resetGame()
+    case ("Leaderboard"):
+        insertLeaderboard()
+      // resetGame()
       break
     case ("Play Game"):
       fetchHelper(API_URL, "POST", {name: welcomeScreen.lastElementChild.firstElementChild.value.toLowerCase()})
@@ -575,10 +610,34 @@ document.addEventListener("click", event => {
 })
 // end event listener
 
+//start button for game. testing leaderboard table on this 
 start.innerHTML = `
   <button class="nes-btn is-primary">Start Game</button>
-  <button class="nes-btn">Reset</button>
+  <button class="nes-btn">Leaderboard</button>
 `
+
+const insertLeaderboard = () =>{ 
+  fetchHelperLeaderboard()
+  console.log('in Leaderboard HTML')
+  welcomeScreen.innerHTML = `
+  <div class="nes-table-responsive">
+  <button class="nes-btn is-primary">Start Game</button>
+  <table class="nes-table is-bordered is-dark">
+  <thead>
+  <tr>
+  <th>User</th>
+  <th>Current Level</th>
+  </tr>
+  </thead>
+  <tbody id="leaderTable">
+  </tbody>
+  </table>
+  </div>
+  
+  `
+}
+
+
 
 player1Name.innerText = currentUser.name
 player1Level.innerText = currentUser.level
