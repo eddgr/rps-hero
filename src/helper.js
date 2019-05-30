@@ -52,7 +52,7 @@
 
   // render Rock, Paper, Scissor buttons
   const renderRpsButtons = (buffDescObj) => {
-    infoBar.innerText = "Press 'B' for the Main Menu."
+    infoBar.innerText = "Click here for the Main Menu."
 
     commands.innerHTML = `
       <div class="row w-100">
@@ -79,11 +79,11 @@
       </div>
     `
 
-    document.addEventListener("keydown", event => {
-      if (event.keyCode === 66){
-        renderAdButtons()
-      }
-    }) // end event listener
+    // document.addEventListener("keydown", event => {
+    //   if (event.keyCode === 66){
+    //     renderAdButtons()
+    //   }
+    // }) // end event listener
   } // end renderRpsButtons
 
   // render Attack/Defend button
@@ -160,6 +160,8 @@
 
   // display the player choices and damage output
   function outputMessage (caseNum, attackLogic, userChoice1, userChoice2) {
+    infoBar.innerText = "Click here to continue."
+
     output.innerHTML = `
       <p>You played ${userChoice1.toUpperCase()} and ${bob.name} played ${userChoice2.toUpperCase()}.</p>
     `

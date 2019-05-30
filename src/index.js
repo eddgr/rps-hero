@@ -235,6 +235,12 @@ document.addEventListener("click", event => {
       checkHealth(currentUser, bob)
       // renderAdButtons()
       break
+    case ("Click here for the Main Menu."):
+      renderAdButtons()
+      break
+    case ("Click here to continue."):
+      renderAdButtons()
+      break
   } // end switch
 })
 // end event listener
