@@ -291,7 +291,7 @@
     } // end switch
   } // end playerCheck
 
-  // fetch
+  // fetch 1
   let fetchHelper = (url, method, bodyObj) => {
     return fetch(url, {
       method: method,
@@ -304,5 +304,38 @@
       })
     })
   }
-  // end fetch
+  // end fetch 1
+  //fetch 2 
+  const fetchHelperLeaderboard = () => {
+    
+    fetch(API_URL)
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(myJson) {
+        const leaderTable = grab('#leaderTable')
+        // console.log(leaderTable)
+        //sort objects before placing on DOM
+        let sortable = [];
+        for (var object in myJson) {
+            sortable.push([myJson[object]]);
+        }
+
+        let sortedTable = sortable.sort(function(a, b) {
+        return b[0].level - a[0].level;
+        })
+        //sort objects before placing on DOM
+        let i;
+        for (i = 0; (sortedTable.length < 15) ? sortedTable.length : i < 15; i++) {
+          leaderTable.innerHTML += `
+                  <tr>
+                  <td>${sortedTable[i][0].name}</td>
+                  <td>${sortedTable[i][0].level}</td>
+                  </tr>
+                  `  
+        }
+    })//end of then function
+  }//end fetchHelperLeaderboard
+
+  //end fetch 2
 // end HELPERS
