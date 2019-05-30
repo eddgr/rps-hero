@@ -53,32 +53,38 @@ let currentUser = lee
 
   // render Rock, Paper, Scissor buttons
   const renderRpsButtons = (buffDescObj) => {
+    infoBar.innerText = "Press 'B' for the Previous Menu."
+
     commands.innerHTML = `
-      <div class="row">
-        <div class="col-sm card m-1">
+      <div class="row w-100">
+        <div class="col-sm card bg-primary rounded-0">
           <span class="card-body">${buffDescObj.rock}</span>
           <button class="nes-btn is-primary mb-4">
             Rock
           </button>
         </div>
 
-        <div class="col-sm card m-1">
+        <div class="col-sm card bg-warning rounded-0">
           <span class="card-body">${buffDescObj.paper}</span>
           <button class="nes-btn is-warning mb-4">
             Paper
           </button>
         </div>
 
-        <div class="col-sm card m-1">
+        <div class="col-sm card bg-danger rounded-0">
           <span class="card-body">${buffDescObj.scissor}</span>
           <button class="nes-btn is-error mb-4">
             Scissor
           </button>
         </div>
       </div>
-
-      <button class="nes-btn">Back</button>
      `
+
+     document.addEventListener("keydown", event => {
+       if (event.keyCode === 66){
+         renderAdButtons()
+       }
+     })
   }
 
   // render Attack/Defend button
@@ -134,6 +140,8 @@ let currentUser = lee
         <button class="nes-btn">defend</button>
       </div>
     `
+
+    infoBar.innerText = 'Choose Attack or Defend'
     //display player1 HP & 2 HP
     player1WinHP.innerText = `${currentUser.hp}/10 HP`
     player2WinHP.innerText = `${bob.hp}/10 HP`
@@ -444,6 +452,7 @@ const winLossIcon = grab('#winLoss')
 // winLossIcon.innerText = "test Trophy placement"
 const welcomeScreen = grab('#welcome-screen')
 const player1Level = grab('#player1-level')
+const infoBar = grab('#information')
 const API_URL = "http://localhost:3000/api/v1/users"
 
 // end DOM
