@@ -23,5 +23,5 @@ const winLossIcon = grab('#winLoss')
 const welcomeScreen = grab('#welcome-screen')
 const player1Level = grab('#player1-level')
 const infoBar = grab('#information')
-const API_URL = "http://localhost:3000/api/v1/users"
+const API_URL = "https://rps-hero-backend.herokuapp.com/api/v1/users"
 // end DOM
