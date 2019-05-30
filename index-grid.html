@@ -13,7 +13,7 @@
   </head>
   <body style="font-family: 'Press Start 2P'; height: 100%">
 
-    <div id="welcome-screen" class="nes-container is-centered container col-sm-6">
+    <div id="welcome-screen" class="nes-container is-centered container col-sm-8">
       <h1 class="mt-4">RPS HERO</h1>
       <div id="start" class="mt-4 mb-4">
       </div>
@@ -21,7 +21,7 @@
 
     <div id="game-container" class="container col-sm-8">
 
-      <div class="row p-4" style="height:370px; border: 4px solid #111">
+      <div class="row p-4 justify-content-center" style="height:370px; border: 4px solid #111">
         <div id="user-2" class="row w-100">
           <div id="player2health" class="col-sm-6">
             <span id="player2-name">Player 2 Name</span>
@@ -29,9 +29,11 @@
             <span id="player2-winHP">Player 2 HP</span>
             <span id="player2-buff">Player 2 Buffs</span>
           </div>
-          <div id="player2image" class="col-sm-6">
+          <div class="col-sm-3">
             <span id="comp-attk-icon"></span>
-            <i id="comp-1-sprite" class="nes-squirtle"></i>
+          </div>
+          <div id="player2image" class="col-sm-3">
+            <i id="comp-1-sprite" class="nes-squirtle" style="z-index: -1"></i>
           </div>
         </div>
 
@@ -39,9 +41,11 @@
         <!-- force column break -->
 
         <div id="user-1" class="row w-100">
-          <div id="player1health" class="col-sm-6">
+          <div id="player1health" class="col-sm-3">
+            <i id="user-1-sprite" class="nes-mario animate float-right"></i>
+          </div>
+          <div class="col-sm-3">
             <span id="usr-attk-icon"></span>
-            <i id="user-1-sprite" class="nes-mario container animate"></i>
           </div>
           <div id="player1image" class="col-sm-6">
             <span id="player1-name">Player 1 Name</span>
@@ -58,19 +62,21 @@
         Information here
       </div>
 
-      <div class="row justify-content-center" id="commands" style="height:300px">
+      <div class="row justify-content-center text-center" id="commands" style="height:300px">
         bottom row
       </div>
 
-      <div id="temp-output" class="row justify-content-center" style="height:300px; border: 4px solid #111">
+      <div id="temp-output" class="row justify-content-center text-center p-4" style="height:300px; border: 4px solid #111">
         output here
       </div>
     </div>
     <!-- end container-->
 
     <!-- JS -->
-    <script src="character.js" charset="utf-8"></script>
-    <script src="index.js" charset="utf-8"></script>
-    <script src="game-logic.js" charset="utf-8"></script>
+    <script src="src/helper.js" charset="utf-8"></script>
+    <script src="src/game-logic.js" charset="utf-8"></script>
+    <script src="src/dom.js" charset="utf-8"></script>
+    <script src="src/character.js" charset="utf-8"></script>
+    <script src="src/index.js" charset="utf-8"></script>
   </body>
 </html>
