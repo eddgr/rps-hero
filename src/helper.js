@@ -52,7 +52,7 @@
 
   // render Rock, Paper, Scissor buttons
   const renderRpsButtons = (buffDescObj) => {
-    infoBar.innerText = "Press 'B' for the Main Menu."
+    infoBar.innerText = "Click here for the Main Menu."
 
     commands.innerHTML = `
       <div class="row w-100">
@@ -78,12 +78,6 @@
         </div>
       </div>
     `
-
-    document.addEventListener("keydown", event => {
-      if (event.keyCode === 66){
-        renderAdButtons()
-      }
-    }) // end event listener
   } // end renderRpsButtons
 
   // render Attack/Defend button
@@ -104,35 +98,35 @@
     // end resets
 
     //player 1 buff status
-    if (currentUser.buffs.damageReduction > 0 && currentUser.buffs.missedAttack > 0){
+    if (currentUser.buffs.damageReduction > 0 && currentUser.buffs.dodge > 0){
       player1Buff.innerText = `
         Damage Reduction: ${currentUser.buffs.damageReduction - 1}
-        Missed Attack: ${currentUser.buffs.missedAttack - 1}
+        Dodge: ${currentUser.buffs.dodge - 1}
       `
     } else if (currentUser.buffs.damageReduction > 0) {
       player1Buff.innerText = `
         Damage Reduction: ${currentUser.buffs.damageReduction - 1}
       `
-    } else if (currentUser.buffs.missedAttack > 0) {
+    } else if (currentUser.buffs.dodge > 0) {
       player1Buff.innerText = `
-        Missed Attack: ${currentUser.buffs.missedAttack}
+        Dodge: ${currentUser.buffs.dodge}
       `
     } else {
       player1Buff.innerText = ``
     }
     //player 2 buff status
-    if (bob.buffs.damageReduction > 0 && bob.buffs.missedAttack > 0){
+    if (bob.buffs.damageReduction > 0 && bob.buffs.dodge > 0){
       player2Buff.innerText = `
         Damage Reduction: ${bob.buffs.damageReduction - 1}
-        Missed Attack: ${bob.buffs.missedAttack - 1}
+        Dodge: ${bob.buffs.dodge - 1}
       `
     } else if (bob.buffs.damageReduction > 0) {
       player2Buff.innerText = `
         Damage Reduction: ${bob.buffs.damageReduction - 1}
       `
-    } else if (bob.buffs.missedAttack > 0) {
+    } else if (bob.buffs.dodge > 0) {
       player2Buff.innerText = `
-        Missed Attack: ${bob.buffs.missedAttack}
+        Dodge: ${bob.buffs.dodge}
       `
     } else {
       player2Buff.innerText = ``
@@ -149,17 +143,19 @@
         <button class="nes-btn is-primary d-block mx-auto">Defend</button>
       </div>
     `
+  } // end renderAdButtons
 
+  // display the player choices and damage output
+  function outputMessage (caseNum, attackLogic, userChoice1, userChoice2) {
     // display player1 & 2 HP
     player1WinHP.innerText = `${currentUser.hp}/10 HP`
     player2WinHP.innerText = `${bob.hp}/10 HP`
 
     player1Health.value = currentUser.hp
     player2Health.value = bob.hp
-  } // end renderAdButtons
 
-  // display the player choices and damage output
-  function outputMessage (caseNum, attackLogic, userChoice1, userChoice2) {
+    infoBar.innerText = "Click here to continue."
+
     output.innerHTML = `
       <p>You played ${userChoice1.toUpperCase()} and ${bob.name} played ${userChoice2.toUpperCase()}.</p>
     `
@@ -187,7 +183,7 @@
         switch (caseNum){
           case (-1):
             output.innerHTML += `
-              <p>${bob.name} gained ${bob.buffs}.</p>
+              <p>${bob.name} gained a Buff!</p>
             `
             break
           case (0):
@@ -197,7 +193,7 @@
             break
           case (1):
             output.innerHTML += `
-              <p>You gained ${currentUser.buffs}.</p>
+              <p>You gained a Buff!</p>
             `
             break
         } // end switch
@@ -285,7 +281,7 @@
               currentPlayer.buffs.dodge += 1
               console.log("have dodge")
             } // end if
-            console.log("Missed Attack Buff: ", currentPlayer.buffs)
+            console.log("Dodge Buff: ", currentPlayer.buffs)
             break
         } // end nested switch
         break
