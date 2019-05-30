@@ -1,17 +1,18 @@
 let currentUser = lee
+let currentComp = computerCharacters
 
 const rpsChoices = ["rock", "paper", "scissor"]
 const missRng = [0, 1] // test with just 0
 const scissorRng = [1, 1.5, 2, 2.5]
 
 // RESET
-function resetGame(player1 = currentUser, player2 = bob){
+function resetGame(player1 = currentUser, player2 = currentComp){
   // player 1 reset
   player1.hp = 10
   player1Health.value = '10'
   player1WinHP.innerText = `${player1.hp}/10 HP`
   player1Health.classList.value = "nes-progress is-success"
-  player1Level.innerText = `Level ${currentUser.level}`
+  player1Level.innerText = `Lvl ${currentUser.level}`
   currentUser.buffs.damageReduction = 0
   currentUser.buffs.dodge = 0
   player1Buff.innerHTML = ''
@@ -20,9 +21,22 @@ function resetGame(player1 = currentUser, player2 = bob){
   player2Health.value = '10'
   player2WinHP.innerText = `${player2.hp}/10 HP`
   player2Health.classList.value = "nes-progress is-success"
-  bob.buffs.damageReduction = 0
-  bob.buffs.dodge = 0
+  currentComp.buffs.damageReduction = 0
+  currentComp.buffs.dodge = 0
   player2Buff.innerHTML = ''
+  currentComp = computerChars.sample()
+  player2Name.innerText = currentComp.name
+  switch (currentComp){
+    case (lee):
+      comp1Sprite.className = "nes-squirtle float-left"
+      break
+    case (bob):
+      comp1Sprite.className = "nes-bulbasaur float-left"
+      break
+    case (jimmy):
+      comp1Sprite.className = "nes-charmander float-left"
+      break
+  }
 }
 // end RESET
 
@@ -39,11 +53,11 @@ let checkBuffs = () => {
   // end player 1 buff check
 
   // player 2 buff check
-  if (bob.buffs.damageReduction > 0){
-    bob.buffs.damageReduction -= 1
+  if (currentComp.buffs.damageReduction > 0){
+    currentComp.buffs.damageReduction -= 1
   }
-  if (bob.buffs.dodge > 0){
-    bob.buffs.dodge -= 1
+  if (currentComp.buffs.dodge > 0){
+    currentComp.buffs.dodge -= 1
   }
   // end player 2 buff check
 }
@@ -100,8 +114,8 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
     switch (Math.sign(rpsChoices.indexOf(userChoice2)-rpsChoices.indexOf(userChoice1))){
       case (-1):
         console.log('Lost with Rock')
-        playerCheck(bob, currentUser, userChoice2)
-        outputMessage(-1, bob.attackLogic, userChoice1, userChoice2)
+        playerCheck(currentComp, currentUser, userChoice2)
+        outputMessage(-1, currentComp.attackLogic, userChoice1, userChoice2)
         // check for lost
         renderOutput()
         break
@@ -112,7 +126,7 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
         break
       case (1):
         console.log('Win with Rock')
-        playerCheck(currentUser, bob, userChoice1)
+        playerCheck(currentUser, currentComp, userChoice1)
         outputMessage(1, currentUser.attackLogic, userChoice1, userChoice2)
         // check for win
         //Testing WIN CASE TO POP TROPHY ON USER: WILL CHANGE with CSS
@@ -125,8 +139,8 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
     // normal win/lose conditions
     switch (Math.sign(rpsChoices.indexOf(userChoice1)-rpsChoices.indexOf(userChoice2))){
     case (-1):
-      playerCheck(bob, currentUser, userChoice2)
-      outputMessage(-1, bob.attackLogic, userChoice1, userChoice2)
+      playerCheck(currentComp, currentUser, userChoice2)
+      outputMessage(-1, currentComp.attackLogic, userChoice1, userChoice2)
       console.log(`Lose with ${userChoice1}`)
       // check for lost
       renderOutput()
@@ -137,7 +151,7 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
       renderOutput()
       break
     case (1):
-      playerCheck(currentUser, bob, userChoice1)
+      playerCheck(currentUser, currentComp, userChoice1)
       outputMessage(1, currentUser.attackLogic, userChoice1, userChoice2)
       console.log(`Win with ${userChoice1}`)
       // check for win
@@ -152,7 +166,7 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
 let renderOutput = () => {
   output.style.display = ''
   commands.style.display = "none"
-  checkHealth(currentUser, bob)
+  checkHealth(currentUser, currentComp)
 }
 // end Command Outputs
 
@@ -209,7 +223,9 @@ document.addEventListener("click", event => {
           currentUser = new Character(user.name, user.id)
           currentUser.level = user.level
           player1Name.innerText = currentUser.name
-          player1Level.innerText = `Level ${currentUser.level}`
+          player1Level.innerHTML = `
+            Lvl ${currentUser.level}
+          `
         })
 
       welcomeScreen.style.display = "none"
@@ -220,21 +236,21 @@ document.addEventListener("click", event => {
       console.log("You chose Rock.")
       checkBuffs()
       playRound('rock')
-      checkHealth(currentUser, bob)
+      checkHealth(currentUser, currentComp)
       // renderAdButtons()
       break
     case ("Paper"):
       console.log("You chose Paper.")
       checkBuffs()
       playRound('paper')
-      checkHealth(currentUser, bob)
+      checkHealth(currentUser, currentComp)
       // renderAdButtons()
       break
     case ("Scissor"):
       console.log("You chose Scissor.")
       checkBuffs()
       playRound('scissor')
-      checkHealth(currentUser, bob)
+      checkHealth(currentUser, currentComp)
       // renderAdButtons()
       break
     case ("Click here for the Main Menu."):
@@ -252,11 +268,7 @@ start.innerHTML = `
   <button class="nes-btn">Reset</button>
 `
 
-player1Name.innerText = currentUser.name
-player1Level.innerText = currentUser.level
-player2Name.innerText = bob.name
-player1Buff.innerText = ''
-player2Buff.innerText = ''
+player2Name.innerText = currentComp.name
 
 gameContainer.style.display = "none"
 output.style.display = "none"

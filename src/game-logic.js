@@ -2,7 +2,7 @@
   // GAME LOOP for testing purposes only
   let gameNumber = 1
 
-  function testRun(user1 = lee, user2 = bob){
+  function testRun(user1 = lee, user2 = currentComp){
     output.innerHTML += `
       <hr>
       <h2>Game Number: ${gameNumber}</h2>
@@ -53,10 +53,22 @@
 
   // rock paper scissor AI logic
   const rollRPS = () => {
-    const trueFalse = [true, false]
-    bob.attackLogic = trueFalse.sample()
-    //insert function to grab bob attack logic. run function to insert shield or sword based on true:sword || false:shield
-    renderCompIcon(bob.attackLogic)
+    let trueFalse
+
+    switch (currentComp){
+      case (lee):
+        trueFalse = [false, false, false, true]
+        break
+      case (bob):
+        trueFalse = [true, false]
+        break
+      case (jimmy):
+        trueFalse = [true, true, true, false]
+        break
+    }
+    currentComp.attackLogic = trueFalse.sample()
+    //insert function to grab currentComp attack logic. run function to insert shield or sword based on true:sword || false:shield
+    renderCompIcon(currentComp.attackLogic)
     //TODO: fire OFF CSS animation Here for ATTACK
     comp1Move()
     user1Move()

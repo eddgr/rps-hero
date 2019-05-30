@@ -17,6 +17,10 @@ class Character {
 }
 
 // seed
-const lee = new Character('Lee')
-const bob = new Character('Bob')
+const lee = new Character('Lee') // defensive, squirtle
+const bob = new Character('Bob') // neutral, bulbasaur
+const jimmy = new Character('Jimmy') // offensive, charmander
+
+const computerChars = [lee, bob, jimmy]
+const computerCharacters = computerChars.sample()
 // end CLASS CHARACTERS

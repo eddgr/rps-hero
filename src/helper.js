@@ -56,23 +56,23 @@
 
     commands.innerHTML = `
       <div class="row w-100">
-        <div class="col-sm card bg-primary rounded-0 text-light">
+        <div class="col-sm-4 card bg-primary rounded-0 text-light">
           <span class="card-body">${buffDescObj.rock}</span>
-          <button class="nes-btn is-primary mb-4">
+          <button class="nes-btn is-primary mb-4 d-block">
             Rock
           </button>
         </div>
 
-        <div class="col-sm card bg-warning rounded-0">
+        <div class="col-sm-4 card bg-warning rounded-0">
           <span class="card-body">${buffDescObj.paper}</span>
-          <button class="nes-btn is-warning mb-4">
+          <button class="nes-btn is-warning mb-4 d-block">
             Paper
           </button>
         </div>
 
-        <div class="col-sm card bg-danger rounded-0 text-light">
+        <div class="col-sm-4 card bg-danger rounded-0 text-light">
           <span class="card-body">${buffDescObj.scissor}</span>
-          <button class="nes-btn is-error mb-4">
+          <button class="nes-btn is-error mb-4 d-block">
             Scissor
           </button>
         </div>
@@ -115,18 +115,18 @@
       player1Buff.innerText = ``
     }
     //player 2 buff status
-    if (bob.buffs.damageReduction > 0 && bob.buffs.dodge > 0){
+    if (currentComp.buffs.damageReduction > 0 && currentComp.buffs.dodge > 0){
       player2Buff.innerText = `
-        Damage Reduction: ${bob.buffs.damageReduction - 1}
-        Dodge: ${bob.buffs.dodge - 1}
+        Damage Reduction: ${currentComp.buffs.damageReduction - 1}
+        Dodge: ${currentComp.buffs.dodge - 1}
       `
-    } else if (bob.buffs.damageReduction > 0) {
+    } else if (currentComp.buffs.damageReduction > 0) {
       player2Buff.innerText = `
-        Damage Reduction: ${bob.buffs.damageReduction - 1}
+        Damage Reduction: ${currentComp.buffs.damageReduction - 1}
       `
-    } else if (bob.buffs.dodge > 0) {
+    } else if (currentComp.buffs.dodge > 0) {
       player2Buff.innerText = `
-        Dodge: ${bob.buffs.dodge}
+        Dodge: ${currentComp.buffs.dodge}
       `
     } else {
       player2Buff.innerText = ``
@@ -149,22 +149,22 @@
   function outputMessage (caseNum, attackLogic, userChoice1, userChoice2) {
     // display player1 & 2 HP
     player1WinHP.innerText = `${currentUser.hp}/10 HP`
-    player2WinHP.innerText = `${bob.hp}/10 HP`
+    player2WinHP.innerText = `${currentComp.hp}/10 HP`
 
     player1Health.value = currentUser.hp
-    player2Health.value = bob.hp
+    player2Health.value = currentComp.hp
 
     infoBar.innerText = "Click here to continue."
 
     output.innerHTML = `
-      <p>You played ${userChoice1.toUpperCase()} and ${bob.name} played ${userChoice2.toUpperCase()}.</p>
+      <p>You played ${userChoice1.toUpperCase()} and ${currentComp.name} played ${userChoice2.toUpperCase()}.</p>
     `
     switch (attackLogic){
       case (true):
         switch (caseNum){
           case (-1):
             output.innerHTML += `
-              <p>${bob.name} does ${bob.currentDamage} damage to you.</p>
+              <p>${currentComp.name} does ${currentComp.currentDamage} damage to you.</p>
             `
             break
           case (0):
@@ -174,7 +174,7 @@
             break
           case (1):
             output.innerHTML += `
-              <p>You do ${currentUser.currentDamage} damage to ${bob.name}.</p>
+              <p>You do ${currentUser.currentDamage} damage to ${currentComp.name}.</p>
             `
             break
         } // end switch
@@ -183,7 +183,7 @@
         switch (caseNum){
           case (-1):
             output.innerHTML += `
-              <p>${bob.name} gained a Buff!</p>
+              <p>${currentComp.name} gained a Buff!</p>
             `
             break
           case (0):
