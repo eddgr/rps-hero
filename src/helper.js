@@ -104,35 +104,35 @@
     // end resets
 
     //player 1 buff status
-    if (currentUser.buffs.damageReduction > 0 && currentUser.buffs.missedAttack > 0){
+    if (currentUser.buffs.damageReduction > 0 && currentUser.buffs.dodge > 0){
       player1Buff.innerText = `
         Damage Reduction: ${currentUser.buffs.damageReduction - 1}
-        Missed Attack: ${currentUser.buffs.missedAttack - 1}
+        Dodge: ${currentUser.buffs.dodge - 1}
       `
     } else if (currentUser.buffs.damageReduction > 0) {
       player1Buff.innerText = `
         Damage Reduction: ${currentUser.buffs.damageReduction - 1}
       `
-    } else if (currentUser.buffs.missedAttack > 0) {
+    } else if (currentUser.buffs.dodge > 0) {
       player1Buff.innerText = `
-        Missed Attack: ${currentUser.buffs.missedAttack}
+        Dodge: ${currentUser.buffs.dodge}
       `
     } else {
       player1Buff.innerText = ``
     }
     //player 2 buff status
-    if (bob.buffs.damageReduction > 0 && bob.buffs.missedAttack > 0){
+    if (bob.buffs.damageReduction > 0 && bob.buffs.dodge > 0){
       player2Buff.innerText = `
         Damage Reduction: ${bob.buffs.damageReduction - 1}
-        Missed Attack: ${bob.buffs.missedAttack - 1}
+        Dodge: ${bob.buffs.dodge - 1}
       `
     } else if (bob.buffs.damageReduction > 0) {
       player2Buff.innerText = `
         Damage Reduction: ${bob.buffs.damageReduction - 1}
       `
-    } else if (bob.buffs.missedAttack > 0) {
+    } else if (bob.buffs.dodge > 0) {
       player2Buff.innerText = `
-        Missed Attack: ${bob.buffs.missedAttack}
+        Dodge: ${bob.buffs.dodge}
       `
     } else {
       player2Buff.innerText = ``
@@ -285,7 +285,7 @@
               currentPlayer.buffs.dodge += 1
               console.log("have dodge")
             } // end if
-            console.log("Missed Attack Buff: ", currentPlayer.buffs)
+            console.log("Dodge Buff: ", currentPlayer.buffs)
             break
         } // end nested switch
         break
