@@ -272,8 +272,7 @@ start.innerHTML = `
   <button class="nes-btn">Leaderboard</button>
 `
 const insertLeaderboard = () =>{ 
-  
-  console.log('in Leaderboard HTML')
+
   welcomeScreen.innerHTML = `
   
       <div class="nes-table-responsive">
