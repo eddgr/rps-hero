@@ -96,9 +96,8 @@ let checkHealth = (player1, player2) => {
       output.innerHTML += `
         <h2 class="d-block">You win!</h2>
       `
-      output.addEventListener("click", () => {
-        resetGame(player1, player2)
-      })
+      // set 5 second timeout before resetting the game
+      setTimeout(() => resetGame(player1, player2), 5000)
       break
     case (player2.hp < 10 && player2.hp > 3 && player1.hp > 0):
       player2Health.classList.value = "nes-progress is-warning"
