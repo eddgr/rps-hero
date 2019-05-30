@@ -16,6 +16,8 @@ function resetGame(player1 = currentUser, player2 = currentComp){
   currentUser.buffs.damageReduction = 0
   currentUser.buffs.dodge = 0
   player1Buff.innerHTML = ''
+  user1Sprite.style.left = "0px"
+  destroyUserAttackIcon()
   // player 2 reset
   player2.hp = 10
   player2Health.value = '10'
@@ -26,6 +28,8 @@ function resetGame(player1 = currentUser, player2 = currentComp){
   player2Buff.innerHTML = ''
   currentComp = computerChars.sample()
   player2Name.innerText = currentComp.name
+  comp1Sprite.style.right = "0px"
+  destroyCompAttackIcon()
   switch (currentComp){
     case (lee):
       comp1Sprite.className = "nes-squirtle float-left"
