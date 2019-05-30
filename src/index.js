@@ -59,6 +59,7 @@ let checkHealth = (player1, player2) => {
     case (player1.hp <= 0 && player2.hp > 0):
       resetGame(player1, player2)
       output.innerHTML += `
+        <br>
         <h2>You lose</h2>
       `
       break
@@ -75,6 +76,7 @@ let checkHealth = (player1, player2) => {
       })
       resetGame(player1, player2)
       output.innerHTML += `
+        <br>
         <h2>You win!</h2>
       `
       break
@@ -205,14 +207,14 @@ document.addEventListener("click", event => {
     case ("Back"):
         renderAdButtons()
         break
-    case ("attack"):
+    case ("Attack"):
       renderRpsButtons({rock: "2x base damage", paper: "1x base damage<br>50% damage reduction next turn", scissor: "1 - 2.5x base damage"})
       console.log("will render attack icon")
       renderUserAttackIcon()
       currentUser.attackLogic = true
       console.log('You chose Attack.')
       break
-    case ("defend"):
+    case ("Defend"):
       renderRpsButtons({rock: "50% Damage reduction for next 2 turns", paper: "Heal 20% HP", scissor: "50% chance to dodge next attack"})
       currentUser.attackLogic = false
       console.log('You chose Defend')

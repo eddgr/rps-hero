@@ -10,15 +10,16 @@
     return document.querySelector(funcArg)
   }
 
+  // render icons
   const renderUserAttackIcon = () => {
     userAttkIcon.innerHTML = `
-      <img src="img/gameSword.jpg" height="100" width="120">
+      <img src="img/sword_container.png" width="45">
     `
   }
 
   const renderUserDefenseIcon = () => {
     userAttkIcon.innerHTML = `
-      <img src="img/gameShield.jpg" height="70" width="120">
+      <img src="img/shield_container.png" width="45">
     `
   }
 
@@ -35,19 +36,19 @@
   }
   const renderCompAttackIcon = () => {
     compAttkIcon.innerHTML = `
-      <img src="img/gameSword.jpg" height="100" width="120">
+      <img src="img/sword_container.png" width="45">
     `
   }
   const renderCompDefenseIcon = () => {
     compAttkIcon.innerHTML = `
-      <img src="img/gameShield.jpg" height="100" width="120">
+      <img src="img/shield_container.png" width="45">
     `
   }
 
   const renderWinLossIcon = () => {
     winLossIcon.innerText = "hello"
   }
-  // console.log(renderWinLossIcon)
+  // end render icons
 
   // render Rock, Paper, Scissor buttons
   const renderRpsButtons = (buffDescObj) => {
@@ -78,12 +79,12 @@
       </div>
     `
 
-   document.addEventListener("keydown", event => {
-     if (event.keyCode === 66){
-       renderAdButtons()
-     }
-   })
-  }
+    document.addEventListener("keydown", event => {
+      if (event.keyCode === 66){
+        renderAdButtons()
+      }
+    }) // end event listener
+  } // end renderRpsButtons
 
   // render Attack/Defend button
   const renderAdButtons = () => {
@@ -130,30 +131,25 @@
     //end testing new display for buffs
 
     commands.innerHTML = `
-      <div class="col-sm-6 bg-danger text-center p-4">
-        Attack Image
-        <br><br>
-        <button class="nes-btn">attack</button>
+      <div class="col-sm-6 bg-danger text-center p-4 d-block">
+        <img src="img/sword_container.png" style="width:150px; height:auto">
+        <button class="nes-btn is-error d-block mx-auto">Attack</button>
       </div>
-      <div class="col-sm-6 bg-primary text-center p-4">
-        Defend Image
-        <br><br>
-        <button class="nes-btn">defend</button>
+      <div class="col-sm-6 bg-primary text-center p-4 d-block">
+        <img src="img/shield_container.png" style="width:150px; height:auto">
+        <button class="nes-btn is-primary d-block mx-auto">Defend</button>
       </div>
     `
 
     infoBar.innerText = 'Choose Attack or Defend'
 
-    //display player1 HP & 2 HP
+    // display player1 & 2 HP
     player1WinHP.innerText = `${currentUser.hp}/10 HP`
     player2WinHP.innerText = `${bob.hp}/10 HP`
 
-    console.log(attackIconImage)
-    console.log('attack icon should be destroyed')
-
     player1Health.value = currentUser.hp
     player2Health.value = bob.hp
-  }
+  } // end renderAdButtons
 
   // display the player choices and damage output
   function outputMessage (caseNum, attackLogic, userChoice1, userChoice2) {
@@ -204,7 +200,6 @@
 
   // attack/defend helper function to calculate damage and buff
   function playerCheck(currentPlayer, otherPlayer, userChoice){
-    console.log("IN HELPER")
     switch (currentPlayer.attackLogic){
       case (true):
         switch (userChoice){
