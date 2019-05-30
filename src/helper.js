@@ -13,13 +13,13 @@
   // render icons
   const renderUserAttackIcon = () => {
     userAttkIcon.innerHTML = `
-      <img src="img/sword_container.png" width="45">
+      <img src="img/sword_container.png" width="150">
     `
   }
 
   const renderUserDefenseIcon = () => {
     userAttkIcon.innerHTML = `
-      <img src="img/shield_container.png" width="45">
+      <img src="img/shield_container.png" width="150">
     `
   }
 
@@ -36,12 +36,12 @@
   }
   const renderCompAttackIcon = () => {
     compAttkIcon.innerHTML = `
-      <img src="img/sword_container.png" width="45">
+      <img src="img/sword_container.png" width="150">
     `
   }
   const renderCompDefenseIcon = () => {
     compAttkIcon.innerHTML = `
-      <img src="img/shield_container.png" width="45">
+      <img src="img/shield_container.png" width="150">
     `
   }
 
@@ -52,7 +52,7 @@
 
   // render Rock, Paper, Scissor buttons
   const renderRpsButtons = (buffDescObj) => {
-    infoBar.innerText = "Press 'B' for the Previous Menu."
+    infoBar.innerText = "Press 'B' for the Main Menu."
 
     commands.innerHTML = `
       <div class="row w-100">
