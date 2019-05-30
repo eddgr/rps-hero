@@ -76,38 +76,37 @@
 
   //ANIMATION MOVEMENT LOGIC for User and Computer
   function user1Move() {
-        let elem = user1Sprite
-        let pos = 0
-        let id = setInterval(frame, 5)
-        console.log(user1Sprite)
+    let elem = user1Sprite
+    let pos = 0
+    let id = setInterval(frame, 5)
+    console.log(user1Sprite)
 
-        function frame() {
-            if (pos == 100) {
-                clearInterval(id);
-            } else {
-            pos++;
-            // elem.style.bottom = pos + 'px'; //let this be 300 ?
-            elem.style.left = pos + 'px'; //let this be 100?
-            }
-        }
-  }
-
-    function comp1Move() {
-        let elem = comp1Sprite
-        let pos = 0
-        let id = setInterval(frame, 5)
-        console.log(user1Sprite)
-
-        function frame() {
-            if (pos == 100) {
-                clearInterval(id);
-            } else {
-                pos++;
-                // elem.style.top = pos + 'px'; //test positioning
-                elem.style.right = pos + 'px'; //test positioning
-            }
-        }
+    function frame() {
+      if (pos == 140) {
+          clearInterval(id);
+      } else {
+      pos++;
+      // elem.style.bottom = pos + 'px'; //let this be 300 ?
+      elem.style.left = pos + 'px'; //let this be 100?
+      }
     }
+  } // end user1Move
 
-  //ANIMATION MOVEMENT LOGIC
+  function comp1Move() {
+    let elem = comp1Sprite
+    let pos = 0
+    let id = setInterval(frame, 5)
+    console.log(user1Sprite)
+
+    function frame() {
+      if (pos == 100) {
+          clearInterval(id);
+      } else {
+          pos++;
+          // elem.style.top = pos + 'px'; //test positioning
+          elem.style.right = pos + 'px'; //test positioning
+      }
+    }
+  } // end comp1Move
+  // end ANIMATION MOVEMENT LOGIC
 // end MISC

@@ -24,6 +24,9 @@
   const destroyUserAttackIcon = () => {
     userAttkIcon.innerHTML = ``
   }
+  const destroyCompAttackIcon = () => {
+    compAttkIcon.innerHTML = ``
+  }
   const renderCompIcon = (bool) => {
     if (bool === true){
         renderCompAttackIcon()
@@ -88,8 +91,17 @@
     // A/D === Attack/Defend
     // check current buffs before rendering A/D buttons
 
+    // resets
+    user1Sprite.style.left = "0px"
+    destroyUserAttackIcon()
+    comp1Sprite.style.right = "0px"
+    destroyCompAttackIcon()
+
     output.style.display = "none"
     commands.style.display = ""
+
+    infoBar.innerText = 'Choose Attack or Defend'
+    // end resets
 
     //player 1 buff status
     if (currentUser.buffs.damageReduction > 0 && currentUser.buffs.missedAttack > 0){
@@ -137,8 +149,6 @@
         <button class="nes-btn is-primary d-block mx-auto">Defend</button>
       </div>
     `
-
-    infoBar.innerText = 'Choose Attack or Defend'
 
     // display player1 & 2 HP
     player1WinHP.innerText = `${currentUser.hp}/10 HP`
