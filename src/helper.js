@@ -310,30 +310,33 @@
     
     fetch(API_URL)
       .then(function(response) {
-        return response.json();
+        return response.json()
       })
       .then(function(myJson) {
-        const leaderTable = grab('#leaderTable')
-        // console.log(leaderTable)
-        //sort objects before placing on DOM
-        let sortable = [];
-        for (var object in myJson) {
-            sortable.push([myJson[object]]);
-        }
+          const leaderTable = grab('#leaderTable')
+          // console.log(leaderTable)
+          //sort objects before placing on DOM
+          let sortable = []
+          for (const object in myJson) {
+              if (myJson[object].level >= 0){
+                sortable.push([myJson[object]])
+              }
+          }
 
-        let sortedTable = sortable.sort(function(a, b) {
-        return b[0].level - a[0].level;
-        })
-        //sort objects before placing on DOM
-        let i;
-        for (i = 0; (sortedTable.length < 15) ? sortedTable.length : i < 15; i++) {
-          leaderTable.innerHTML += `
-                  <tr>
-                  <td>${sortedTable[i][0].name}</td>
-                  <td>${sortedTable[i][0].level}</td>
-                  </tr>
-                  `  
-        }
+          let sortedTable = sortable.sort(function(a, b) {
+            return b[0].level - a[0].level
+          })
+        
+          //sort objects before placing on DOM
+          let i;
+          for (i = 0; (sortedTable.length < 15) ? sortedTable.length: i < 15; i++) {
+            leaderTable.innerHTML += `
+                <tr>
+                <td>${sortedTable[i][0].name}</td>
+                <td>${sortedTable[i][0].level}</td>
+                </tr>
+                `  
+          }
     })//end of then function
   }//end fetchHelperLeaderboard
 

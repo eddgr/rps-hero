@@ -280,7 +280,7 @@ const insertLeaderboard = () =>{
   welcomeScreen.innerHTML = `
   
       <div class="nes-table-responsive">
-        <table class="nes-table is-bordered is-dark" style="height: 803px; width: 758px; margin-left: 23px" >
+        <table class="nes-table is-bordered is-dark" style="height: 803px; width: 92%; margin-left: 23px" >
           <thead>
             <tr>
               <th>User</th>
