@@ -93,10 +93,12 @@ let checkHealth = (player1, player2) => {
       fetchHelper(API_URL + `/${currentUser.id}`, "PATCH", {
         level: currentUser.level += 1
       })
-      resetGame(player1, player2)
       output.innerHTML += `
         <h2 class="d-block">You win!</h2>
       `
+      output.addEventListener("click", () => {
+        resetGame(player1, player2)
+      })
       break
     case (player2.hp < 10 && player2.hp > 3 && player1.hp > 0):
       player2Health.classList.value = "nes-progress is-warning"
