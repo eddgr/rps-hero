@@ -77,11 +77,23 @@ let checkHealth = (player1, player2) => {
   switch (true){
     // player 1
     case (player1.hp <= 0 && player2.hp > 0):
-      output.innerHTML += `
+      output.innerHTML = `
         <h2 class="d-block">You lose</h2>
       `
-      // set 5 second timeout before resetting the game
-      setTimeout(() => resetGame(player1, player2), 5000)
+      // set 3 second timeout before resetting the game
+      setTimeout(() => {
+        output.innerHTML += `
+          <p>Play again!</p>
+        `
+      }, 1000)
+      setTimeout(() => {
+        output.innerHTML += `
+          <p>Click here to continue.</p>
+        `
+      }, 2000)
+      setTimeout(() => resetGame(player1, player2), 3000)
+      console.trace()
+      // end setTimeout
       break
     case (player1.hp < 10 && player1.hp > 3 && player2.hp > 0):
       player1Health.classList.value = "nes-progress is-warning"
@@ -94,11 +106,24 @@ let checkHealth = (player1, player2) => {
       fetchHelper(API_URL + `/${currentUser.id}`, "PATCH", {
         level: currentUser.level += 1
       })
-      output.innerHTML += `
-        <h2 class="d-block">You win!</h2>
+
+      output.innerHTML = `
+      <h2 class="d-block">You win!</h2>
       `
-      // set 5 second timeout before resetting the game
-      setTimeout(() => resetGame(player1, player2), 5000)
+      // set 3 second timeout before resetting the game
+      setTimeout(() => {
+        output.innerHTML += `
+          <p>On to the next challenge!</p>
+        `
+      }, 1000)
+      setTimeout(() => {
+        output.innerHTML += `
+          <p>Click here to continue.</p>
+        `
+      }, 2000)
+      setTimeout(() => resetGame(player1, player2), 3000)
+      console.trace()
+      // end setTimeout
       break
     case (player2.hp < 10 && player2.hp > 3 && player1.hp > 0):
       player2Health.classList.value = "nes-progress is-warning"
@@ -173,6 +198,7 @@ let renderOutput = () => {
   output.style.display = ''
   commands.style.display = "none"
   checkHealth(currentUser, currentComp)
+  console.trace()
 }
 // end Command Outputs
 
@@ -196,9 +222,6 @@ document.addEventListener("click", event => {
   event.preventDefault()
 
   switch (event.target.innerText){
-    // case ("Back"):
-    //   renderAdButtons()
-    //   break
     case ("Attack"):
       renderRpsButtons({rock: "2x Base Damage", paper: "1x Base Damage<br><br>50% Damage Reduction next turn", scissor: "1 - 2.5x Base Damage"})
       console.log("will render attack icon")
@@ -215,8 +238,6 @@ document.addEventListener("click", event => {
       break
     case ("Start Game"):
       playGame()
-      // output.innerHTML = ''
-      // testRun()
       break
     case ("Reset"):
       resetGame()
@@ -242,22 +263,16 @@ document.addEventListener("click", event => {
       console.log("You chose Rock.")
       checkBuffs()
       playRound('rock')
-      checkHealth(currentUser, currentComp)
-      // renderAdButtons()
       break
     case ("Paper"):
       console.log("You chose Paper.")
       checkBuffs()
       playRound('paper')
-      checkHealth(currentUser, currentComp)
-      // renderAdButtons()
       break
     case ("Scissor"):
       console.log("You chose Scissor.")
       checkBuffs()
       playRound('scissor')
-      checkHealth(currentUser, currentComp)
-      // renderAdButtons()
       break
     case ("Click here for the Main Menu."):
       renderAdButtons()
