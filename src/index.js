@@ -260,7 +260,7 @@ document.addEventListener("click", event => {
     case ("Click here for the Main Menu."):
       renderAdButtons()
       break
-    case ("Click here to continue."):
+    case ("Click to continue."):
       renderAdButtons()
       break
   } // end switch
