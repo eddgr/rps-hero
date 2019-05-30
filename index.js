@@ -92,6 +92,9 @@ let currentUser = lee
     // A/D === Attack/Defend
     // check current buffs before rendering A/D buttons
 
+    commands.style.display = ""
+    output.style.display = "none"
+
     //player 1 buff status
     if (currentUser.buffs.damageReduction > 0 && currentUser.buffs.missedAttack > 0){
       player1Buff.innerText = `
@@ -383,17 +386,19 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
   if (userChoice1 === "rock" && userChoice2 === "scissor" || userChoice1 === 'scissor' && userChoice2 === 'rock'){
     switch (Math.sign(rpsChoices.indexOf(userChoice2)-rpsChoices.indexOf(userChoice1))){
       case (-1):
-        console.log('testing output message -1 rock')
+        console.log('Lost with Rock')
         outputMessage(-1, userChoice1, userChoice2)
         // check for lost
         playerCheck(bob, currentUser, userChoice2)
+        renderOutput()
         break
       case (0):
-        console.log('testing output message 0 rock')
+        console.log('Draw with Rock')
         outputMessage(0, userChoice1, userChoice2)
+        renderOutput()
         break
       case (1):
-        console.log('testing output message 1 rock')
+        console.log('Win with Rock')
         outputMessage(1, userChoice1, userChoice2)
 
         // check for win
@@ -401,6 +406,7 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
         //Testing WIN CASE TO POP TROPHY ON USER: WILL CHANGE with CSS
         renderWinLossIcon()//testing to see where this fires off
         //Testing WIN CASE TO POP TROPHY ON USER: WILL CHANGE with CSS
+        renderOutput()
         break
     } // end switch
   } else {
@@ -408,25 +414,35 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
     switch (Math.sign(rpsChoices.indexOf(userChoice1)-rpsChoices.indexOf(userChoice2))){
     case (-1):
       outputMessage(-1, userChoice1, userChoice2)
-      console.log('testing output message -1')
+      console.log(`Lose with ${userChoice1}`)
       // check for lost
       playerCheck(bob, currentUser, userChoice2)
+      renderOutput()
       break
     case (0):
       outputMessage(0, userChoice1, userChoice2)
-      console.log('testing output message 0')
+      console.log(`Draw with ${userChoice1}`)
+      renderOutput()
       break
     case (1):
       outputMessage(1, userChoice1, userChoice2)
-      console.log('testing output message 1')
-
+      console.log(`Win with ${userChoice1}`)
       // check for win
       playerCheck(currentUser, bob, userChoice1)
+      renderOutput()
       break
      } // switch end
   } // IF statement end
 }
 // end of Playround Function
+
+// Command Outputs
+let renderOutput = () => {
+  commands.style.display = "none"
+  output.style.display = ''
+  checkHealth(currentUser, bob)
+}
+// end Command Outputs
 
 // DOM
 const gameContainer = grab('#game-container')
@@ -454,7 +470,6 @@ const welcomeScreen = grab('#welcome-screen')
 const player1Level = grab('#player1-level')
 const infoBar = grab('#information')
 const API_URL = "http://localhost:3000/api/v1/users"
-
 // end DOM
 
 // login
@@ -484,7 +499,6 @@ document.addEventListener("click", event => {
       renderRpsButtons({rock: "2x base damage", paper: "1x base damage<br>50% damage reduction next turn", scissor: "1 - 2.5x base damage"})
       console.log("will render attack icon")
       renderUserAttackIcon()
-      console.log(renderUserAttackIcon)
       currentUser.attackLogic = true
       console.log('You chose Attack.')
       break
@@ -523,21 +537,21 @@ document.addEventListener("click", event => {
       checkBuffs()
       playRound('rock')
       checkHealth(currentUser, bob)
-      renderAdButtons()
+      // renderAdButtons()
       break
     case ("Paper"):
       console.log("You chose Paper.")
       checkBuffs()
       playRound('paper')
       checkHealth(currentUser, bob)
-      renderAdButtons()
+      // renderAdButtons()
       break
     case ("Scissor"):
       console.log("You chose Scissor.")
       checkBuffs()
       playRound('scissor')
       checkHealth(currentUser, bob)
-      renderAdButtons()
+      // renderAdButtons()
       break
   } // end switch
 })
@@ -555,4 +569,5 @@ player1Buff.innerText = ''
 player2Buff.innerText = ''
 
 gameContainer.style.display = "none"
+output.style.display = "none"
 renderAdButtons()
