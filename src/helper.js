@@ -56,7 +56,7 @@
 
     commands.innerHTML = `
       <div class="row w-100">
-        <div class="col-sm card bg-primary rounded-0">
+        <div class="col-sm card bg-primary rounded-0 text-light">
           <span class="card-body">${buffDescObj.rock}</span>
           <button class="nes-btn is-primary mb-4">
             Rock
@@ -70,7 +70,7 @@
           </button>
         </div>
 
-        <div class="col-sm card bg-danger rounded-0">
+        <div class="col-sm card bg-danger rounded-0 text-light">
           <span class="card-body">${buffDescObj.scissor}</span>
           <button class="nes-btn is-error mb-4">
             Scissor
@@ -161,7 +161,7 @@
   // display the player choices and damage output
   function outputMessage (caseNum, attackLogic, userChoice1, userChoice2) {
     output.innerHTML = `
-      <p>You played ${userChoice1} and ${bob.name} played ${userChoice2}.</p>
+      <p>You played ${userChoice1.toUpperCase()} and ${bob.name} played ${userChoice2.toUpperCase()}.</p>
     `
     switch (attackLogic){
       case (true):
@@ -173,7 +173,7 @@
             break
           case (0):
             output.innerHTML += `
-              <p>Draw, no damage.</p>
+              <p>It's a Draw, nothing happens.</p>
             `
             break
           case (1):
@@ -192,7 +192,7 @@
             break
           case (0):
             output.innerHTML += `
-              <p>Draw, no damage.</p>
+              <p>It's a Draw, nothing happens.</p>
             `
             break
           case (1):

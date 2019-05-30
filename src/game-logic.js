@@ -82,7 +82,7 @@
     console.log(user1Sprite)
 
     function frame() {
-      if (pos == 140) {
+      if (pos == 100) {
           clearInterval(id);
       } else {
       pos++;
