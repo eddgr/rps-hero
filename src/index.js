@@ -242,6 +242,9 @@ document.addEventListener("click", event => {
     case ("Reset"):
       resetGame()
       break
+    case ("Leaderboard"):
+      insertLeaderboard()
+      break
     case ("Play Game"):
       fetchHelper(API_URL, "POST", {name: welcomeScreen.lastElementChild.firstElementChild.value.toLowerCase()})
         .then(resp => resp.json())
@@ -286,8 +289,29 @@ document.addEventListener("click", event => {
 
 start.innerHTML = `
   <button class="nes-btn is-primary">Start Game</button>
-  <button class="nes-btn">Reset</button>
+  <button class="nes-btn">Leaderboard</button>
 `
+const insertLeaderboard = () =>{ 
+
+  welcomeScreen.innerHTML = `
+  
+      <div class="nes-table-responsive">
+        <table class="nes-table is-bordered is-dark" style="height: 803px; width: 92%; margin-left: 23px" >
+          <thead>
+            <tr>
+              <th>User</th>
+              <th>Current Level</th>
+            </tr>
+          </thead>
+              <tbody id="leaderTable">
+          </tbody>
+        </table>
+      </div>
+      <button class="nes-btn is-primary">Start Game</button>
+      `
+      fetchHelperLeaderboard()
+}
+
 
 player2Name.innerText = currentComp.name
 
