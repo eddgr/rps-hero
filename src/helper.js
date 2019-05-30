@@ -154,7 +154,7 @@
     player1Health.value = currentUser.hp
     player2Health.value = currentComp.hp
 
-    infoBar.innerText = "Click here to continue."
+    infoBar.innerText = "Click to continue."
 
     output.innerHTML = `
       <p>You played ${userChoice1.toUpperCase()} and ${currentComp.name} played ${userChoice2.toUpperCase()}.</p>
@@ -199,6 +199,9 @@
         } // end switch
         break
     } //end switch
+    output.addEventListener("click", () => {
+      renderAdButtons()
+    })
   } // end outputMessage
 
   // attack/defend helper function to calculate damage and buff
