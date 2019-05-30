@@ -78,12 +78,6 @@
         </div>
       </div>
     `
-
-    // document.addEventListener("keydown", event => {
-    //   if (event.keyCode === 66){
-    //     renderAdButtons()
-    //   }
-    // }) // end event listener
   } // end renderRpsButtons
 
   // render Attack/Defend button
@@ -189,7 +183,7 @@
         switch (caseNum){
           case (-1):
             output.innerHTML += `
-              <p>${bob.name} gained ${bob.buffs}.</p>
+              <p>${bob.name} gained a Buff!</p>
             `
             break
           case (0):
@@ -199,7 +193,7 @@
             break
           case (1):
             output.innerHTML += `
-              <p>You gained ${currentUser.buffs}.</p>
+              <p>You gained a Buff!</p>
             `
             break
         } // end switch
