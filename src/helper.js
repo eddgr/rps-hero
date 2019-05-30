@@ -13,12 +13,12 @@
   // render icons
   const renderUserAttackIcon = () => {
     userAttkIcon.innerHTML = `
-      <img src="img/sword_container.png" width="150">
+      <img src="img/sword_container.png" width="100">
     `
   }
   const renderUserDefenseIcon = () => {
     userAttkIcon.innerHTML = `
-      <img src="img/shield_container.png" width="150">
+      <img src="img/shield_container.png" width="100">
     `
   }
   const destroyUserAttackIcon = () => {
@@ -36,12 +36,12 @@
   }
   const renderCompAttackIcon = () => {
     compAttkIcon.innerHTML = `
-      <img src="img/sword_container_p2.png" width="150">
+      <img src="img/sword_container_p2.png" width="100">
     `
   }
   const renderCompDefenseIcon = () => {
     compAttkIcon.innerHTML = `
-      <img src="img/shield_container.png" width="150">
+      <img src="img/shield_container.png" width="100">
     `
   }
 
@@ -266,9 +266,12 @@
             if (currentPlayer.hp === 9){
               currentPlayer.hp += 1
               console.log("Heal for 1 because of HP cap")
-            } else if (currentPlayer.hp < 9 ) {
+            } else if (currentPlayer.hp === 8 ) {
               currentPlayer.hp += 2
-              console.log('Heal for 2')
+              console.log("Heal for 2 because of HP cap")
+            } else if (currentPlayer.hp < 8 ) {
+              currentPlayer.hp += 3
+              console.log('Heal for 3')
             }
             break
           case ("scissor"):

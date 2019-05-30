@@ -187,7 +187,7 @@ document.addEventListener("click", event => {
       console.log('You chose Attack.')
       break
     case ("Defend"):
-      renderRpsButtons({rock: "50% Damage Reduction for next 2 turns", paper: "Heal 20% HP", scissor: "50% chance to Dodge next attack"})
+      renderRpsButtons({rock: "50% Damage Reduction for next 2 turns", paper: "Heal 30% HP", scissor: "50% chance to Dodge next attack"})
       currentUser.attackLogic = false
       console.log('You chose Defend')
       console.log('rendering defense button')
