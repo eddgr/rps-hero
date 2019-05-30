@@ -16,17 +16,14 @@
       <img src="img/sword_container.png" width="150">
     `
   }
-
   const renderUserDefenseIcon = () => {
     userAttkIcon.innerHTML = `
       <img src="img/shield_container.png" width="150">
     `
   }
-
   const destroyUserAttackIcon = () => {
     userAttkIcon.innerHTML = ``
   }
-
   const renderCompIcon = (bool) => {
     if (bool === true){
         renderCompAttackIcon()
@@ -36,7 +33,7 @@
   }
   const renderCompAttackIcon = () => {
     compAttkIcon.innerHTML = `
-      <img src="img/sword_container.png" width="150">
+      <img src="img/sword_container_p2.png" width="150">
     `
   }
   const renderCompDefenseIcon = () => {

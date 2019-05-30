@@ -82,11 +82,11 @@
         console.log(user1Sprite)
 
         function frame() {
-            if (pos == 150) {
+            if (pos == 100) {
                 clearInterval(id);
             } else {
             pos++;
-            elem.style.bottom = pos + 'px'; //let this be 300 ?
+            // elem.style.bottom = pos + 'px'; //let this be 300 ?
             elem.style.left = pos + 'px'; //let this be 100?
             }
         }
@@ -99,11 +99,11 @@
         console.log(user1Sprite)
 
         function frame() {
-            if (pos == 150) {
+            if (pos == 100) {
                 clearInterval(id);
             } else {
                 pos++;
-                elem.style.top = pos + 'px'; //test positioning
+                // elem.style.top = pos + 'px'; //test positioning
                 elem.style.right = pos + 'px'; //test positioning
             }
         }
