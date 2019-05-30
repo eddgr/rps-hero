@@ -19,6 +19,58 @@
       </div>
     </div>
 
+    <div id="game-container" class="container col-sm-8">
+
+      <div class="row p-4" style="height:370px; border: 4px solid #111">
+        <div id="user-2" class="row w-100">
+          <div id="player2health" class="col-sm-6">
+            <span id="player2-name">Player 2 Name</span>
+            <progress id="player2-health-bar" class="nes-progress is-success" value="10" max="10"></progress>
+            <span id="player2-winHP">Player 2 HP</span>
+            <span id="player2-buff">Player 2 Buffs</span>
+          </div>
+          <div id="player2image" class="col-sm-6">
+            <span id="comp-attk-icon"></span>
+            <i id="comp-1-sprite" class="nes-squirtle"></i>
+          </div>
+        </div>
+
+        <div class="w-100"></div>
+        <!-- force column break -->
+
+        <div id="user-1" class="row w-100">
+          <div id="player1health" class="col-sm-6">
+            <span id="usr-attk-icon"></span>
+            <i id="user-1-sprite" class="nes-mario container animate"></i>
+          </div>
+          <div id="player1image" class="col-sm-6">
+            <span id="player1-name">Player 1 Name</span>
+            <span id="player1-level" class="float-right">Player 1 Level</span>
+            <progress id="player1-health-bar" class="nes-progress is-success" value="10" max="10"></progress>
+            <span id="player1-winHP">Player 1 HP</span>
+            <span id="player1-buff">Player 1 Buffs</span>
+          </div>
+        </div>
+      </div>
+      <!-- end row -->
+
+      <div id="information" class="row bg-dark text-light justify-content-center">
+        Information here
+      </div>
+
+      <div class="row justify-content-center" id="commands" style="height:300px">
+        bottom row
+      </div>
+
+      <div id="temp-output" class="row justify-content-center" style="height:300px; border: 4px solid #111">
+        output here
+      </div>
+    </div>
+    <!-- end container-->
+
+
+    <!--
+
     <div id="game-container" class="nes-container is-centered container col-sm-6">
 
       <div id="user-2" class="card w-100 mt-n4">
@@ -42,7 +94,6 @@
           <div class="col-md-4 bg-secondary">
             <span id="usr-attk-icon"></span>
             <i id="user-1-sprite" class="nes-mario container animate"></i>
-            <!-- <img id="user-1-sprite" src="img/trophy.png" class="card-img animate"> -->
             <span id="player1-level" class="badge badge-pill badge-primary"></span>
           </div>
           <div class="col-md-8 card-body text-left">
@@ -63,7 +114,7 @@
         - RPS
       </div>
 
-    </div>
+    </div> -->
 
     <!-- JS -->
     <script src="character.js" charset="utf-8"></script>

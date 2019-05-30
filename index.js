@@ -53,39 +53,47 @@ let currentUser = lee
 
   // render Rock, Paper, Scissor buttons
   const renderRpsButtons = (buffDescObj) => {
+    infoBar.innerText = "Press 'B' for the Previous Menu."
+
     commands.innerHTML = `
-      <div class="row">
-        <div class="col-sm card m-1">
+      <div class="row w-100">
+        <div class="col-sm card bg-primary rounded-0">
           <span class="card-body">${buffDescObj.rock}</span>
           <button class="nes-btn is-primary mb-4">
             Rock
           </button>
         </div>
 
-        <div class="col-sm card m-1">
+        <div class="col-sm card bg-warning rounded-0">
           <span class="card-body">${buffDescObj.paper}</span>
           <button class="nes-btn is-warning mb-4">
             Paper
           </button>
         </div>
 
-        <div class="col-sm card m-1">
+        <div class="col-sm card bg-danger rounded-0">
           <span class="card-body">${buffDescObj.scissor}</span>
           <button class="nes-btn is-error mb-4">
             Scissor
           </button>
         </div>
       </div>
-
-      <br><br>
-      <button class="nes-btn">Back</button>
      `
+
+     document.addEventListener("keydown", event => {
+       if (event.keyCode === 66){
+         renderAdButtons()
+       }
+     })
   }
 
   // render Attack/Defend button
   const renderAdButtons = () => {
     // A/D === Attack/Defend
     // check current buffs before rendering A/D buttons
+
+    commands.style.display = ""
+    output.style.display = "none"
 
     //player 1 buff status
     if (currentUser.buffs.damageReduction > 0 && currentUser.buffs.missedAttack > 0){
@@ -124,12 +132,22 @@ let currentUser = lee
     //end testing new display for buffs
 
     commands.innerHTML = `
-      <button class="nes-btn">attack</button>
-      <button class="nes-btn">defend</button>
+      <div class="col-sm-6 bg-danger text-center p-4">
+        Attack Image
+        <br><br>
+        <button class="nes-btn">attack</button>
+      </div>
+      <div class="col-sm-6 bg-primary text-center p-4">
+        Defend Image
+        <br><br>
+        <button class="nes-btn">defend</button>
+      </div>
     `
+
+    infoBar.innerText = 'Choose Attack or Defend'
     //display player1 HP & 2 HP
-    player1WinHP.innerText = `HP: ${currentUser.hp}`
-    player2WinHP.innerText = `HP: ${bob.hp}`
+    player1WinHP.innerText = `${currentUser.hp}/10 HP`
+    player2WinHP.innerText = `${bob.hp}/10 HP`
     //destroys attack icon
     // destroyUserAttackIcon()
 
@@ -279,6 +297,7 @@ function resetGame(player1 = currentUser, player2 = bob){
   player1.hp = 10
   player1Health.value = '10'
   player1Health.classList.value = "nes-progress is-success"
+  player1Level.innerText = `Level ${currentUser.level}`
   currentUser.buffs.damageReduction = 0
   currentUser.buffs.dodge = 0
   player1Buff.innerHTML = ''
@@ -347,7 +366,6 @@ let checkHealth = (player1, player2) => {
       output.innerHTML += `
         <h2>You win!</h2>
       `
-      debugger
       break
     case (player2.hp < 10 && player2.hp > 3 && player1.hp > 0):
       player2Health.classList.value = "nes-progress is-warning"
@@ -368,17 +386,19 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
   if (userChoice1 === "rock" && userChoice2 === "scissor" || userChoice1 === 'scissor' && userChoice2 === 'rock'){
     switch (Math.sign(rpsChoices.indexOf(userChoice2)-rpsChoices.indexOf(userChoice1))){
       case (-1):
-        console.log('testing output message -1 rock')
+        console.log('Lost with Rock')
         outputMessage(-1, userChoice1, userChoice2)
         // check for lost
         playerCheck(bob, currentUser, userChoice2)
+        renderOutput()
         break
       case (0):
-        console.log('testing output message 0 rock')
+        console.log('Draw with Rock')
         outputMessage(0, userChoice1, userChoice2)
+        renderOutput()
         break
       case (1):
-        console.log('testing output message 1 rock')
+        console.log('Win with Rock')
         outputMessage(1, userChoice1, userChoice2)
 
         // check for win
@@ -386,6 +406,7 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
         //Testing WIN CASE TO POP TROPHY ON USER: WILL CHANGE with CSS
         renderWinLossIcon()//testing to see where this fires off
         //Testing WIN CASE TO POP TROPHY ON USER: WILL CHANGE with CSS
+        renderOutput()
         break
     } // end switch
   } else {
@@ -393,25 +414,35 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
     switch (Math.sign(rpsChoices.indexOf(userChoice1)-rpsChoices.indexOf(userChoice2))){
     case (-1):
       outputMessage(-1, userChoice1, userChoice2)
-      console.log('testing output message -1')
+      console.log(`Lose with ${userChoice1}`)
       // check for lost
       playerCheck(bob, currentUser, userChoice2)
+      renderOutput()
       break
     case (0):
       outputMessage(0, userChoice1, userChoice2)
-      console.log('testing output message 0')
+      console.log(`Draw with ${userChoice1}`)
+      renderOutput()
       break
     case (1):
       outputMessage(1, userChoice1, userChoice2)
-      console.log('testing output message 1')
-
+      console.log(`Win with ${userChoice1}`)
       // check for win
       playerCheck(currentUser, bob, userChoice1)
+      renderOutput()
       break
      } // switch end
   } // IF statement end
 }
 // end of Playround Function
+
+// Command Outputs
+let renderOutput = () => {
+  commands.style.display = "none"
+  output.style.display = ''
+  checkHealth(currentUser, bob)
+}
+// end Command Outputs
 
 // DOM
 const gameContainer = grab('#game-container')
@@ -436,8 +467,9 @@ const comp1Sprite = grab ('#comp-1-sprite')
 const winLossIcon = grab('#winLoss')
 // winLossIcon.innerText = "test Trophy placement"
 const welcomeScreen = grab('#welcome-screen')
+const player1Level = grab('#player1-level')
+const infoBar = grab('#information')
 const API_URL = "http://localhost:3000/api/v1/users"
-
 // end DOM
 
 // login
@@ -467,7 +499,6 @@ document.addEventListener("click", event => {
       renderRpsButtons({rock: "2x base damage", paper: "1x base damage<br>50% damage reduction next turn", scissor: "1 - 2.5x base damage"})
       console.log("will render attack icon")
       renderUserAttackIcon()
-      console.log(renderUserAttackIcon)
       currentUser.attackLogic = true
       console.log('You chose Attack.')
       break
@@ -494,6 +525,7 @@ document.addEventListener("click", event => {
           currentUser = new Character(user.name, user.id)
           currentUser.level = user.level
           player1Name.innerText = currentUser.name
+          player1Level.innerText = `Level ${currentUser.level}`
         })
 
       welcomeScreen.style.display = "none"
@@ -505,21 +537,21 @@ document.addEventListener("click", event => {
       checkBuffs()
       playRound('rock')
       checkHealth(currentUser, bob)
-      renderAdButtons()
+      // renderAdButtons()
       break
     case ("Paper"):
       console.log("You chose Paper.")
       checkBuffs()
       playRound('paper')
       checkHealth(currentUser, bob)
-      renderAdButtons()
+      // renderAdButtons()
       break
     case ("Scissor"):
       console.log("You chose Scissor.")
       checkBuffs()
       playRound('scissor')
       checkHealth(currentUser, bob)
-      renderAdButtons()
+      // renderAdButtons()
       break
   } // end switch
 })
@@ -531,9 +563,11 @@ start.innerHTML = `
 `
 
 player1Name.innerText = currentUser.name
+player1Level.innerText = currentUser.level
 player2Name.innerText = bob.name
 player1Buff.innerText = ''
 player2Buff.innerText = ''
 
 gameContainer.style.display = "none"
+output.style.display = "none"
 renderAdButtons()
