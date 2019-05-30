@@ -4,8 +4,8 @@ class Character {
      this.name = name
      this.id = id
      this.hp = 10
-     this.damage = 2
-     this.currentDamage = 2
+     this.damage = 3
+     this.currentDamage = 3
      this.buffs = {
        damageReduction: 0,
        dodge: 0
