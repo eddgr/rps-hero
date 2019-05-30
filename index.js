@@ -14,13 +14,13 @@ let currentUser = lee
 
   const renderUserAttackIcon = () => {
     userAttkIcon.innerHTML = `
-    <img src="img/gameSword.jpg" height="100" width="120">
+      <img src="img/gameSword.jpg" height="100" width="120">
     `
   }
 
   const renderUserDefenseIcon = () => {
     userAttkIcon.innerHTML = `
-    <img src="img/gameShield.jpg" height="70" width="120">
+      <img src="img/gameShield.jpg" height="70" width="120">
     `
   }
 
@@ -37,12 +37,12 @@ let currentUser = lee
   }
   const renderCompAttackIcon = () => {
     compAttkIcon.innerHTML = `
-    <img src="img/gameSword.jpg" height="100" width="120">
+      <img src="img/gameSword.jpg" height="100" width="120">
     `
   }
   const renderCompDefenseIcon = () => {
     compAttkIcon.innerHTML = `
-    <img src="img/gameShield.jpg" height="100" width="120">
+      <img src="img/gameShield.jpg" height="100" width="120">
     `
   }
 
@@ -78,13 +78,13 @@ let currentUser = lee
           </button>
         </div>
       </div>
-     `
+    `
 
-     document.addEventListener("keydown", event => {
-       if (event.keyCode === 66){
-         renderAdButtons()
-       }
-     })
+   document.addEventListener("keydown", event => {
+     if (event.keyCode === 66){
+       renderAdButtons()
+     }
+   })
   }
 
   // render Attack/Defend button
@@ -92,8 +92,8 @@ let currentUser = lee
     // A/D === Attack/Defend
     // check current buffs before rendering A/D buttons
 
-    commands.style.display = ""
     output.style.display = "none"
+    commands.style.display = ""
 
     //player 1 buff status
     if (currentUser.buffs.damageReduction > 0 && currentUser.buffs.missedAttack > 0){
@@ -145,12 +145,10 @@ let currentUser = lee
     `
 
     infoBar.innerText = 'Choose Attack or Defend'
+
     //display player1 HP & 2 HP
     player1WinHP.innerText = `${currentUser.hp}/10 HP`
     player2WinHP.innerText = `${bob.hp}/10 HP`
-    //destroys attack icon
-    // destroyUserAttackIcon()
-
 
     console.log(attackIconImage)
     console.log('attack icon should be destroyed')
@@ -160,28 +158,51 @@ let currentUser = lee
   }
 
   // display the player choices and damage output
-  function outputMessage (caseNum, userChoice1, userChoice2) {
+  function outputMessage (caseNum, attackLogic, userChoice1, userChoice2) {
     output.innerHTML = `
       <p>You played ${userChoice1} and ${bob.name} played ${userChoice2}.</p>
     `
-    switch(caseNum) {
-      case (-1):
-        output.innerHTML += `
-          <p>You lost this round and took ${bob.currentDamage} damage.</p>
-        `
+    switch (attackLogic){
+      case (true):
+        switch (caseNum){
+          case (-1):
+            output.innerHTML += `
+              <p>${bob.name} does ${bob.currentDamage} damage to you.</p>
+            `
+            break
+          case (0):
+            output.innerHTML += `
+              <p>Draw, no damage.</p>
+            `
+            break
+          case (1):
+            output.innerHTML += `
+              <p>You do ${currentUser.currentDamage} damage to ${bob.name}.</p>
+            `
+            break
+        } // end switch
         break
-      case (0):
-        output.innerHTML += `
-          <p>Draw, no damage.</p>
-        `
+      case (false):
+        switch (caseNum){
+          case (-1):
+            output.innerHTML += `
+              <p>${bob.name} gained ${bob.buffs}.</p>
+            `
+            break
+          case (0):
+            output.innerHTML += `
+              <p>Draw, no damage.</p>
+            `
+            break
+          case (1):
+            output.innerHTML += `
+              <p>You gained ${currentUser.buffs}.</p>
+            `
+            break
+        } // end switch
         break
-      case (1):
-        output.innerHTML += `
-          <p>You won this round. Player 2 lost ${currentUser.currentDamage} HP.</p>
-        `
-        break
-    }
-  }
+    } //end switch
+  } // end outputMessage
 
   // attack/defend helper function to calculate damage and buff
   function playerCheck(currentPlayer, otherPlayer, userChoice){
@@ -308,32 +329,30 @@ function resetGame(player1 = currentUser, player2 = bob){
   bob.buffs.damageReduction = 0
   bob.buffs.dodge = 0
   player2Buff.innerHTML = ''
-
-  output.innerHTML = ''
 }
 // end RESET
 
 // checkBuffs
-  let checkBuffs = () => {
+let checkBuffs = () => {
 
-    // player 1 buff check
-    if (currentUser.buffs.damageReduction > 0){
-      currentUser.buffs.damageReduction -= 1
-    }
-    if (currentUser.buffs.dodge > 0){
-      currentUser.buffs.dodge -= 1
-    }
-    // end player 1 buff check
-
-    // player 2 buff check
-    if (bob.buffs.damageReduction > 0){
-      bob.buffs.damageReduction -= 1
-    }
-    if (bob.buffs.dodge > 0){
-      bob.buffs.dodge -= 1
-    }
-    // end player 2 buff check
+  // player 1 buff check
+  if (currentUser.buffs.damageReduction > 0){
+    currentUser.buffs.damageReduction -= 1
   }
+  if (currentUser.buffs.dodge > 0){
+    currentUser.buffs.dodge -= 1
+  }
+  // end player 1 buff check
+
+  // player 2 buff check
+  if (bob.buffs.damageReduction > 0){
+    bob.buffs.damageReduction -= 1
+  }
+  if (bob.buffs.dodge > 0){
+    bob.buffs.dodge -= 1
+  }
+  // end player 2 buff check
+}
 // end checkBuffs
 
 // checkHealth
@@ -387,24 +406,23 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
     switch (Math.sign(rpsChoices.indexOf(userChoice2)-rpsChoices.indexOf(userChoice1))){
       case (-1):
         console.log('Lost with Rock')
-        outputMessage(-1, userChoice1, userChoice2)
+        outputMessage(-1, bob.attackLogic, userChoice1, userChoice2)
         // check for lost
         playerCheck(bob, currentUser, userChoice2)
         renderOutput()
         break
       case (0):
         console.log('Draw with Rock')
-        outputMessage(0, userChoice1, userChoice2)
+        outputMessage(0, currentUser.attackLogic, userChoice1, userChoice2)
         renderOutput()
         break
       case (1):
         console.log('Win with Rock')
-        outputMessage(1, userChoice1, userChoice2)
-
+        outputMessage(1, currentUser.attackLogic, userChoice1, userChoice2)
         // check for win
         playerCheck(currentUser, bob, userChoice1)
         //Testing WIN CASE TO POP TROPHY ON USER: WILL CHANGE with CSS
-        renderWinLossIcon()//testing to see where this fires off
+        // renderWinLossIcon()//testing to see where this fires off
         //Testing WIN CASE TO POP TROPHY ON USER: WILL CHANGE with CSS
         renderOutput()
         break
@@ -413,19 +431,19 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
     // normal win/lose conditions
     switch (Math.sign(rpsChoices.indexOf(userChoice1)-rpsChoices.indexOf(userChoice2))){
     case (-1):
-      outputMessage(-1, userChoice1, userChoice2)
+      outputMessage(-1, currentUser.attackLogic, userChoice1, userChoice2)
       console.log(`Lose with ${userChoice1}`)
       // check for lost
       playerCheck(bob, currentUser, userChoice2)
       renderOutput()
       break
     case (0):
-      outputMessage(0, userChoice1, userChoice2)
+      outputMessage(0, currentUser.attackLogic, userChoice1, userChoice2)
       console.log(`Draw with ${userChoice1}`)
       renderOutput()
       break
     case (1):
-      outputMessage(1, userChoice1, userChoice2)
+      outputMessage(1, currentUser.attackLogic, userChoice1, userChoice2)
       console.log(`Win with ${userChoice1}`)
       // check for win
       playerCheck(currentUser, bob, userChoice1)
@@ -438,8 +456,8 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
 
 // Command Outputs
 let renderOutput = () => {
-  commands.style.display = "none"
   output.style.display = ''
+  commands.style.display = "none"
   checkHealth(currentUser, bob)
 }
 // end Command Outputs
