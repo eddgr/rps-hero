@@ -9,6 +9,7 @@ function resetGame(player1 = currentUser, player2 = bob){
   // player 1 reset
   player1.hp = 10
   player1Health.value = '10'
+  player1WinHP.innerText = `${player1.hp}/10 HP`
   player1Health.classList.value = "nes-progress is-success"
   player1Level.innerText = `Level ${currentUser.level}`
   currentUser.buffs.damageReduction = 0
@@ -17,6 +18,7 @@ function resetGame(player1 = currentUser, player2 = bob){
   // player 2 reset
   player2.hp = 10
   player2Health.value = '10'
+  player2WinHP.innerText = `${player2.hp}/10 HP`
   player2Health.classList.value = "nes-progress is-success"
   bob.buffs.damageReduction = 0
   bob.buffs.dodge = 0
@@ -98,9 +100,9 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
     switch (Math.sign(rpsChoices.indexOf(userChoice2)-rpsChoices.indexOf(userChoice1))){
       case (-1):
         console.log('Lost with Rock')
+        playerCheck(bob, currentUser, userChoice2)
         outputMessage(-1, bob.attackLogic, userChoice1, userChoice2)
         // check for lost
-        playerCheck(bob, currentUser, userChoice2)
         renderOutput()
         break
       case (0):
@@ -110,9 +112,9 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
         break
       case (1):
         console.log('Win with Rock')
+        playerCheck(currentUser, bob, userChoice1)
         outputMessage(1, currentUser.attackLogic, userChoice1, userChoice2)
         // check for win
-        playerCheck(currentUser, bob, userChoice1)
         //Testing WIN CASE TO POP TROPHY ON USER: WILL CHANGE with CSS
         // renderWinLossIcon()//testing to see where this fires off
         //Testing WIN CASE TO POP TROPHY ON USER: WILL CHANGE with CSS
@@ -123,10 +125,10 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
     // normal win/lose conditions
     switch (Math.sign(rpsChoices.indexOf(userChoice1)-rpsChoices.indexOf(userChoice2))){
     case (-1):
-      outputMessage(-1, currentUser.attackLogic, userChoice1, userChoice2)
+      playerCheck(bob, currentUser, userChoice2)
+      outputMessage(-1, bob.attackLogic, userChoice1, userChoice2)
       console.log(`Lose with ${userChoice1}`)
       // check for lost
-      playerCheck(bob, currentUser, userChoice2)
       renderOutput()
       break
     case (0):
@@ -135,10 +137,10 @@ function playRound(userChoice1 = rollRPS(), userChoice2 = rollRPS()){
       renderOutput()
       break
     case (1):
+      playerCheck(currentUser, bob, userChoice1)
       outputMessage(1, currentUser.attackLogic, userChoice1, userChoice2)
       console.log(`Win with ${userChoice1}`)
       // check for win
-      playerCheck(currentUser, bob, userChoice1)
       renderOutput()
       break
      } // switch end
@@ -174,18 +176,18 @@ document.addEventListener("click", event => {
   event.preventDefault()
 
   switch (event.target.innerText){
-    case ("Back"):
-        renderAdButtons()
-        break
+    // case ("Back"):
+    //   renderAdButtons()
+    //   break
     case ("Attack"):
-      renderRpsButtons({rock: "2x base damage", paper: "1x base damage<br><br>50% damage reduction next turn", scissor: "1 - 2.5x base damage"})
+      renderRpsButtons({rock: "2x Base Damage", paper: "1x Base Damage<br><br>50% Damage Reduction next turn", scissor: "1 - 2.5x Base Damage"})
       console.log("will render attack icon")
       renderUserAttackIcon()
       currentUser.attackLogic = true
       console.log('You chose Attack.')
       break
     case ("Defend"):
-      renderRpsButtons({rock: "50% Damage reduction for next 2 turns", paper: "Heal 20% HP", scissor: "50% chance to dodge next attack"})
+      renderRpsButtons({rock: "50% Damage Reduction for next 2 turns", paper: "Heal 20% HP", scissor: "50% chance to Dodge next attack"})
       currentUser.attackLogic = false
       console.log('You chose Defend')
       console.log('rendering defense button')

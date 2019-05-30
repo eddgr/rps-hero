@@ -143,17 +143,17 @@
         <button class="nes-btn is-primary d-block mx-auto">Defend</button>
       </div>
     `
+  } // end renderAdButtons
 
+  // display the player choices and damage output
+  function outputMessage (caseNum, attackLogic, userChoice1, userChoice2) {
     // display player1 & 2 HP
     player1WinHP.innerText = `${currentUser.hp}/10 HP`
     player2WinHP.innerText = `${bob.hp}/10 HP`
 
     player1Health.value = currentUser.hp
     player2Health.value = bob.hp
-  } // end renderAdButtons
 
-  // display the player choices and damage output
-  function outputMessage (caseNum, attackLogic, userChoice1, userChoice2) {
     infoBar.innerText = "Click here to continue."
 
     output.innerHTML = `
