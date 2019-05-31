@@ -156,24 +156,24 @@
 
     infoBar.innerText = "Click to continue."
 
-    output.innerHTML = `
+    insideOutput.innerHTML = `
       <p>You played ${userChoice1.toUpperCase()} and ${currentComp.name} played ${userChoice2.toUpperCase()}.</p>
     `
     switch (attackLogic){
       case (true):
         switch (caseNum){
           case (-1):
-            output.innerHTML += `
+            insideOutput.innerHTML += `
               <p>${currentComp.name} does ${currentComp.currentDamage} damage to you.</p>
             `
             break
           case (0):
-            output.innerHTML += `
+            insideOutput.innerHTML += `
               <p>It's a Draw, nothing happens.</p>
             `
             break
           case (1):
-            output.innerHTML += `
+            insideOutput.innerHTML += `
               <p>You do ${currentUser.currentDamage} damage to ${currentComp.name}.</p>
             `
             break
@@ -182,17 +182,17 @@
       case (false):
         switch (caseNum){
           case (-1):
-            output.innerHTML += `
+            insideOutput.innerHTML += `
               <p>${currentComp.name} gained a Buff!</p>
             `
             break
           case (0):
-            output.innerHTML += `
+            insideOutput.innerHTML += `
               <p>It's a Draw, nothing happens.</p>
             `
             break
           case (1):
-            output.innerHTML += `
+            insideOutput.innerHTML += `
               <p>You gained a Buff!</p>
             `
             break
@@ -308,9 +308,9 @@
     })
   }
   // end fetch 1
-  //fetch 2 
+  //fetch 2
   const fetchHelperLeaderboard = () => {
-    
+
     fetch(API_URL)
       .then(function(response) {
         return response.json()
@@ -329,7 +329,7 @@
           let sortedTable = sortable.sort(function(a, b) {
             return b[0].level - a[0].level
           })
-        
+
           //sort objects before placing on DOM
           let i;
           for (i = 0; (sortedTable.length < 15) ? sortedTable.length: i < 15; i++) {
@@ -338,7 +338,7 @@
                 <td>${sortedTable[i][0].name}</td>
                 <td>${sortedTable[i][0].level}</td>
                 </tr>
-                `  
+                `
           }
     })//end of then function
   }//end fetchHelperLeaderboard

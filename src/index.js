@@ -77,17 +77,17 @@ let checkHealth = (player1, player2) => {
   switch (true){
     // player 1
     case (player1.hp <= 0 && player2.hp > 0):
-      output.innerHTML = `
+      insideOutput.innerHTML = `
         <h2 class="d-block">You lose</h2>
       `
       // set 3 second timeout before resetting the game
       setTimeout(() => {
-        output.innerHTML += `
+        insideOutput.innerHTML += `
           <p>Play again!</p>
         `
       }, 1000)
       setTimeout(() => {
-        output.innerHTML += `
+        insideOutput.innerHTML += `
           <p>Click here to continue.</p>
         `
       }, 2000)
@@ -107,17 +107,17 @@ let checkHealth = (player1, player2) => {
         level: currentUser.level += 1
       })
 
-      output.innerHTML = `
+      insideOutput.innerHTML = `
       <h2 class="d-block">You win!</h2>
       `
       // set 3 second timeout before resetting the game
       setTimeout(() => {
-        output.innerHTML += `
+        insideOutput.innerHTML += `
           <p>On to the next challenge!</p>
         `
       }, 1000)
       setTimeout(() => {
-        output.innerHTML += `
+        insideOutput.innerHTML += `
           <p>Click here to continue.</p>
         `
       }, 2000)
@@ -205,12 +205,12 @@ let renderOutput = () => {
 // login
 let playGame = () => {
   welcomeScreen.innerHTML = `
-    Hello hero!
-    <br><br>
+    <h2>Hello hero!</h2>
+    <br>
     What is your name?
     <br><br>
     <form>
-      <input type="text" class="nes-input" style="text-transform: uppercase" placeholder="Type your name here">
+      <input type="text" class="nes-input col-sm-8" style="text-transform: uppercase" placeholder="Type your name here"><br>
       <button class="nes-btn is-primary mt-4">Play Game</button>
     </form>
   `
@@ -291,10 +291,10 @@ start.innerHTML = `
   <button class="nes-btn is-primary">Start Game</button>
   <button class="nes-btn">Leaderboard</button>
 `
-const insertLeaderboard = (DOMObject) =>{ 
+const insertLeaderboard = (DOMObject) =>{
 
   DOMObject.innerHTML = `
-  
+
       <div class="nes-table-responsive">
         <table class="nes-table is-bordered is-dark" style="height: 803px; width: 92%; margin-left: 23px" >
           <thead>

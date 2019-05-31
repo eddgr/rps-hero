@@ -5,6 +5,7 @@ const user1 = grab('#user-1')
 const user2 = grab('#user-2')
 const commands = grab('#commands')
 const output = grab('#temp-output')
+const insideOutput = output.firstElementChild
 const player1Health = grab('#player1-health-bar')
 const player2Health = grab('#player2-health-bar')
 const player1Buff = grab('#player1-buff')
