@@ -55,9 +55,9 @@ RPS Hero was built using the following:
 
 # To Do
 - Player ranks based on current level
- - Bronze Hero, Silver Hero, Gold Hero, etc
+  - Bronze Hero, Silver Hero, Gold Hero, etc
 - Add more characters
 - Replace click event listeners with keydown listeners
 - Add more original assets
 - Fix HP bar bug
- - Sometimes the color of the HP bar does not change color
+  - Sometimes the color of the HP bar does not change color
