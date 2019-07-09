@@ -5,6 +5,8 @@ Created by [@gamerman2001](https://www.github.com/gamerman2001) and [@eddgr](htt
 
 Demo: https://eddgr.github.io/rps-hero
 
+![](rps-hero-giphy.gif)
+
 # Game Play
 
 Rock beats Scissors.

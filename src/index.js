@@ -296,7 +296,7 @@ const insertLeaderboard = (DOMObject) =>{
   DOMObject.innerHTML = `
 
       <div class="nes-table-responsive">
-        <table class="nes-table is-bordered is-dark" style="height: 803px; width: 92%; margin-left: 23px" >
+        <table class="nes-table is-bordered is-dark table">
           <thead>
             <tr>
               <th>User</th>

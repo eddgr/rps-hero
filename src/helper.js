@@ -332,7 +332,7 @@
 
           //sort objects before placing on DOM
           let i;
-          for (i = 0; (sortedTable.length < 15) ? sortedTable.length: i < 15; i++) {
+          for (i = 0; (sortedTable.length < 10) ? sortedTable.length: i < 10; i++) {
             leaderTable.innerHTML += `
                 <tr>
                 <td>${sortedTable[i][0].name}</td>
